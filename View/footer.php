@@ -9,8 +9,6 @@
 <footer class="fixed-bottom page-footer font-small blue pt-4">
         <!-- Grid column -->
         <div class="text-center">
-
-
           <!-- Content -->
           <h5 class="text-uppercase">Author Details</h5>
           <p>
@@ -21,15 +19,14 @@
             Pixel Density</br>
             Abertay University </br>
           </p>
-
         </div>
         <!-- Grid column -->
 
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3">
-      © 2018 Copyright:<a href="https://www.abertay.ac.uk/">Abertay University</a>
+      © 2018 Copyright:<a href="https://www.abertay.ac.uk/"> Abertay University</a>
       <br>
-      © 2018 Copyright:<a href="https://www.cineworld.co.uk">Cineworld</a>
+      © 2018 Copyright:<a href="https://www.cineworld.co.uk"> Cineworld</a>
     </div>
     <!-- Copyright -->
 </footer>

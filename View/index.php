@@ -11,6 +11,7 @@
         include 'header.php';
     ?>
 <!-- </head> -->
+<title>DPH - Home</title>
 <body>
 
 <div class="container">

@@ -47,45 +47,105 @@ function CreateNewCustomer()
 {
   Require 'dbConnection.php';
 
-  if (isset($_POST["registerSubmit"]))
+  if (isset($_POST["registerCustomerSubmit"]))
   {
     $firstName = (filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_STRING));
     $surname = (filter_input(INPUT_POST, 'surname', FILTER_SANITIZE_STRING));
     $email = (filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL));
     $username = (filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING));
     $password = (filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING));
+    $passwordConfirm = (filter_input(INPUT_POST, 'passwordConfirm', FILTER_SANITIZE_STRING));
 
-    // Hash the password
-    $password = password_hash($password, PASSWORD_DEFAULT);
+    $Error = false;
 
-    // Create SQL Template
-    $query = $pdo->prepare
-    ("
-
-    INSERT INTO DPH_Customer (First_Name, Surname, Email, Username, Password)
-    VALUES( :firstName, :surname, :email, :username, :password)
-
-    ");
-
-    $success = $query->execute
-    ([
-      'firstName' => $firstName,
-      'surname' => $surname,
-      'email' => $email,
-      'username' => $username,
-      'password' => $password
-    ]);
-
-    $count = $query->rowCount();
-    if($count > 0)
+    if (!preg_match("/^[a-zA-Z ]*$/",$firstName) || !preg_match("/^[a-zA-Z ]*$/",$surname))
     {
-      echo "Insert Successful";
+      $Error = true;
+      $nameError = "Your name can only contain letters";
+      echo $nameError;
     }
-    else
+    elseif (!filter_var($email, FILTER_VALIDATE_EMAIL))
     {
-      echo "Insert Failed";
-      echo $query -> errorInfo()[2];
+      $Error = true;
+      $emailError = "Invalid email format";
+      echo $emailError;
     }
+    elseif(preg_match('/^[a-zA-Z0-9]{5,}$/', $username))
+    {
+      $Error = true;
+      $usernameError = "Username Must be atleast 5 characters long and Contain only letters and numbers";
+      echo $usernameError;
+    }
+    elseif(!empty($password) && $password == $passwordConfirm)
+    {
+      if(strlen($password) <= '8')
+      {
+        $Error = true;
+        $passwordError = "Your Password Must Contain At Least 8 Characters!";
+        echo $passwordError;
+      }
+      elseif(!preg_match("#[0-9]+#",$password))
+      {
+        $Error = true;
+        $passwordError = "Your Password Must Contain At Least 1 Number!";
+        echo $passwordError;
+      }
+      elseif(!preg_match("#[A-Z]+#",$password))
+      {
+        $Error = true;
+        $passwordError = "Your Password Must Contain At Least 1 Capital Letter!";
+        echo $passwordError;
+      }
+      elseif(!preg_match("#[a-z]+#",$password))
+      {
+        $Error = true;
+        $passwordError = "Your Password Must Contain At Least 1 Lowercase Letter!";
+        echo $passwordError;
+      }
+    }
+  }
+  elseif(!empty($password))
+  {
+    $passwordConfirmError = "Please Check You've Entered Or Confirmed Your Password!";
+    echo $passwordConfirmError;
+  }
+  elseif(empty($password))
+  {
+     $passwordError = "Please enter a password";
+     echo $passwordError;
+  }
+
+  // Hash the password
+  $password = password_hash($password, PASSWORD_DEFAULT);
+  $passwordConfirm ="";
+
+  // Create SQL Template
+  $query = $pdo->prepare
+  ("
+
+  INSERT INTO DPH_Customer (First_Name, Surname, Email, Username, Password)
+  VALUES( :firstName, :surname, :email, :username, :password)
+
+  ");
+
+  $success = $query->execute
+  ([
+    'firstName' => $firstName,
+    'surname' => $surname,
+    'email' => $email,
+    'username' => $username,
+    'password' => $password
+  ]);
+
+  $count = $query->rowCount();
+  if($count > 0)
+  {
+    echo "Insert Successful";
+  }
+  else
+  {
+    echo "Insert Failed";
+    echo $query -> errorInfo()[2];
   }
 }
 

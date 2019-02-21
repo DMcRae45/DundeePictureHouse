@@ -18,10 +18,10 @@
 <div class="container">
 
   <div class="page-header">
-      <h1> Customer Login page </h1>
+      <h1> Employee Login page </h1>
   </div>
 
-    <form class="form-group" action="../Controller/attempt_customerLogin.php" method="POST">
+    <form class="form-group" action="../Controller/attempt_employeeLogin.php" method="POST">
 
       <div class="form-group">
           <input class="form-control" type="text" id="username" name="username" placeholder="Username">
