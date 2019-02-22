@@ -14,7 +14,7 @@ include '../Model/DPH-api.php';
     include 'header.php';
 ?>
 <!-- </head> -->
-<title></title>
+<title>DPH - Registration</title>
 <body>
 
 <!-- contains the visible web page-->

@@ -6,7 +6,7 @@
  */
 ?>
 <!-- Footer -->
-<footer class="fixed-bottom page-footer font-small blue pt-4">
+<footer class="relative-bottom page-footer font-small blue pt-4">
         <!-- Grid column -->
         <div class="text-center">
           <!-- Content -->
