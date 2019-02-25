@@ -87,7 +87,7 @@ include '../Model/DPH-api.php';
 <!-- javascript -->
 <?php
 require '../Controller/bootstrapScript.php';
-require '..Controller/ValidateEmptyFields.js';
+require '../Controller/ValidateEmptyFields.js';
 ?>
 </body>
 </html>
