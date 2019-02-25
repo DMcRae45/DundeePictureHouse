@@ -315,17 +315,54 @@ function InsertMovie()
                     echo "Success!";
 
                     // Once complete carry out the INSERT statement to database
-                    $headline = (filter_input(INPUT_POST, 'headline', FILTER_SANITIZE_STRING));
+                    $title = (filter_input(INPUT_POST, 'headline', FILTER_SANITIZE_STRING));
                     $image = $fileDestination;
                     $description = (filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING));
-                    $postdate = (filter_input(INPUT_POST, 'postdate', FILTER_SANITIZE_STRING));
-                    $userid = (filter_input(INPUT_POST, 'userid', FILTER_SANITIZE_NUMBER_INT));
+                    $releaseDate = (filter_input(INPUT_POST, 'releaseDate', FILTER_SANITIZE_STRING));
+                    $ageRating = (filter_input(INPUT_POST, 'ageRating', FILTER_SANITIZE_STRING));
+                    $runTime = (filter_input(INPUT_POST, 'runTime', FILTER_SANITIZE_NUMBER_INT));
+                    $genre = (filter_input(INPUT_POST, 'genre', FILTER_SANITIZE_STRING));
+                    $director = (filter_input(INPUT_POST, 'director', FILTER_SANITIZE_STRING));
+                    $actors = (filter_input(INPUT_POST, 'actors', FILTER_SANITIZE_STRING));
+                    $language = (filter_input(INPUT_POST, 'language', FILTER_SANITIZE_STRING));
+                    $threeD = (filter_input(INPUT_POST, 'threeD', FILTER_VALIDATE_BOOLEAN));
+                    $audioDescribed = (filter_input(INPUT_POST, 'threeD', FILTER_VALIDATE_BOOLEAN));
+                    $starRating = (filter_input(INPUT_POST, 'userid', FILTER_SANITIZE_NUMBER_INT));
 
-                    $sql = "INSERT INTO NP_Articles (Headline, Image_Link, Description, Post_Date, User_ID) VALUES (?, ?, ?, ?, ?)";
-                    $stmt = mysqli_stmt_init($connection);
-                    mysqli_stmt_prepare($stmt, $sql);
-                    mysqli_stmt_bind_param($stmt, "ssssi", $headline, $image, $description, $postdate, $userid);
-                    mysqli_stmt_execute($stmt);
+                    $query = $pdo->prepare
+                    ("
+
+                    INSERT INTO DPH_MOVIE (Title, Image_Link, Description, Release_Date, Age_Rating, RunTime, Genre, Director, Actors, Language, 3D, Audio_Described, Star_Rating)
+                    VALUES (:title, :image, :description, :releaseDate, :ageRating, :runTime, :genre, :director, :actors, :language, :threeD, :audioDescribed, :starRating)
+                    ");
+
+
+                    $success = $query->execute
+                    ([
+                      'title' => $title,
+                      'image' => $image,
+                      'description' => $description,
+                      'releaseDate' => $releaseDate,
+                      'ageRating' => $ageRating,
+                      'runTime' => $runTime,
+                      'genre' => $genre,
+                      'director' => $director,
+                      'actors' => $actors,
+                      'language' => $language,
+                      'threeD' => $threeD,
+                      'audioDescribed' => $audioDescribed,
+                      'starRating' => $starRating
+                    ]);
+
+                    $count = $query->rowCount();
+                    if($count > 0)
+                    {
+                      echo "Insert Successful";
+                    }
+                    else
+                    {
+                      echo "Insert Failed";
+                    }
                 }
                 else
                 {
@@ -342,8 +379,5 @@ function InsertMovie()
             echo "You cannot upload files of this type!";
         }
     }
-    mysqli_close($connection);
 }
-
-
 ?>
