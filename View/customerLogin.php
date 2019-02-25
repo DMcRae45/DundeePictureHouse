@@ -49,7 +49,7 @@
 </div><!-- end of container-->
 <?php
 require '../Controller/bootstrapScript.php';
-require '..Controller/ValidateEmptyFields.js';
+require '../Controller/ValidateEmptyFields.js';
 ?>
 </body>
 </html>

@@ -25,10 +25,16 @@
 
       <div class="form-group">
           <input class="form-control" type="text" id="username" name="username" placeholder="Username" required>
+          <div class="invalid-feedback">
+            You cannot Leave This field Empty.
+          </div>
       </div>
 
       <div class="form-group">
           <input class="form-control" type="password" id="password" name="password" autocomplete="off" placeholder="Password" required>
+          <div class="invalid-feedback">
+            You cannot Leave This field Empty.
+          </div>
       </div>
 
         <button class="form-control" type="submit" name="employeeLoginSubmit" value="Login">Login</button>
@@ -40,6 +46,9 @@
       <?php include 'footer.php'; ?>
 <!-- </footer> -->
 </div><!-- end of container-->
-    <?php require '../Controller/bootstrapScript.php'; ?>
+<?php
+require '../Controller/bootstrapScript.php';
+require '../Controller/ValidateEmptyFields.js';
+?>
 </body>
 </html>
