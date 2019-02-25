@@ -276,7 +276,7 @@ function AttemptEmployeeLogin()
   }
 }
 
-function InsertMovie()
+function AttemptInsertMovie()
 {
     Require 'dbConnection.php';
 

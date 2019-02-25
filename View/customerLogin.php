@@ -23,7 +23,10 @@
 
     <form class="form-group needs-validation" action="../Controller/attempt_customerLogin.php" method="POST" novalidate>
 
-      <div class="form-group">
+      <div class="form-group input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroupPrepend">Username</span>
+        </div>
           <input class="form-control" type="text" id="username" name="username" placeholder="Username" required>
 
           <div class="invalid-feedback">
@@ -31,7 +34,10 @@
           </div>
         </div>
 
-      <div class="form-group">
+      <div class="form-group input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroupPrepend">Password</span>
+        </div>
           <input class="form-control" type="password" id="password" name="password" autocomplete="off" placeholder="Password" required>
           <div class="invalid-feedback">
             You cannot Leave This field Empty.
