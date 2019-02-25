@@ -48,8 +48,6 @@ echo "
     </div>
 ";*/
 
-
-
 $movies = GetAllMovies();
 
 $rows = 0;
@@ -77,7 +75,7 @@ $nbsp = $cols - ($rows % $cols);
               echo '<img src="'.$movieArray[$i]->Image_Link.'" class="card-img-top" alt="...">';
               echo '<div class="card-body">';
                 echo '<h5 class="card-title">'.$movieArray[$i]->Title.'</h5>';
-                echo '<p class="card-text">Some quick example text to build on the card title and make up the bulk of the cards content.</p>';
+                echo '<p class="card-text">'.$movieArray[$i]->Description.'</p>';
               echo '</div>';
               echo '<ul class="list-group list-group-flush">';
                 echo '<li class="list-group-item">'.$movieArray[$i]->Release_Date.'</li>';
@@ -94,7 +92,7 @@ $nbsp = $cols - ($rows % $cols);
               // echo "<img src='".$articleArray[$i]->Image_Link."' class='img-thumbnail'>";
               //echo "<p>".nl2br($articleArray[$i]->Summary)."</p>"; // Summary is declared as a substring in the select statement.
 
-              echo "<a class='btn btn-success' href='Article.php?id=". $articleArray[$i]->Article_ID ."'>More</a>";
+              //echo "<a class='btn btn-success' href='Movie.php?id=". $movieArray[$i]->Movie_ID ."'>More</a>";
 
             echo "</div>";
 

@@ -41,7 +41,7 @@ include 'header.php';
               <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroupPrepend">Poster Image</span>
               </div>
-                <input class='btn btn-primary' type='file' name='image_link' placeholder='Image_link'>
+                <input class='btn btn-primary' type='file' name='image_link' placeholder='Image_link' required>
             </div>
 
             <div class='form-group input-group'>
@@ -109,14 +109,14 @@ include 'header.php';
               <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroupPrepend">3D</span>
               </div>
-            <input class="form-check-input" type="checkbox" value="" id="invalidCheck">
+            <input class="form-check-input" type="checkbox" name="threeD" value="" id="invalidCheck">
           </div>
 
           <div class="form-group form-check input-group">
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroupPrepend">Audio Described</span>
             </div>
-          <input class="form-check-input" type="checkbox" value="" id="invalidCheck">
+          <input class="form-check-input" type="checkbox" name="audioDescribed" value="" id="invalidCheck">
         </div>
 
         <div class='form-group input-group' form-group-lg>

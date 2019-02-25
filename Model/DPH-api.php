@@ -34,7 +34,7 @@ function GetAllMovies()
     {
       //  convert to JSON
       $rows = array();
-      while($r = $result->fetch())
+      while($r = $stmt->fetch())
       {
         $rows[] = $r;
       }
@@ -309,13 +309,12 @@ function AttemptInsertMovie()
                     // Gives file a unique id to stop overwriting of files with same name
                     $fileNameNew = uniqid('', true) . "." . $fileActualExt;
                     // Determines file location
-                    $fileDestination = 'images/' . $fileNameNew;
+                    $fileDestination = '../View/images/' . $fileNameNew;
                     // Sends file to specified location
                     move_uploaded_file($fileTmpName, $fileDestination);
-                    echo "Success!";
 
                     // Once complete carry out the INSERT statement to database
-                    $title = (filter_input(INPUT_POST, 'headline', FILTER_SANITIZE_STRING));
+                    $title = (filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING));
                     $image = $fileDestination;
                     $description = (filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING));
                     $releaseDate = (filter_input(INPUT_POST, 'releaseDate', FILTER_SANITIZE_STRING));
@@ -325,15 +324,33 @@ function AttemptInsertMovie()
                     $director = (filter_input(INPUT_POST, 'director', FILTER_SANITIZE_STRING));
                     $actors = (filter_input(INPUT_POST, 'actors', FILTER_SANITIZE_STRING));
                     $language = (filter_input(INPUT_POST, 'language', FILTER_SANITIZE_STRING));
-                    $threeD = (filter_input(INPUT_POST, 'threeD', FILTER_VALIDATE_BOOLEAN));
-                    $audioDescribed = (filter_input(INPUT_POST, 'threeD', FILTER_VALIDATE_BOOLEAN));
-                    $starRating = (filter_input(INPUT_POST, 'userid', FILTER_SANITIZE_NUMBER_INT));
+
+                    if(isset($_POST['threeD']))
+                    {
+                      $threeD = 1;
+                    }
+                    else
+                    {
+                      $threeD = 0;
+                    }
+
+                    if(isset($_POST['audioDescribed']))
+                    {
+                      $audioDescribed = 1;
+                    }
+                    else
+                    {
+                      $audioDescribed = 0;
+                    }
+
+                    $starRating = (filter_input(INPUT_POST, 'starRating', FILTER_SANITIZE_STRING));
 
                     $query = $pdo->prepare
                     ("
 
-                    INSERT INTO DPH_MOVIE (Title, Image_Link, Description, Release_Date, Age_Rating, RunTime, Genre, Director, Actors, Language, 3D, Audio_Described, Star_Rating)
+                    INSERT INTO DPH_Movie (Title, Image_Link, Description, Release_Date, Age_Rating, RunTime, Genre, Director, Actors, Language, 3D, Audio_Described, Star_Rating)
                     VALUES (:title, :image, :description, :releaseDate, :ageRating, :runTime, :genre, :director, :actors, :language, :threeD, :audioDescribed, :starRating)
+
                     ");
 
 
@@ -362,6 +379,7 @@ function AttemptInsertMovie()
                     else
                     {
                       echo "Insert Failed";
+                      echo $query -> errorInfo()[2];
                     }
                 }
                 else
