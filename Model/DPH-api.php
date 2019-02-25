@@ -154,11 +154,11 @@ function CreateNewEmployee()
 {
   Require 'dbConnection.php';
 
-  if (isset($_POST["registerSubmit"]))
+  if (isset($_POST["registerEmployeeSubmit"]))
   {
-    $jobrole = (filter_input(INPUT_POST, 'jobrole' , FILTER_SANITIZE_STRING));
     $firstName = (filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_STRING));
     $surname = (filter_input(INPUT_POST, 'surname', FILTER_SANITIZE_STRING));
+    $jobrole = (filter_input(INPUT_POST, 'jobrole' , FILTER_SANITIZE_STRING));
     $username = (filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING));
     $password = (filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING));
 
@@ -169,8 +169,8 @@ function CreateNewEmployee()
     $query = $pdo->prepare
     ("
 
-    INSERT INTO DPH_Emplpoyee (Job_Role, First_Name, Surname, Username, Password)
-    VALUES( :jobrole :firstName, :surname, :email, :username, :password)
+    INSERT INTO DPH_Employee (First_Name, Surname, Job_Role, Username, Password)
+    VALUES( :firstName, :surname, :jobrole, :username, :password)
 
     ");
 
@@ -178,7 +178,7 @@ function CreateNewEmployee()
     ([
       'firstName' => $firstName,
       'surname' => $surname,
-      'email' => $email,
+      'jobrole' => $jobrole,
       'username' => $username,
       'password' => $password
     ]);
@@ -192,6 +192,12 @@ function CreateNewEmployee()
     {
       echo "Insert Failed";
       echo $query -> errorInfo()[2];
+
+      var_dump($firstName);
+      var_dump($surname);
+      var_dump($jobrole);
+      var_dump($username);
+      var_dump($password);
     }
   }
 }

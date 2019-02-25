@@ -30,37 +30,49 @@ include '../Model/DPH-api.php';
     <div class="container">
 
 <!-- Form -->
-        <form class="form-group" action="../Controller/attempt_registerEmployee.php" method="POST">
+        <form class="form-group needs-validation" action="../Controller/attempt_registerEmployee.php" method="POST" novalidate>
 
           <!-- TOP ROW for the form is firtname and last name -->
             <div class="form-row">
-                <div class="col-md-6 form-group">
-                    <input class="form-control" type="text" id="firstName" name="firstName" placeholder="Firstname">
+                <div class="col-md-6 mb-3 form-group">
+                    <input class="form-control" type="text" id="validationTooltip" name="firstName" placeholder="Firstname" required>
+                    <div class="invalid-feedback">
+                      You cannot Leave This field Empty.
+                    </div>
                 </div>
                 <div class="col-md-6 form-group">
-                    <input class="form-control" type="text" id="surname" name="surname" placeholder="Lastname">
-                </div>
+                    <input class="form-control" type="text" name="surname" placeholder="Lastname" required>
+                    <div class="invalid-feedback">
+                      You cannot Leave This field Empty.
+                    </div>
+                  </div>
             </div>
             <!-- END TOP ROW -->
 
             <div class="form-group">
-              <select class="custom-select" required>
+              <select class="custom-select" name="jobrole" required>
                 <option value="">Select the Job Role</option>
-                <option value="1">Employee</option>
-                <option value="2">Supervisor</option>
-                <option value="3">Manager</option>
+                <option value="employee">Employee</option>
+                <option value="supervisor">Supervisor</option>
+                <option value="manager">Manager</option>
               </select>
-              <div class="invalid-feedback">Example invalid custom select feedback</div>
+              <div class="invalid-feedback">Please Select a Jobe Role</div>
             </div>
 
             <div class="form-group">
-                <input class="form-control" type="text" id="username" name="username" placeholder="Username">
-            </div>
+                <input class="form-control" type="text" name="username" placeholder="Username" required>
+                <div class="invalid-feedback">
+                  You cannot Leave This field Empty.
+                </div>
+              </div>
             <div class="form-group">
-                <input class="form-control" type="password" id="password" name="password" placeholder="Password">
-            </div>
+                <input class="form-control" type="password" name="password" placeholder="Password" required>
+                <div class="invalid-feedback">
+                  You cannot Leave This field Empty.
+                </div>
+              </div>
 
-            <button class="form-control" type="submit" name="registerSubmit">Register</button>
+            <button class="form-control" type="submit" name="registerEmployeeSubmit">Register</button>
         </form>
 <!-- End Form -->
 
@@ -73,6 +85,9 @@ include '../Model/DPH-api.php';
 </div>
 
 <!-- javascript -->
-    <?php require '../Controller/bootstrapScript.php'; ?>
+<?php
+require '../Controller/bootstrapScript.php';
+require '..Controller/ValidateEmptyFields.js';
+?>
 </body>
 </html>
