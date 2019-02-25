@@ -18,10 +18,10 @@
     <div class="page-header">
         <h1>Dundee Picture House</h1>
     </div>
-
 <?php
 
 // sort by month
+/*
 echo "
     <div class='row'>
         <div class='col-md-4'>
@@ -46,7 +46,9 @@ echo "
             </form>
         </div>
     </div>
-";
+";*/
+
+
 
 $movies = GetAllMovies();
 

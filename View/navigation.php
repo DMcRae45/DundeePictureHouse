@@ -21,10 +21,6 @@
             <a class="nav-link" href="index.php">Movies <span class="sr-only">(current)</span></a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link" href="internetOfThings.php">IoT</a>
-        </li>
-
         <li class="nav-item dropdown">
 
             <?php

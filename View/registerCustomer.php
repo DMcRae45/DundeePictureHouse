@@ -74,7 +74,7 @@ include '../Model/DPH-api.php';
               <div class="form-check">
               <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
               <label class="form-check-label" for="invalidCheck">
-                Agree to terms and conditions
+                Do You Agree with our <a href="TermsAndConditions.php" class="badge badge-secondary">Terms & Conditions</a>
               </label>
               <div class="invalid-feedback">
                 You Must accept the terms and condition to register for an account.
@@ -84,7 +84,6 @@ include '../Model/DPH-api.php';
             <button class="form-control" type="submit" name="registerCustomerSubmit">Register</button>
         </form>
 <!-- End Form -->
-
     </div>
 <!-- End Form Container -->
 

@@ -275,4 +275,75 @@ function AttemptEmployeeLogin()
     }
   }
 }
+
+function InsertMovie()
+{
+    Require 'dbConnection.php';
+
+    // Checks if submit button has been pressed
+    if (isset($_POST['insertMovieSubmit']))
+    {
+
+        $file = $_FILES['image_link'];
+
+        $fileName = $_FILES['image_link']['name'];
+        $fileTmpName = $_FILES['image_link']['tmp_name'];
+        $fileSize = $_FILES['image_link']['size'];
+        $fileError = $_FILES['image_link']['error'];
+        $fileType = $_FILES['image_link']['type'];
+
+        $fileExt = explode('.', $fileName);
+        $fileActualExt = strtolower(end($fileExt));
+
+        $allowed = array('jpg', 'jpeg', 'png');
+
+        // Checks if file is an allowed type
+        if (in_array($fileActualExt, $allowed))
+        {
+            // Checks there are no errors
+            if ($fileError === 0)
+            {
+                // Checks file size is below stated value
+                if ($fileSize < 1000000)
+                {
+                    // Gives file a unique id to stop overwriting of files with same name
+                    $fileNameNew = uniqid('', true) . "." . $fileActualExt;
+                    // Determines file location
+                    $fileDestination = 'images/' . $fileNameNew;
+                    // Sends file to specified location
+                    move_uploaded_file($fileTmpName, $fileDestination);
+                    echo "Success!";
+
+                    // Once complete carry out the INSERT statement to database
+                    $headline = (filter_input(INPUT_POST, 'headline', FILTER_SANITIZE_STRING));
+                    $image = $fileDestination;
+                    $description = (filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING));
+                    $postdate = (filter_input(INPUT_POST, 'postdate', FILTER_SANITIZE_STRING));
+                    $userid = (filter_input(INPUT_POST, 'userid', FILTER_SANITIZE_NUMBER_INT));
+
+                    $sql = "INSERT INTO NP_Articles (Headline, Image_Link, Description, Post_Date, User_ID) VALUES (?, ?, ?, ?, ?)";
+                    $stmt = mysqli_stmt_init($connection);
+                    mysqli_stmt_prepare($stmt, $sql);
+                    mysqli_stmt_bind_param($stmt, "ssssi", $headline, $image, $description, $postdate, $userid);
+                    mysqli_stmt_execute($stmt);
+                }
+                else
+                {
+                    echo "Your file is too big!";
+                }
+            }
+            else
+            {
+                echo "There was an error uploading your file!";
+            }
+        }
+        else
+        {
+            echo "You cannot upload files of this type!";
+        }
+    }
+    mysqli_close($connection);
+}
+
+
 ?>
