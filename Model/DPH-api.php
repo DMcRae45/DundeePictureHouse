@@ -57,99 +57,110 @@ function CreateNewCustomer()
     $passwordConfirm = (filter_input(INPUT_POST, 'passwordConfirm', FILTER_SANITIZE_STRING));
 
     $Error = false;
+    $nameError;
+    $emailError;
+    $usernameError;
+    $passwordError;
 
     if (!preg_match("/^[a-zA-Z ]*$/",$firstName) || !preg_match("/^[a-zA-Z ]*$/",$surname))
     {
       $Error = true;
       $nameError = "Your name can only contain letters";
-      //echo $nameError;
     }
-    elseif (!filter_var($email, FILTER_VALIDATE_EMAIL))
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL))
     {
       $Error = true;
       $emailError = "Invalid email format";
-      //echo $emailError;
     }
-    elseif(preg_match('/^[a-zA-Z0-9]{5,}$/', $username))
+
+    if(preg_match('/^[a-zA-Z0-9]{5,}$/', $username))
     {
       $Error = true;
       $usernameError = "Username Must be atleast 5 characters long and Contain only letters and numbers";
-      //echo $usernameError;
     }
-    elseif(!empty($password) && $password == $passwordConfirm)
+
+    if(!empty($password) && $password == $passwordConfirm)
     {
       if(strlen($password) <= '8')
       {
         $Error = true;
         $passwordError = "Your Password Must Contain At Least 8 Characters!";
-        //echo $passwordError;
       }
       elseif(!preg_match("#[0-9]+#",$password))
       {
         $Error = true;
         $passwordError = "Your Password Must Contain At Least 1 Number!";
-        //echo $passwordError;
       }
       elseif(!preg_match("#[A-Z]+#",$password))
       {
         $Error = true;
         $passwordError = "Your Password Must Contain At Least 1 Capital Letter!";
-        //echo $passwordError;
       }
       elseif(!preg_match("#[a-z]+#",$password))
       {
         $Error = true;
         $passwordError = "Your Password Must Contain At Least 1 Lowercase Letter!";
-        //echo $passwordError;
       }
       else
       {
-        $Error = false;
+        echo "Passwords Match";
       }
     }
   }
-  elseif(!empty($password))
+  if(!empty($password))
   {
     $passwordConfirmError = "Please Check You've Entered Or Confirmed Your Password!";
-    echo $passwordConfirmError;
+    //echo $passwordConfirmError;
   }
-  elseif(empty($password))
+  if(empty($password))
   {
      $passwordError = "Please enter a password";
-     echo $passwordError;
   }
 
-  // Hash the password
-  $password = password_hash($password, PASSWORD_DEFAULT);
-  $passwordConfirm ="";
-
-  // Create SQL Template
-  $query = $pdo->prepare
-  ("
-
-  INSERT INTO DPH_Customer (First_Name, Surname, Email, Username, Password)
-  VALUES( :firstName, :surname, :email, :username, :password)
-
-  ");
-
-  $success = $query->execute
-  ([
-    'firstName' => $firstName,
-    'surname' => $surname,
-    'email' => $email,
-    'username' => $username,
-    'password' => $password
-  ]);
-
-  $count = $query->rowCount();
-  if($count > 0)
+  if($Error == true)
   {
-    echo "Insert Successful";
+    echo
+    $nameError,
+    $emailError,
+    $usernameError,
+    $passwordError,
+    $passwordConfirmError;
   }
   else
   {
-    echo "Insert Failed";
-    echo $query -> errorInfo()[2];
+    // Hash the password
+    $password = password_hash($password, PASSWORD_DEFAULT);
+    $passwordConfirm ="";
+
+    // Create SQL Template
+    $query = $pdo->prepare
+    ("
+
+    INSERT INTO DPH_Customer (First_Name, Surname, Email, Username, Password)
+    VALUES( :firstName, :surname, :email, :username, :password)
+
+    ");
+
+    $success = $query->execute
+    ([
+      'firstName' => $firstName,
+      'surname' => $surname,
+      'email' => $email,
+      'username' => $username,
+      'password' => $password
+    ]);
+
+    $count = $query->rowCount();
+    if($count > 0)
+    {
+      echo "Insert Successful";
+    }
+    else
+    {
+      echo "Insert Failed";
+      echo $query -> errorInfo()[2];
+    }
   }
 }
 

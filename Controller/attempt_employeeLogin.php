@@ -9,5 +9,5 @@
  */
 include '../Model/DPH-api.php';
 AttemptEmployeeLogIn();
-//header('location: ../View/index.php');
+header('location: ../View/indexEmployee.php');
 ?>

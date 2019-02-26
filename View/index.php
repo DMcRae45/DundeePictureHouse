@@ -65,41 +65,33 @@ $nbsp = $cols - ($rows % $cols);
     // var_dump($movieArray) ;
     for ($i=0 ; $i < sizeof($movieArray) ; $i++)
     {
-        if(($counter % $cols) == 1)
-        {
-            echo '<div class="row">';
-        }
-            echo "<div class='col-md-4'>";
+      if(($counter % $cols) == 1)
+      {
+          echo '<div class="row">';
+      }
+        echo "<div class='col-md-4'>";
 
-            echo '<div class="card" style="width: 18rem;">';
-              echo '<img src="'.$movieArray[$i]->Image_Link.'" class="card-img-top" alt="...">';
-              echo '<div class="card-body">';
-                echo '<h5 class="card-title">'.$movieArray[$i]->Title.'</h5>';
-                echo '<p class="card-text">'.$movieArray[$i]->Description.'</p>';
-              echo '</div>';
-              echo '<ul class="list-group list-group-flush">';
-                echo '<li class="list-group-item">'.$movieArray[$i]->Release_Date.'</li>';
-                echo '<li class="list-group-item">'.$movieArray[$i]->Age_Rating.'</li>';
-                echo '<li class="list-group-item">'.$movieArray[$i]->RunTime.'</li>';
-                echo '<li class="list-group-item">'.$movieArray[$i]->Genre.'</li>';
-               echo '<li class="list-group-item">'.$movieArray[$i]->Star_Rating.'</li>';
-              echo ' </ul>';
-                echo ' <a href="#" class="btn btn-info">More Info</a>';
-              echo ' </div>';
-            echo ' </div>';
+        echo '<div class="card" style="width: 20rem;">'; // Open card div
+          echo '<img src="'.$movieArray[$i]->Image_Link.'" class="card-img-top" alt="...">'; // card image
+          echo '<div class="card-body">';// open card body
+            echo '<h5 class="card-title">'.$movieArray[$i]->Title.'</h5>'; // card title
+            echo '<p class="card-text">'.$movieArray[$i]->Description.'</p>'; // card description
+          echo '</div>';// close card body
+          echo '<ul class="list-group list-group-flush">'; // start list inside the card
+            echo '<li class="list-group-item">'.$movieArray[$i]->Release_Date.'</li>';
+            echo '<li class="list-group-item">'.$movieArray[$i]->Age_Rating.'</li>';
+            echo '<li class="list-group-item">'.$movieArray[$i]->RunTime.'</li>';
+            echo '<li class="list-group-item">'.$movieArray[$i]->Genre.'</li>';
+           echo '<li class="list-group-item">'.$movieArray[$i]->Star_Rating.'</li>';
+          echo ' </ul>'; // end list in the card
+            echo ' <a href="#" class="btn btn-info">More Info</a>'; // more info button
+          echo ' </div>';// close card body
+        echo ' </div>';// close card
 
-              // echo "<h2>".$articleArray[$i]->Headline."</h2>";
-              // echo "<img src='".$articleArray[$i]->Image_Link."' class='img-thumbnail'>";
-              //echo "<p>".nl2br($articleArray[$i]->Summary)."</p>"; // Summary is declared as a substring in the select statement.
-
-              //echo "<a class='btn btn-success' href='Movie.php?id=". $movieArray[$i]->Movie_ID ."'>More</a>";
-
-            echo "</div>";
-
-            if(($counter % $cols) == 0)
-            {
-                echo '</div>';
-            }
+      if(($counter % $cols) == 0)
+      {
+          echo '</div>';
+      }
     $counter++;
     }
 

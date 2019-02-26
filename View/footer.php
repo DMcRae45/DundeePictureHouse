@@ -14,10 +14,11 @@
           <p>
             David McRae - Student No. 1403163</br>
             Aaron Hay - Student No. 1800855</br>
+            Brad Mair - Student No. 1803815</br>
                       </br>
             Pixel Density</br>
             +</br>
-            the 2 dead pixels</br>
+            The dead pixel</br>
             Abertay University </br>
           </p>
         </div>
