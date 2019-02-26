@@ -63,11 +63,21 @@ include 'header.php';
                 <input class='form-control' type='date' name='releaseDate' placeholder='Release Date' required>
             </div>
 
-            <div class='form-group input-group' form-group-lg>
+            <div class="form-group input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroupPrepend">Age Rating</span>
               </div>
-                <input class='form-control' type='text' name='ageRating' placeholder='Age Rating' required>
+              <select class="custom-select" name="ageRating" required>
+                <option value="">Please Select a Star Rating</option>
+                <option value="U">U</option>
+                <option value="PG">PG</option>
+                <option value="12">12</option>
+                <option value="12A">12A</option>
+                <option value="15">15</option>
+                <option value="18">18</option>
+                <option value="R">R</option>
+              </select>
+              <div class="invalid-feedback">Please Select an Age rating</div>
             </div>
 
             <div class='form-group input-group' form-group-lg>
@@ -119,11 +129,25 @@ include 'header.php';
           <input class="form-check-input" type="checkbox" name="audioDescribed" value="" id="invalidCheck">
         </div>
 
-        <div class='form-group input-group' form-group-lg>
+        <div class="form-group input-group">
           <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroupPrepend">Star Rating</span>
           </div>
-            <input class='form-control' type='text' name='starRating' placeholder='Star Rating' required>
+          <select class="custom-select" name="starRating" required>
+            <option value="">Please Select a Star Rating</option>
+            <option value="1">1</option>
+            <option value="1.5">1.5</option>
+            <option value="2">2</option>
+            <option value="2.5">2.5</option>
+            <option value="3">3</option>
+            <option value="3.5">3.5</option>
+            <option value="4">4</option>
+            <option value="4.5">4.5</option>
+            <option value="5">5</option>
+            <option value="5.5">5.5</option>
+            <option value="N/A">N/A</option>
+          </select>
+          <div class="invalid-feedback">Please Select a star rating</div>
         </div>
 
             <button class='form-control' type='submit' name='insertMovieSubmit'>Insert Movie</button>

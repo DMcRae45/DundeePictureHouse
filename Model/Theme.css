@@ -1,9 +1,12 @@
-body, .form-control, .input-group-text
+
+body, .form-control, .input-group-text, .custom-select
 {
   background-color: #17181c;
   color:#17a2b8;
 }
+
 .card-body, .card-title, .card-text, .list-group-item
 {
     background-color: #2a2c33;
+    color: #ffffff;
 }

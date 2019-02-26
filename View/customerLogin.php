@@ -16,7 +16,6 @@
 <body>
 
 <div class="container">
-
   <div class="page-header">
       <h1> Customer Login page </h1>
   </div>

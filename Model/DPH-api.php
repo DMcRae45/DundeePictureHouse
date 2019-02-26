@@ -3,28 +3,65 @@
     Description: Dundee Picture House API file
     Collection of functions used in the system
 
-    Author: David McRae, Aaron Hay
+    Author: David McRae, Aaron Hay, Brad Mair
 */
 //Get All Movies
 function GetAllMovies()
 {
     require 'dbConnection.php';;
+    // $dateFilter = '';
+    // if (filter_input(INPUT_POST, "month", FILTER_SANITIZE_STRING))
+    // {
+    //     $month = filter_input (INPUT_POST, "month", FILTER_SANITIZE_STRING);
+    //     if ($month == "0")
+    //     {
+    //         $dateFilter = '';
+    //     }
+    //     else
+    //     {
+    //         $dateFilter = "WHERE MONTH(Release_Date) = '$month'";
+    //     }
+    // }
 
-    $dateFilter = '';
-    if (filter_input(INPUT_POST, "month", FILTER_SANITIZE_STRING))
+    $sortOrder = 'ORDER BY Release_Date desc';
+    if (filter_input(INPUT_POST, "ordering", FILTER_SANITIZE_STRING))
     {
-        $month = filter_input (INPUT_POST, "month", FILTER_SANITIZE_STRING);
-        if ($month == "0")
+        $ordering = filter_input (INPUT_POST, "ordering", FILTER_SANITIZE_STRING);
+        if ($ordering == "0")
         {
-            $dateFilter = '';
+            $sortOrder = 'ORDER BY Release_Date desc';
         }
-        else
+        elseif ($ordering == "1")
         {
-            $dateFilter = "WHERE MONTH(Release_Date) = '$month'";
+            $sortOrder = 'ORDER BY Release_Date asc';
+        }
+        elseif ($ordering == "2")
+        {
+            $sortOrder = 'ORDER BY Age_Rating asc';
+        }
+        elseif ($ordering == "3")
+        {
+            $sortOrder = 'ORDER BY Age_Rating desc';
+        }
+        elseif ($ordering == "4")
+        {
+            $sortOrder = 'ORDER BY Title asc';
+        }
+        elseif ($ordering == "5")
+        {
+            $sortOrder = 'ORDER BY Title desc';
+        }
+        elseif ($ordering == "6")
+        {
+            $sortOrder = 'ORDER BY RunTime desc';
+        }
+        elseif ($ordering == "7")
+        {
+            $sortOrder = 'ORDER BY RunTime asc';
         }
     }
 
-    $sql = "SELECT * FROM DPH_Movie $dateFilter ORDER BY Release_Date desc";
+    $sql = "SELECT * FROM DPH_Movie $sortOrder";
 
     $stmt = $pdo->prepare($sql);
     $result = $stmt->fetch();
@@ -61,73 +98,70 @@ function CreateNewCustomer()
     $emailError;
     $usernameError;
     $passwordError;
+    $passwordConfirmError;
 
-    if (!preg_match("/^[a-zA-Z ]*$/",$firstName) || !preg_match("/^[a-zA-Z ]*$/",$surname))
+    if (!preg_match("/^[a-zA-Z ]*$/",$firstName) || !preg_match("/^[a-zA-Z ]*$/",$surname)) // First & Surname must be Letters
     {
       $Error = true;
       $nameError = "Your name can only contain letters";
     }
 
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) // Email Must be Valid
     {
       $Error = true;
       $emailError = "Invalid email format";
     }
 
-    if(preg_match('/^[a-zA-Z0-9]{5,}$/', $username))
+    if(!preg_match("/^[a-zA-Z0-9]*$/", $username))//Username Must be letters & Numbers
     {
       $Error = true;
-      $usernameError = "Username Must be atleast 5 characters long and Contain only letters and numbers";
+      $usernameError = "Username Must Contain only letters and numbers";
     }
 
-    if(!empty($password) && $password == $passwordConfirm)
+    if(!empty($password) && $password == $passwordConfirm) // Password & PasswordConfirm Must Match
     {
-      if(strlen($password) <= '8')
+      if(strlen($password) <= '8')// Passowrd must be Atleast 8 characters
       {
         $Error = true;
-        $passwordError = "Your Password Must Contain At Least 8 Characters!";
+        $passwordError = "Password Must be Atleast 8 characters Long";
       }
-      elseif(!preg_match("#[0-9]+#",$password))
+      elseif(!preg_match("#[0-9]+#",$password)) // Password must contain a number
       {
         $Error = true;
         $passwordError = "Your Password Must Contain At Least 1 Number!";
       }
-      elseif(!preg_match("#[A-Z]+#",$password))
+      elseif(!preg_match("#[A-Z]+#",$password)) // Password Must contain an Uppercase letter
       {
         $Error = true;
         $passwordError = "Your Password Must Contain At Least 1 Capital Letter!";
       }
-      elseif(!preg_match("#[a-z]+#",$password))
+      elseif(!preg_match("#[a-z]+#",$password))// Password Must Conatain a Lowercase letter
       {
         $Error = true;
         $passwordError = "Your Password Must Contain At Least 1 Lowercase Letter!";
       }
-      else
+      else// No password errors have Occured
       {
-        echo "Passwords Match";
+        $PasswordError = "Password Is Acceptable";
       }
     }
   }
-  if(!empty($password))
+  if(!empty($password) && $password != $passwordConfirm) // Password and PasswordConfirm do NOT Match
   {
-    $passwordConfirmError = "Please Check You've Entered Or Confirmed Your Password!";
-    //echo $passwordConfirmError;
+    $Error = true;
+    $passwordConfirmError = "Please Check You've Confirmed Your Password!";
   }
-  if(empty($password))
+  if(empty($password)) // Password Is Empty
   {
-     $passwordError = "Please enter a password";
+    $Error = true;
+    $passwordError = "Please enter a password";
   }
 
-  if($Error == true)
+  if($Error == true) // An Error Has Occured
   {
-    echo
-    $nameError,
-    $emailError,
-    $usernameError,
-    $passwordError,
-    $passwordConfirmError;
+    echo"'$nameError' </br> '$emailError' </br> '$usernameError' </br> '$passwordError' </br> '$passwordConfirmError'";
   }
-  else
+  else // Continue with the Registration
   {
     // Hash the password
     $password = password_hash($password, PASSWORD_DEFAULT);
@@ -142,6 +176,7 @@ function CreateNewCustomer()
 
     ");
 
+    // Runs and executes the query
     $success = $query->execute
     ([
       'firstName' => $firstName,
@@ -151,6 +186,7 @@ function CreateNewCustomer()
       'password' => $password
     ]);
 
+    // If rows returned is more than 0 Let us know if it inserted or not.
     $count = $query->rowCount();
     if($count > 0)
     {
@@ -412,5 +448,23 @@ function AttemptInsertMovie()
             echo "You cannot upload files of this type!";
         }
     }
+}
+
+function RemoveArticleByID($articleid)
+{
+  require 'dbConnection.php';
+
+    $stmt = mysqli_stmt_init($connection);
+    $sqlComment = "DELETE FROM NP_Comments WHERE Article_ID = ?";
+    mysqli_stmt_prepare($stmt, $sqlComment);
+    mysqli_stmt_bind_param($stmt, 'i', $articleid);
+    mysqli_stmt_execute($stmt);
+
+    $stmt = mysqli_stmt_init($connection);
+    $sqlArticle = "DELETE FROM NP_Articles WHERE Article_ID = ?";
+    mysqli_stmt_prepare($stmt, $sqlArticle);
+    mysqli_stmt_bind_param($stmt, 'i', $articleid);
+    mysqli_stmt_execute($stmt);
+    mysqli_close($connection);
 }
 ?>

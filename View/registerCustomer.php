@@ -19,7 +19,7 @@ include '../Model/DPH-api.php';
 
 <!-- contains the visible web page-->
 
-  <div class="page-header ">
+  <div class="page-header container">
       <h1>Register Account</h1>
   </div>
 
@@ -35,12 +35,15 @@ include '../Model/DPH-api.php';
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroupPrepend">First Name</span>
                   </div>
-
                     <input class="form-control" type="text" id="firstName" name="firstName" placeholder="Firstname" required>
                       <div class="invalid-feedback">
                         You cannot Leave This field Empty.
                       </div>
+                  <div class="input-group-append">
+                      <span class="input-group-text" id="inputGroupAppend" name="appendFirstName"></span>
                   </div>
+                </div>
+
                 <div class="col-md-6 form-group input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroupPrepend">Surname</span>
@@ -49,6 +52,9 @@ include '../Model/DPH-api.php';
                       <div class="invalid-feedback">
                         You cannot Leave This field Empty.
                       </div>
+                  <div class="input-group-append">
+                      <span class="input-group-text" id="inputGroupAppend" name="appendSurname"></span>
+                  </div>
                   </div>
             </div>
             <!-- END TOP ROW -->
@@ -61,6 +67,9 @@ include '../Model/DPH-api.php';
                   <div class="invalid-feedback">
                     You cannot Leave This field Empty.
                   </div>
+              <div class="input-group-append">
+                  <span class="input-group-text" id="inputGroupAppend" name="appendEmail"></span>
+              </div>
               </div>
             <div class="form-group input-group">
               <div class="input-group-prepend">
@@ -70,6 +79,9 @@ include '../Model/DPH-api.php';
                   <div class="invalid-feedback">
                     You cannot Leave This field Empty.
                   </div>
+              <div class="input-group-append">
+                  <span class="input-group-text" id="inputGroupAppend" name="appendUsername"></span>
+              </div>
               </div>
 
             <div class="form-group input-group">
@@ -80,6 +92,9 @@ include '../Model/DPH-api.php';
                   <div class="invalid-feedback">
                     You cannot Leave This field Empty.
                   </div>
+              <div class="input-group-append">
+                  <span class="input-group-text" id="inputGroupAppend" name="appendPassword"></span>
+              </div>
               </div>
 
             <div class="form-group input-group">
@@ -90,6 +105,9 @@ include '../Model/DPH-api.php';
                   <div class="invalid-feedback">
                     You cannot Leave This field Empty.
                   </div>
+              <div class="input-group-append">
+                  <span class="input-group-text" id="inputGroupAppend" name="appendPasswordConfirm"></span>
+              </div>
               </div>
 
               <div class="form-group form-check input-group">
