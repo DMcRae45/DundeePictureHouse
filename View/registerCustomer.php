@@ -96,7 +96,7 @@ include '../Model/DPH-api.php';
               <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
 
               <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroupPrepend"><a href="TermsAndConditions.php" class="badge badge-secondary">Terms & Conditions</a></span>
+                <span class="input-group-text" id="inputGroupPrepend"><a href="TermsAndConditions.php" class="badge badge-info">Terms & Conditions</a></span>
               </div>
               <div class="invalid-feedback">
                 You Must accept the terms and condition to register for an account.

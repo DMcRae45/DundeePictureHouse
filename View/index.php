@@ -84,7 +84,7 @@ $nbsp = $cols - ($rows % $cols);
                 echo '<li class="list-group-item">'.$movieArray[$i]->Genre.'</li>';
                echo '<li class="list-group-item">'.$movieArray[$i]->Star_Rating.'</li>';
               echo ' </ul>';
-                echo ' <a href="#" class="btn btn-primary">More Info</a>';
+                echo ' <a href="#" class="btn btn-info">More Info</a>';
               echo ' </div>';
             echo ' </div>';
 
