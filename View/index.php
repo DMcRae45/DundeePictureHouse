@@ -75,7 +75,7 @@ $nbsp = $cols - ($rows % $cols);
 
     // echo $movies ;
     $movieArray = json_decode($movies) ;
-    // var_dump($movieArray) ;
+
     for ($i=0 ; $i < sizeof($movieArray) ; $i++)
     {
       if (strlen($movieArray[$i]->Description) > "75")
@@ -91,10 +91,13 @@ $nbsp = $cols - ($rows % $cols);
       if(($counter % $cols) == 1)
       {
         echo '<div class="row">';
+        //echo '<div class="card-deck">';
       }
+
+
         echo "<div class='col-md-4'>";
         echo '<div class="card" style="width: 20rem;">'; // Open card div
-        echo '<img src="'.$movieArray[$i]->Image_Link.'" class="card-img-top" alt="...">'; // card image
+        echo '<img src="'.$movieArray[$i]->Image_Link.'" class="card-img-top" alt="..." style="height: 30rem">'; // card image
         echo '<div class="card-body">';// open card body
         echo '<h5 class="card-title">'.$movieArray[$i]->Title.'</h5>'; // card title
         echo '<p class="card-text">'.$summary.'</p>'; // card description
@@ -112,7 +115,7 @@ $nbsp = $cols - ($rows % $cols);
 
       if(($counter % $cols) == 0)
       {
-          echo '</div><br>';
+          echo '</div></br>';
       }
     $counter++;
     }
@@ -124,7 +127,7 @@ $nbsp = $cols - ($rows % $cols);
            echo'<div class="col-md-4">&nbsp;</div>';
         }
     }
-    echo ' </div>';// close deck
+
     echo '</div><br>';
 ?>
 
