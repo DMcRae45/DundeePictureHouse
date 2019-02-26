@@ -62,19 +62,19 @@ function CreateNewCustomer()
     {
       $Error = true;
       $nameError = "Your name can only contain letters";
-      echo $nameError;
+      //echo $nameError;
     }
     elseif (!filter_var($email, FILTER_VALIDATE_EMAIL))
     {
       $Error = true;
       $emailError = "Invalid email format";
-      echo $emailError;
+      //echo $emailError;
     }
     elseif(preg_match('/^[a-zA-Z0-9]{5,}$/', $username))
     {
       $Error = true;
       $usernameError = "Username Must be atleast 5 characters long and Contain only letters and numbers";
-      echo $usernameError;
+      //echo $usernameError;
     }
     elseif(!empty($password) && $password == $passwordConfirm)
     {
@@ -82,25 +82,29 @@ function CreateNewCustomer()
       {
         $Error = true;
         $passwordError = "Your Password Must Contain At Least 8 Characters!";
-        echo $passwordError;
+        //echo $passwordError;
       }
       elseif(!preg_match("#[0-9]+#",$password))
       {
         $Error = true;
         $passwordError = "Your Password Must Contain At Least 1 Number!";
-        echo $passwordError;
+        //echo $passwordError;
       }
       elseif(!preg_match("#[A-Z]+#",$password))
       {
         $Error = true;
         $passwordError = "Your Password Must Contain At Least 1 Capital Letter!";
-        echo $passwordError;
+        //echo $passwordError;
       }
       elseif(!preg_match("#[a-z]+#",$password))
       {
         $Error = true;
         $passwordError = "Your Password Must Contain At Least 1 Lowercase Letter!";
-        echo $passwordError;
+        //echo $passwordError;
+      }
+      else
+      {
+        $Error = false;
       }
     }
   }
