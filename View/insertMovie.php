@@ -41,7 +41,7 @@ include 'header.php';
               <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroupPrepend">Poster Image</span>
               </div>
-                <input class='btn btn-primary' type='file' name='image_link' placeholder='Image_link' required>
+                <input class='btn btn-info' type='file' name='image_link' placeholder='Image_link' required>
             </div>
 
             <div class='form-group input-group'>
