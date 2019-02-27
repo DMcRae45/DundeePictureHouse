@@ -8,6 +8,9 @@
 
  */
 include '../Model/DPH-api.php';
+
+session_start();
+
 AttemptEmployeeLogIn();
 header('location: ../View/indexEmployee.php');
 ?>

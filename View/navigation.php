@@ -45,7 +45,7 @@
                 }
                 if(isset($_SESSION['LoggedIn']))
                 {
-                  echo "<a class='dropdown-item' href='RestWebService.php'>Rest Web Service</a>";
+                  echo "<a class='dropdown-item' href='userTickets.php'>My Tickets</a>";
                   echo '<div class="dropdown-divider"></div>';
 
                   if(isset($_SESSION['Admin_Status']) && $_SESSION['Admin_Status'] == 1)

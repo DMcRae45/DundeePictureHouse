@@ -135,6 +135,7 @@ include 'header.php';
           </div>
           <select class="custom-select" name="starRating" required>
             <option value="">Please Select a Star Rating</option>
+            <option value="0.5">0.5</option>
             <option value="1">1</option>
             <option value="1.5">1.5</option>
             <option value="2">2</option>
@@ -144,7 +145,6 @@ include 'header.php';
             <option value="4">4</option>
             <option value="4.5">4.5</option>
             <option value="5">5</option>
-            <option value="5.5">5.5</option>
             <option value="N/A">N/A</option>
           </select>
           <div class="invalid-feedback">Please Select a star rating</div>

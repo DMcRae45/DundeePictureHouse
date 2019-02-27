@@ -212,14 +212,16 @@ function CreateNewEmployee()
     $jobrole = (filter_input(INPUT_POST, 'jobrole' , FILTER_SANITIZE_STRING));
     $username = (filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING));
     $password = (filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING));
+    $passwordConfirm = (filter_input(INPUT_POST, 'passwordConfirm', FILTER_SANITIZE_STRING));
+
 
     // Error checking variables
     $Error = false;
-    $nameError;
-    $jobRoleError;
-    $usernameError;
-    $passwordError;
-    $passwordConfirmError;
+    $nameError = "";
+    $jobRoleError = "";
+    $usernameError = "";
+    $passwordError = "";
+    $passwordConfirmError = "";
 
     if (!preg_match("/^[a-zA-Z ]*$/",$firstName) || !preg_match("/^[a-zA-Z ]*$/",$surname)) // First & Surname must be Letters
     {
@@ -227,7 +229,7 @@ function CreateNewEmployee()
       $nameError = "Your name can only contain letters";
     }
 
-    if ($jobrole != "Manager" || "Supervisor" || "Employee" ) // Job role must match a specific type from the list
+    if ($jobrole != "employee" && $jobrole != "supervisor" && $jobrole != "manager" ) // Job role must match a specific type from the list
     {
       $Error = true;
       $jobRoleError = "Job role is not a valid type, please select one from the dropdown list";
@@ -280,7 +282,7 @@ function CreateNewEmployee()
 
   if($Error == true) // An Error Has Occured
   {
-    echo"'$nameError' </br> '$emailError' </br> '$usernameError' </br> '$passwordError' </br> '$passwordConfirmError'";
+    echo $nameError."</br>". $jobRoleError."</br>".$usernameError."</br>".$passwordError."</br>".$passwordConfirmError;
   }
   else // Continue with the Registration
   {
@@ -314,12 +316,6 @@ function CreateNewEmployee()
     {
       echo "Insert Failed";
       echo $query -> errorInfo()[2];
-
-      var_dump($firstName);
-      var_dump($surname);
-      var_dump($jobrole);
-      var_dump($username);
-      var_dump($password);
     }
   }
   }
@@ -346,9 +342,10 @@ function AttemptCustomerLogin()
 
       if ($result && password_verify($password, $result['Password']))
       {
-        $_SESSION['userid'] = $result['User_ID'];
+        $_SESSION['LoggedIn'] = true;
+        $_SESSION['userid'] = $result['Customer_ID'];
         $_SESSION['username'] = $result['Username'];
-        $_SESSION['firstname'] = $result['First_name'];
+        $_SESSION['firstname'] = $result['First_Name'];
       }
       else
       {
@@ -360,6 +357,13 @@ function AttemptCustomerLogin()
       echo" Record not found";
     }
   }
+}
+
+function AttemptLogOut()
+{
+    session_start(); // Start Session / Resume Current Session
+    session_destroy(); // Destroy Session
+    header("Location: ../View/index.php"); // Redirect to index page
 }
 
 // Function attempts to login an employee
@@ -526,26 +530,26 @@ function RemoveMovieByID($movieid)
 {
   require 'dbConnection.php';
 
-// IFWE IMPLEMENT COMMENTS WILL NEED TO DELETE THIS BEFORE THE MOVIE.
-/*
-$stmtComments = $pdo->prepare
-(
-  "DELETE FROM DPH_Comments WHERE Movie_ID = :movieid"
-);
+  /*
+  // IFWE IMPLEMENT COMMENTS WILL NEED TO DELETE THIS BEFORE THE MOVIE.
+  $stmtComments = $pdo->prepare
+  (
+    "DELETE FROM DPH_Comments WHERE Movie_ID = :movieid"
+  );
 
-$success = $stmtComments->execute
-([
-  'movieid' => $movieid
-]);
+  $success = $stmtComments->execute
+  ([
+    'movieid' => $movieid
+  ]);
 
-if($success && $stmtComments->rowCount() > 0)
-{
-  echo 'Successful';
-}
-else
-{
-  echo 'Failed';
-}*/
+  if($success && $stmtComments->rowCount() > 0)
+  {
+    echo 'Successful';
+  }
+  else
+  {
+    echo 'Failed';
+  }*/
 
     $stmt = $pdo->prepare
     (
@@ -594,30 +598,126 @@ function getMovieByID($movieid)
   return json_encode($row);
 }
 
-function PromoteUserByID($userid)
+function AttemptPromoteEmployeeByID($employeeid)
 {
-  global $connection;
+  require 'dbConnection.php';
 
-    $stmt = mysqli_stmt_init($connection);
-    $sqlComment = "UPDATE NP_Users SET Admin_Status = 1 WHERE User_ID = ?";
-    mysqli_stmt_prepare($stmt, $sqlComment);
-    mysqli_stmt_bind_param($stmt, 'i', $userid);
-    mysqli_stmt_execute($stmt);
+  $checkSql = "SELECT Job_Role FROM DPH_Employee WHERE Employee_ID = :employeeid";
 
-    mysqli_close($connection);
+  $checkStmt = $pdo->prepare($checkSql);
+  $checkSuccess = $checkStmt->execute(['employeeid' => $employeeid]);
+
+  if($checkSuccess && $checkStmt->rowCount() > 0)
+  {
+    $oldJobRole = $checkStmt->fetch();
+  }
+  else
+  {
+    echo 'Check Failed';
+  }
+
+  $newJobRole = $oldJobRole['Job_Role'];
+
+  $canDemote = false;
+  if($newJobRole == "employee")
+  {
+    $canDemote = true;
+    $newJobRole = "supervisor";
+  }
+  elseif($newJobRole == "supervisor")
+  {
+    $canDemote = true;
+    $newJobRole = "manager";
+  }
+  elseif($newJobRole == "manager")
+  {
+    echo 'Cannot Promote manager any higher than a manager';
+  }
+
+  if($canPromote = true)
+  {
+    $query = $pdo->prepare
+    ("
+    UPDATE DPH_Employee SET Job_Role = :newJobRole WHERE Employee_ID = :employeeid
+    ");
+
+    $success = $query->execute
+    ([
+      'newJobRole' => $newJobRole,
+      'employeeid' => $employeeid
+    ]);
+
+    if($success && $query->rowCount() > 0)
+    {
+      echo 'Done';
+    }
+    else
+    {
+      echo "Nope";
+      echo $query -> errorInfo()[2];
+    }
+  }
 }
 
-function DemoteUserByID($userid)
+function AttemptDemoteEmployeeByID($employeeid)
 {
-  global $connection;
+  require 'dbConnection.php';
 
-    $stmt = mysqli_stmt_init($connection);
-    $sqlComment = "UPDATE NP_Users SET Admin_Status = 0 WHERE User_ID = ?";
-    mysqli_stmt_prepare($stmt, $sqlComment);
-    mysqli_stmt_bind_param($stmt, 'i', $userid);
-    mysqli_stmt_execute($stmt);
+  $checkSql = "SELECT Job_Role FROM DPH_Employee WHERE Employee_ID = :employeeid";
 
-    mysqli_close($connection);
+  $checkStmt = $pdo->prepare($checkSql);
+  $checkSuccess = $checkStmt->execute(['employeeid' => $employeeid]);
+
+  if($checkSuccess && $checkStmt->rowCount() > 0)
+  {
+    $oldJobRole = $checkStmt->fetch();
+  }
+  else
+  {
+    echo 'Check Failed';
+  }
+
+  $newJobRole = $oldJobRole['Job_Role'];
+
+  $canDemote = false;
+  if($newJobRole == "employee")
+  {
+    echo 'Cannot Demote employee any lower than an employee';
+  }
+  elseif($newJobRole == "supervisor")
+  {
+    $canDemote = true;
+    $newJobRole = "employee";
+  }
+  elseif($newJobRole == "manager")
+  {
+    $canDemote = true;
+    $newJobRole = "supervisor";
+  }
+
+  if($canPromote = true)
+  {
+    $query = $pdo->prepare
+    ("
+    UPDATE DPH_Employee SET Job_Role = :newJobRole WHERE Employee_ID = :employeeid
+    ");
+
+    $success = $query->execute
+    ([
+      'newJobRole' => $newJobRole,
+      'employeeid' => $employeeid
+    ]);
+
+    if($success && $query->rowCount() > 0)
+    {
+      echo 'Done';
+    }
+    else
+    {
+      echo "Nope";
+      echo $query -> errorInfo()[2];
+    }
+  }
 }
 
 function DeleteUserByID($userid)
@@ -633,6 +733,27 @@ function DeleteUserByID($userid)
     mysqli_close($connection);
 }
 
+function GetAllEmployees()
+{
+  require 'dbConnection.php';
+
+  $sql = "SELECT Employee_ID, First_Name, Surname, Username, Job_Role FROM DPH_Employee";
+
+  $stmt = $pdo->prepare($sql);
+  $result = $stmt->fetch();
+  $success = $stmt->execute();
+  if($success && $stmt->rowCount() > 0)
+  {
+    //  convert to JSON
+    $rows = array();
+    while($r = $stmt->fetch())
+    {
+      $rows[] = $r;
+    }
+    return json_encode($rows);
+  }
+}
+
 //REST API SEARCHING
 function OMDBSearch()
 {
@@ -643,6 +764,12 @@ function OMDBSearch()
     $listOfMovies = file_get_contents("http://www.omdbapi.com/?apikey=1917d84&type=movie&s=".$searchItem); //Get a list of search results from the OMDb API
     return $listOfMovies; //Return the results
   }
+}
+
+//Ticket Booking
+function InsertTicketCode()
+{
+
 }
 
 ?>

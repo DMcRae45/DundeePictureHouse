@@ -6,12 +6,12 @@
 
 // <head>
      Include 'header.php';
-     include '../Controller/attempt_getMovieByID.php';
+     include '../Controller/getMovieByID.php';
 // </head>
 
       echo "<div class='container'>"; // Open container
         echo "<h1>".$movieArray->Title."</h1>"; // Display movie title
-        echo "<a class='btn btn-primary' href='#' role='button'>Book now</a>"; // Button link to booking form
+        echo "<a class='btn btn-primary' href='booking.php' role='button'>Book now</a>"; // Button link to booking form
         // echo '<div class="embed-responsive embed-responsive-16by9">';
         // echo '<iframe class="embed-responsive-item" src="'.$movieArray->Video_link.'" allowfullscreen></iframe>';
         // echo '</div>'; // trailer to go here

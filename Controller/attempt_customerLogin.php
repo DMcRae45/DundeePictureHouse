@@ -6,6 +6,9 @@
     Author: David McRae
  */
 include '../Model/DPH-api.php';
+
+session_start();
+
 AttemptCustomerLogIn();
-//header('location: ../View/index.php');
+header('location: ../View/index.php');
 ?>

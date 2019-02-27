@@ -11,8 +11,8 @@ session_start();
 //}
 //else
 //{
-$movieid = $_GET['id'];
-RemoveMovieByID($movieid);
-header('location: ../View/removeMovie.php');
+$employeeid = $_GET['id'];
+AttemptDemoteEmployeeByID($employeeid);
+header('location: ../View/manageEmployees.php');
 //}
 ?>

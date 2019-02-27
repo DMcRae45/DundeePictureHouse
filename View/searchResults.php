@@ -14,14 +14,13 @@
 <title>DPH - Home</title>
 <body>
   <br>
-  <div class=container>
   <?php
 
   $searchResults = OMDBSearch();
   $movieArray = json_decode($searchResults);
   if ($movieArray->Response == 'True')
   {
-    echo "<div class='row'>
+    echo "<div class='container'>
             <form action='' method='post'>
               <div class='input-group input-group-sm mb-3'>
                 <input type='text' class='form-control' placeholder='Search' aria-label='Small' aria-describedby='inputGroup-sizing-sm' id='searchTitle' name='searchTitle'>
@@ -35,6 +34,8 @@
     $cols = 3;
     $counter = 1;
     $nbsp = $cols - ($rows % $cols);
+
+    echo '<div class="container">';
 
     for ($i=0 ; $i < sizeof($movieArray->Search) ; $i++)
     {
@@ -70,16 +71,16 @@
            echo'<div class="col-md-4">&nbsp;</div>';
         }
     }
-
+    echo ' </div>';// close container
     echo '</div><br>';
   }
   else
   {
-    echo "<div class='container container-fluid'>
+    echo "<div class='container'>
             <form action='' method='post'>
               <div class='input-group input-group-sm mb-3'>
                 <div class='input-group-prepend'>
-                  <span class='input-group-text btn btn-outline-danger disable' id='inputGroup-sizing-sm'>No Movie Found, Try Again </span>
+                  <span class='input-group-text btn-outline-danger disable' id='inputGroup-sizing-sm'>No Movie Found, Try Again </span>
                 </div>
                 <input type='text' class='form-control' placeholder='Search' aria-label='Small' aria-describedby='inputGroup-sizing-sm' id='searchTitle' name='searchTitle'>
                 <div class='input-group-append'>

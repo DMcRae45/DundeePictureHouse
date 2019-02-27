@@ -7,7 +7,8 @@
 <html>
 <!--<head>-->
     <?php
-        include '../Model/DPH-api.php' ;
+        include '../Controller/getAllMovies.php';
+        //include '../Model/DPH-api.php';
         include 'header.php';
     ?>
 <!-- </head> -->
@@ -66,15 +67,10 @@ echo "
     </div>
 ";
 
-$movies = GetAllMovies();
-
 $rows = 0;
 $cols = 3;
 $counter = 1;
 $nbsp = $cols - ($rows % $cols);
-
-    // echo $movies ;
-    $movieArray = json_decode($movies) ;
 
     for ($i=0 ; $i < sizeof($movieArray) ; $i++)
     {
@@ -103,10 +99,10 @@ $nbsp = $cols - ($rows % $cols);
         //echo '<p class="card-text">'.$summary.'</p>'; // card description
         echo '</div>';// close card body
         echo '<ul class="list-group list-group-flush">'; // start list inside the card
-        echo '<li class="list-group-item">Release Date: '.$movieArray[$i]->Release_Date.'</li>';
-        echo '<li class="list-group-item">Genre: '.$movieArray[$i]->Genre.'</li>';
-        echo '<li class="list-group-item">Age Rating: '.$movieArray[$i]->Age_Rating.'</li>';
-        echo '<li class="list-group-item">Star Rating: '.$movieArray[$i]->Star_Rating.'</li>';
+        echo '<li class="list-group-item">Release Date: <text>'.$movieArray[$i]->Release_Date.'</text></li>';
+        echo '<li class="list-group-item">Genre: <text>'.$movieArray[$i]->Genre.'</text></li>';
+        echo '<li class="list-group-item">Age Rating: <text>'.$movieArray[$i]->Age_Rating.'</text></li>';
+        echo '<li class="list-group-item">Star Rating: <text>'.$movieArray[$i]->Star_Rating.'</text></li>';
         echo ' </ul>'; // end list in the card
         echo "<a class='btn btn-info' href='movie.php?id=".$movieArray[$i]->Movie_ID ."'>More</a>";
 // more info button

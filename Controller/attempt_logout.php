@@ -8,6 +8,9 @@
 
  */
 include '../Model/DPH-api.php';
+
+session_start();
+
 AttemptLogOut();
 header('location: ../View/index.php');
 ?>

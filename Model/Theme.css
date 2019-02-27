@@ -1,11 +1,11 @@
 
-body, .form-control, .input-group-text, .custom-select
+body, .form-control, .input-group-text, .custom-select, .list-group-item
 {
   background-color: #17181c;
   color:#17a2b8;
 }
 
-.card-body, .card-title, .card-text, .list-group-item
+.card-body, .card-title, .card-text
 {
     background-color: #2a2c33;
     color: #ffffff;
@@ -15,7 +15,7 @@ hr
   background-color: #2a2c33;
   color: #2a2c33;
 }
-h2
+h2, text
 {
   color: #ffffff;
 }

@@ -72,6 +72,19 @@ include '../Model/DPH-api.php';
                 </div>
               </div>
 
+              <div class="form-group input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroupPrepend">Password Confirmation</span>
+                </div>
+                  <input class="form-control" type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Password Confirmation" required>
+                    <div class="invalid-feedback">
+                      You cannot Leave This field Empty.
+                    </div>
+                <div class="input-group-append">
+                    <span class="input-group-text" id="inputGroupAppend" name="appendPasswordConfirm"></span>
+                </div>
+                </div>
+
             <button class="form-control" type="submit" name="registerEmployeeSubmit">Register</button>
         </form>
 <!-- End Form -->
