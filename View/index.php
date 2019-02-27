@@ -100,16 +100,16 @@ $nbsp = $cols - ($rows % $cols);
         echo '<img src="'.$movieArray[$i]->Image_Link.'" class="card-img-top" alt="..." style="height: 30rem">'; // card image
         echo '<div class="card-body">';// open card body
         echo '<h5 class="card-title">'.$movieArray[$i]->Title.'</h5>'; // card title
-        echo '<p class="card-text">'.$summary.'</p>'; // card description
+        //echo '<p class="card-text">'.$summary.'</p>'; // card description
         echo '</div>';// close card body
         echo '<ul class="list-group list-group-flush">'; // start list inside the card
-        echo '<li class="list-group-item">'.$movieArray[$i]->Release_Date.'</li>';
-        echo '<li class="list-group-item">'.$movieArray[$i]->Age_Rating.'</li>';
-        echo '<li class="list-group-item">'.$movieArray[$i]->RunTime.'</li>';
-        echo '<li class="list-group-item">'.$movieArray[$i]->Genre.'</li>';
-        echo '<li class="list-group-item">'.$movieArray[$i]->Star_Rating.'</li>';
+        echo '<li class="list-group-item">Release Date: '.$movieArray[$i]->Release_Date.'</li>';
+        echo '<li class="list-group-item">Genre: '.$movieArray[$i]->Genre.'</li>';
+        echo '<li class="list-group-item">Age Rating: '.$movieArray[$i]->Age_Rating.'</li>';
+        echo '<li class="list-group-item">Star Rating: '.$movieArray[$i]->Star_Rating.'</li>';
         echo ' </ul>'; // end list in the card
-        echo ' <a href="#" class="btn btn-info">More Info</a>'; // more info button
+        echo "<a class='btn btn-info' href='movie.php?id=".$movieArray[$i]->Movie_ID ."'>More</a>";
+// more info button
         echo ' </div>';// close card body
         echo ' </div>';// close card
 

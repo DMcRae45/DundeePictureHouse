@@ -10,3 +10,12 @@ body, .form-control, .input-group-text, .custom-select
     background-color: #2a2c33;
     color: #ffffff;
 }
+hr
+{
+  background-color: #2a2c33;
+  color: #2a2c33;
+}
+h2
+{
+  color: #ffffff;
+}

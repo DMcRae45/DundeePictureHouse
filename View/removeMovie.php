@@ -1,13 +1,13 @@
 <?php
-include '../Model/bungieNews-api.php' ;
+include '../Model/DPH-api.php' ;
 include 'header.php';
 
-if (!isset($_SESSION['LoggedIn']) || $_SESSION['Admin_Status'] != 1)
-{
-  header("Location: index.php");
-}
-else
-{
+//if (!isset($_SESSION['LoggedIn']) || $_SESSION['Admin_Status'] != 1)
+//{
+//  header("Location: index.php");
+//}
+//else
+//{
 echo "
 <html>
 <head>
@@ -44,29 +44,29 @@ echo "
             </div>
         </div>
     ";
-    $articles = GetAllArticles();
+    $movies = GetAllMovies();
     // echo $articles ;
-    $articleArray = json_decode($articles) ;
+    $movieArray = json_decode($movies);
 
     echo "
     <table class='table border border-dark text-center'>
       <thead class='thead-dark'>
           <tr>
-            <th scope='col'>Article ID</th>
-            <th scope='col'>Headline</th>
-            <th scope='col'>Summary</th>
-            <th scope='col'>Delete Article</th>
+            <th scope='col'>Movie ID</th>
+            <th scope='col'>Title</th>
+            <th scope='col'>Star_Rating</th>
+            <th scope='col'>Delete Movie</th>
           </tr>
         </thead>";
 
-        for ($i=0 ; $i < sizeof($articleArray) ; $i++)
+        for ($i=0 ; $i < sizeof($movieArray) ; $i++)
         {
         //echo "<div class='border border-success'>";
         echo "<tr>";
-          echo "<td>".$articleArray[$i]->Article_ID."</td>";
-          echo "<td>".$articleArray[$i]->Headline."</td>";
-          echo "<td>".nl2br($articleArray[$i]->Summary)."</td>";
-          echo "<td> <a class='btn btn-danger' href='../Controller/attempt_removeArticle.php?id=". $articleArray[$i]->Article_ID ."'>DELETE</a> </td>";
+          echo "<td>".$movieArray[$i]->Movie_ID."</td>";
+          echo "<td>".$movieArray[$i]->Title."</td>";
+          echo "<td>".nl2br($movieArray[$i]->Star_Rating)."</td>";
+          echo "<td> <a class='btn btn-danger' href='../Controller/attempt_removeMovie.php?id=". $movieArray[$i]->Movie_ID ."'>DELETE</a> </td>";
           echo "<tr>";
       }
       echo "</table>";
@@ -84,6 +84,5 @@ echo "
 </body>
 </html>
 ";
-}
-
+//}
 ?>

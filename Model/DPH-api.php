@@ -8,7 +8,7 @@
 //Get All Movies
 function GetAllMovies()
 {
-    require 'dbConnection.php';;
+    require 'dbConnection.php';
     // $dateFilter = '';
     // if (filter_input(INPUT_POST, "month", FILTER_SANITIZE_STRING))
     // {
@@ -213,6 +213,77 @@ function CreateNewEmployee()
     $username = (filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING));
     $password = (filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING));
 
+    // Error checking variables
+    $Error = false;
+    $nameError;
+    $jobRoleError;
+    $usernameError;
+    $passwordError;
+    $passwordConfirmError;
+
+    if (!preg_match("/^[a-zA-Z ]*$/",$firstName) || !preg_match("/^[a-zA-Z ]*$/",$surname)) // First & Surname must be Letters
+    {
+      $Error = true;
+      $nameError = "Your name can only contain letters";
+    }
+
+    if ($jobrole != "Manager" || "Supervisor" || "Employee" ) // Job role must match a specific type from the list
+    {
+      $Error = true;
+      $jobRoleError = "Job role is not a valid type, please select one from the dropdown list";
+    }
+
+    if(!preg_match("/^[a-zA-Z0-9]*$/", $username))//Username Must be letters & Numbers
+    {
+      $Error = true;
+      $usernameError = "Username Must Contain only letters and numbers";
+    }
+
+    if(!empty($password) && $password == $passwordConfirm) // Password & PasswordConfirm Must Match
+    {
+      if(strlen($password) <= '8')// Passowrd must be Atleast 8 characters
+      {
+        $Error = true;
+        $passwordError = "Password Must be Atleast 8 characters Long";
+      }
+      elseif(!preg_match("#[0-9]+#",$password)) // Password must contain a number
+      {
+        $Error = true;
+        $passwordError = "Your Password Must Contain At Least 1 Number!";
+      }
+      elseif(!preg_match("#[A-Z]+#",$password)) // Password Must contain an Uppercase letter
+      {
+        $Error = true;
+        $passwordError = "Your Password Must Contain At Least 1 Capital Letter!";
+      }
+      elseif(!preg_match("#[a-z]+#",$password))// Password Must Conatain a Lowercase letter
+      {
+        $Error = true;
+        $passwordError = "Your Password Must Contain At Least 1 Lowercase Letter!";
+      }
+      else// No password errors have Occured
+      {
+        $PasswordError = "Password Is Acceptable";
+      }
+    }
+
+  if(!empty($password) && $password != $passwordConfirm) // Password and PasswordConfirm do NOT Match
+  {
+    $Error = true;
+    $passwordConfirmError = "Please Check You've Confirmed Your Password!";
+  }
+  if(empty($password)) // Password Is Empty
+  {
+    $Error = true;
+    $passwordError = "Please enter a password";
+  }
+
+  if($Error == true) // An Error Has Occured
+  {
+    echo"'$nameError' </br> '$emailError' </br> '$usernameError' </br> '$passwordError' </br> '$passwordConfirmError'";
+  }
+  else // Continue with the Registration
+  {
     //Hash the password
     $password = password_hash($password, PASSWORD_DEFAULT);
 
@@ -250,6 +321,7 @@ function CreateNewEmployee()
       var_dump($username);
       var_dump($password);
     }
+  }
   }
 }
 
@@ -450,21 +522,127 @@ function AttemptInsertMovie()
     }
 }
 
-function RemoveArticleByID($articleid)
+function RemoveMovieByID($movieid)
 {
   require 'dbConnection.php';
 
-    $stmt = mysqli_stmt_init($connection);
-    $sqlComment = "DELETE FROM NP_Comments WHERE Article_ID = ?";
-    mysqli_stmt_prepare($stmt, $sqlComment);
-    mysqli_stmt_bind_param($stmt, 'i', $articleid);
-    mysqli_stmt_execute($stmt);
+// IFWE IMPLEMENT COMMENTS WILL NEED TO DELETE THIS BEFORE THE MOVIE.
+/*
+$stmtComments = $pdo->prepare
+(
+  "DELETE FROM DPH_Comments WHERE Movie_ID = :movieid"
+);
+
+$success = $stmtComments->execute
+([
+  'movieid' => $movieid
+]);
+
+if($success && $stmtComments->rowCount() > 0)
+{
+  echo 'Successful';
+}
+else
+{
+  echo 'Failed';
+}*/
+
+    $stmt = $pdo->prepare
+    (
+      "DELETE FROM DPH_Movie WHERE Movie_ID = :movieid"
+    );
+
+    $success = $stmt->execute
+    ([
+      'movieid' => $movieid
+    ]);
+
+    if($success && $stmt->rowCount() > 0)
+    {
+      echo 'Successful';
+    }
+    else
+    {
+      echo 'Failed';
+    }
+}
+
+//  function to get a single movie
+function getMovieByID($movieid)
+{
+  require 'dbConnection.php';
+
+  $query = $pdo->prepare
+  ("
+  SELECT * FROM DPH_Movie WHERE Movie_ID = :movieid LIMIT 1
+  ");
+
+  $success = $query->execute
+  ([
+    'movieid' => $movieid
+  ]);
+
+  if($success && $query->rowCount() > 0)
+  {
+    $row = $query->fetch();
+  }
+  else
+  {
+    echo "Nope";
+  }
+
+  return json_encode($row);
+}
+
+function PromoteUserByID($userid)
+{
+  global $connection;
 
     $stmt = mysqli_stmt_init($connection);
-    $sqlArticle = "DELETE FROM NP_Articles WHERE Article_ID = ?";
-    mysqli_stmt_prepare($stmt, $sqlArticle);
-    mysqli_stmt_bind_param($stmt, 'i', $articleid);
+    $sqlComment = "UPDATE NP_Users SET Admin_Status = 1 WHERE User_ID = ?";
+    mysqli_stmt_prepare($stmt, $sqlComment);
+    mysqli_stmt_bind_param($stmt, 'i', $userid);
     mysqli_stmt_execute($stmt);
+
     mysqli_close($connection);
 }
+
+function DemoteUserByID($userid)
+{
+  global $connection;
+
+    $stmt = mysqli_stmt_init($connection);
+    $sqlComment = "UPDATE NP_Users SET Admin_Status = 0 WHERE User_ID = ?";
+    mysqli_stmt_prepare($stmt, $sqlComment);
+    mysqli_stmt_bind_param($stmt, 'i', $userid);
+    mysqli_stmt_execute($stmt);
+
+    mysqli_close($connection);
+}
+
+function DeleteUserByID($userid)
+{
+  global $connection;
+
+    $stmt = mysqli_stmt_init($connection);
+    $sqlComment = "DELETE FROM NP_Users WHERE User_ID = ?";
+    mysqli_stmt_prepare($stmt, $sqlComment);
+    mysqli_stmt_bind_param($stmt, 'i', $userid);
+    mysqli_stmt_execute($stmt);
+
+    mysqli_close($connection);
+}
+
+//REST API SEARCHING
+function OMDBSearch()
+{
+  if(isset($_POST['search-by-title-button']))
+  {
+    $searchItem = (filter_input(INPUT_POST, 'searchTitle', FILTER_SANITIZE_STRING)); //Sanitize the string
+    $searchItem = str_replace(' ', '+', $searchItem); //Replace any whitespace with '+' symbols to work on a url
+    $listOfMovies = file_get_contents("http://www.omdbapi.com/?apikey=1917d84&type=movie&s=".$searchItem); //Get a list of search results from the OMDb API
+    return $listOfMovies; //Return the results
+  }
+}
+
 ?>

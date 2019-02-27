@@ -3,7 +3,7 @@
 /*
     Description: Dundee Picture House Navigation bar at the top of each page.
 
-    Author: David McRae
+    Author: David McRae, Brad Mair
     Reference: Bootstrap
 */
 ?>
@@ -63,9 +63,14 @@
             </div>
         </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+
+    <form action='searchResults.php' method='post' class="form-inline my-2 my-lg-0">
+      <div class='input-group input-group-sm mb-3'>
+        <input type='text' class='form-control' placeholder="Search" aria-label='Small' aria-describedby='inputGroup-sizing-sm' id='searchTitle' name='searchTitle'>
+        <div class='input-group-append'>
+          <button id='search-by-title-button' name='search-by-title-button' type='submit' class='btn btn-outline-info my-2 my-sm-0'>Search</button>
+        </div>
+      </div>
     </form>
   </div>
 </nav>
