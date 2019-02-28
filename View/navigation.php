@@ -43,20 +43,20 @@
                         echo '<div class="dropdown-divider"></div>';  // divider between menu items
                         echo '<a class="dropdown-item" href="registerCustomer.php">Register</a>';
                 }
-                if(isset($_SESSION['LoggedIn']))
+                if(isset($_SESSION['LoggedIn']) && isset($_SESSION['firstname']))
                 {
                   echo "<a class='dropdown-item' href='userTickets.php'>My Tickets</a>";
                   echo '<div class="dropdown-divider"></div>';
-
-                  if(isset($_SESSION['Admin_Status']) && $_SESSION['Admin_Status'] == 1)
-                  {
-                    echo "<a class='dropdown-item' href='insertArticle.php'>Insert Article</a>";
-                    echo '<div class="dropdown-divider"></div>';
-                    echo "<a class='dropdown-item' href='removeArticle.php'>Remove Article</a>";
-                    echo '<div class="dropdown-divider"></div>';
-                    echo "<a class='dropdown-item' href='updateUsers.php'>Update Users</a>";
-                    echo '<div class="dropdown-divider"></div>';
-                  }
+                  echo '<a class="dropdown-item" href="../Controller/attempt_logout.php">LogOut</a>';
+                }
+                if(isset($_SESSION['jobrole']) && $_SESSION['jobrole'] == "manager")
+                {
+                  echo "<a class='dropdown-item' href='insertMovie.php'>Insert Movie</a>";
+                  echo '<div class="dropdown-divider"></div>';
+                  echo "<a class='dropdown-item' href='removeMovie.php'>Remove Movie</a>";
+                  echo '<div class="dropdown-divider"></div>';
+                  echo "<a class='dropdown-item' href='manageEmployees.php'>Manage Employees</a>";
+                  echo '<div class="dropdown-divider"></div>';
                   echo '<a class="dropdown-item" href="../Controller/attempt_logout.php">LogOut</a>';
                 }
             ?>

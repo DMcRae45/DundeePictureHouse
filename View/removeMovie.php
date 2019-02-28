@@ -17,33 +17,28 @@ echo "
 <body>
   <div class='container'>
     <div class='page-header'>
-        <h1>Remove an Article</h1>
+        <h1>Remove an Movie</h1>
     </div>
     <div class='container'>
-        <div class='row'>
-            <div class='col-md-4'>
-                <form method='POST' action='removeArticle.php'>
-                    <select class='form-control' name='month' onchange='this.form.submit()'>
-                        <option value='placeholder'>Sort By...</option>
-                        <option value='0'>Most Recent</option>
-                        <option value='1'>January</option>
-                        <option value='2'>February</option>
-                        <option value='3'>March</option>
-                        <option value='4'>April</option>
-                        <option value='5'>May</option>
-                        <option value='6'>June</option>
-                        <option value='7'>July</option>
-                        <option value='8'>August</option>
-                        <option value='9'>September</option>
-                        <option value='10'>October</option>
-                        <option value='11'>November</option>
-                        <option value='12'>December</option>
-                    </select>
-                    <noscript><input type='submit' value ='Sort By Post Date'></noscript>
-                </form>
-            </div>
-        </div>
-    ";
+    <div class='row'>
+          <div class='col-md-4'>
+              <form method='POST' action='removeMovie.php'>
+                  <select class='form-control' name='ordering' onchange='this.form.submit()'>
+                      <option value='placeholder'>Sort By ...</option>
+                      <option value='0'>Release Date (Newest to Oldest)</option>
+                      <option value='1'>Release Date (Oldest to Newest)</option>
+                      <option value='2'>Age Rating (Highest to Lowest)</option>
+                      <option value='3'>Age Rating (Lowest to Highest)</option>
+                      <option value='4'>Title (A-Z)</option>
+                      <option value='5'>Title (Z-A)</option>
+                      <option value='6'>RunTime (Longest to Shortest)</option>
+                      <option value='7'>RunTime (Shortest to Longest)</option>
+                  </select>
+                  <noscript><input type='submit' value ='Sort By'></noscript>
+              </form>
+          </div>
+      </div>
+  ";
     $movies = GetAllMovies();
     // echo $articles ;
     $movieArray = json_decode($movies);

@@ -79,7 +79,6 @@ function GetAllMovies()
     }
 }
 
-//  Function to create a new customer
 function CreateNewCustomer()
 {
   Require 'dbConnection.php';
@@ -200,7 +199,6 @@ function CreateNewCustomer()
   }
 }
 
-// Function to create a new employee
 function CreateNewEmployee()
 {
   Require 'dbConnection.php';
@@ -321,7 +319,6 @@ function CreateNewEmployee()
   }
 }
 
-// Function attempts to login a customer
 function AttemptCustomerLogin()
 {
   Require 'dbConnection.php';
@@ -366,7 +363,6 @@ function AttemptLogOut()
     header("Location: ../View/index.php"); // Redirect to index page
 }
 
-// Function attempts to login an employee
 function AttemptEmployeeLogin()
 {
   Require 'dbConnection.php';
@@ -387,6 +383,7 @@ function AttemptEmployeeLogin()
 
       if ($result && password_verify($password, $result['Password']))
       {
+        $_SESSION['LoggedIn'] = true;
         $_SESSION['userid'] = $result['User_ID'];
         $_SESSION['username'] = $result['Username'];
         $_SESSION['jobrole'] = $result['Job_Role'];
@@ -571,7 +568,6 @@ function RemoveMovieByID($movieid)
     }
 }
 
-//  function to get a single movie
 function getMovieByID($movieid)
 {
   require 'dbConnection.php';

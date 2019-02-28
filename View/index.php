@@ -54,8 +54,8 @@ echo "
                     <option value='placeholder'>Sort By ...</option>
                     <option value='0'>Release Date (Newest to Oldest)</option>
                     <option value='1'>Release Date (Oldest to Newest)</option>
-                    <option value='2'>Rating (Highest to Lowest)</option>
-                    <option value='3'>Rating (Lowest to Highest)</option>
+                    <option value='2'>Age Rating (Highest to Lowest)</option>
+                    <option value='3'>Age Rating (Lowest to Highest)</option>
                     <option value='4'>Title (A-Z)</option>
                     <option value='5'>Title (Z-A)</option>
                     <option value='6'>RunTime (Longest to Shortest)</option>
@@ -93,7 +93,7 @@ $nbsp = $cols - ($rows % $cols);
 
         echo "<div class='col-md-4'>";
         echo '<div class="card" style="width: 20rem;">'; // Open card div
-        echo '<img src="'.$movieArray[$i]->Image_Link.'" class="card-img-top" alt="..." style="height: 30rem">'; // card image
+        echo '<img src="'.$movieArray[$i]->Image_Link.'" class="card-img-top" alt="Movie Poster" style="height: 30rem" onerror=this.src="images/film.placeholder.poster.jpg">'; // card image
         echo '<div class="card-body">';// open card body
         echo '<h5 class="card-title">'.$movieArray[$i]->Title.'</h5>'; // card title
         //echo '<p class="card-text">'.$summary.'</p>'; // card description
