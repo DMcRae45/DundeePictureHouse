@@ -1,12 +1,8 @@
 <?php
 /*
-
-    Description:
- *  Database Connection and Log in Credentials.
+    Description: Database Connection and Log in Credentials to the sites database.
 
     Author: David McRae
-    Date: 15-Sep-2018
-
  */
 try
 {

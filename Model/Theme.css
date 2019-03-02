@@ -1,4 +1,10 @@
+/*
+    Description: Custom colour scheme used for the website.
+    to be called after any bootstrap files
+    this will overite the standard bootstrap colours.
 
+    Author: David McRae
+ */
 body, .form-control, .input-group-text, .custom-select, .list-group-item
 {
   background-color: #17181c;

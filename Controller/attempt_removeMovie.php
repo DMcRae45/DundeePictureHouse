@@ -1,5 +1,9 @@
 <?php
+/*
+    Description: Action for the delete button located in the remove movies file.
 
+    Author: David McRae
+ */
 include '../Model/DPH-api.php';
 
 session_start();

@@ -1,7 +1,6 @@
 <?php
 /*
-
-    Description:
+    Description: Action for the customer login page.
 
     Author: David McRae
  */

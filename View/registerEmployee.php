@@ -1,8 +1,7 @@
 <?php
-include '../Model/DPH-api.php';
 /*
 
-    Description:
+    Description: form used to register a new employee into the database.
 
     Author: David McRae, Aaron Hay
     Date: 01-Oct-2018

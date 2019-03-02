@@ -1,11 +1,8 @@
 <?php
 /*
-
-    Description:
+    Description: Action for the Employee login page.
 
     Author: David McRae
-    Date: 11-Oct-2018
-
  */
 include '../Model/DPH-api.php';
 

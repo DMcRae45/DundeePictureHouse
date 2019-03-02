@@ -1,5 +1,6 @@
 <?php
 include '../Model/DPH-api.php' ;
+include '../Controller/getAllMovies.php';
 include 'header.php';
 
 //if (!isset($_SESSION['LoggedIn']) || $_SESSION['Admin_Status'] != 1)
@@ -39,9 +40,6 @@ echo "
           </div>
       </div>
   ";
-    $movies = GetAllMovies();
-    // echo $articles ;
-    $movieArray = json_decode($movies);
 
     echo "
     <table class='table border border-dark text-center'>

@@ -1,6 +1,6 @@
 <?php
 /*
-    Description:
+    Description: Action to display a single movie record on its own page locate in the Movie file.
 
     Author: David McRae
  */

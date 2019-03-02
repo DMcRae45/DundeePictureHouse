@@ -1,7 +1,6 @@
 <?php
 /*
-
-    Description:
+    Description: Action for the register customer page.
 
     Author: David McRae
  */

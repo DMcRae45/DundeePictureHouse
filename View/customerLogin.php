@@ -1,6 +1,5 @@
 <?php
 /*
-
     Description: Customer login form
 
     Author: David McRae, Aaron Hay

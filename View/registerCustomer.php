@@ -1,11 +1,9 @@
 <?php
-include '../Model/DPH-api.php';
 /*
+    Description: form used to register a new customer to the website.
 
-    Description:
-
-    Author: David McRae, Aaron Hay
-*/
+    Author: David McRae
+ */
 ?>
 <!DOCTYPE html>
 <html>

@@ -1,7 +1,6 @@
 <?php
 /*
-
-    Description:
+    Description: Action for the insert movie form located on the insert movie page.
 
     Author: David McRae
  */

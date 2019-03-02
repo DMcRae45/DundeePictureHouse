@@ -1,6 +1,6 @@
 <?php
 /*
-    Description:
+    Description: form used to insert ne movies into the database.
 
     Author: David McRae
 */

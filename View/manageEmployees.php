@@ -1,6 +1,7 @@
 <?php
 /*
-    Description:
+    Description: User interface used to manage employees jobroles.
+
     Author: David McRae
 */
 include 'header.php';

@@ -1,6 +1,7 @@
 <?php
 /*
-    Description:
+    Description: Web page to display each movie as a single record depending on a selection from the users.
+
     Author: David McRae
 */
 

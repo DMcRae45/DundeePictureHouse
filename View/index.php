@@ -1,6 +1,6 @@
 <?php
 /*
-    Description: Dundee Picture House Home Page
+    Description: Dundee Picture House Home Page used to display movies and navigation.
     Author: David McRae
 */
 ?>
