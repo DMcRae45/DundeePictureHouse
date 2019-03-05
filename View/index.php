@@ -17,7 +17,8 @@
 
 <div class="container">
     <div class="page-header">
-        <h2>Dundee Picture House</h2>
+    </br>
+        <h1>Dundee Picture House</h1>
     </div>
 <?php
 
@@ -91,27 +92,26 @@ $nbsp = $cols - ($rows % $cols);
       }
 
 
-        echo "<div class='col-md-4'>";
-        echo '<div class="card" style="width: 20rem;">'; // Open card div
-        echo '<img src="'.$movieArray[$i]->Image_Link.'" class="card-img-top" alt="Movie Poster" style="height: 30rem" onerror=this.src="images/film.placeholder.poster.jpg">'; // card image
-        echo '<div class="card-body">';// open card body
+echo "<div class='col-md-4 mt-4'>"; // open col
+  echo '<div class="card" style="width: 100%;">'; // Open card div
+    echo '<img src="'.$movieArray[$i]->Image_Link.'" class="card-img-top" alt="Movie Poster" style="height: 30rem" onerror=this.src="images/film.placeholder.poster.jpg">'; // card image
+      echo '<div class="card-body">';// open card body
         echo '<h5 class="card-title">'.$movieArray[$i]->Title.'</h5>'; // card title
-        //echo '<p class="card-text">'.$summary.'</p>'; // card description
-        echo '</div>';// close card body
-        echo '<ul class="list-group list-group-flush">'; // start list inside the card
-        echo '<li class="list-group-item">Release Date: <text>'.$movieArray[$i]->Release_Date.'</text></li>';
-        echo '<li class="list-group-item">Genre: <text>'.$movieArray[$i]->Genre.'</text></li>';
-        echo '<li class="list-group-item">Age Rating: <text>'.$movieArray[$i]->Age_Rating.'</text></li>';
-        echo '<li class="list-group-item">Star Rating: <text>'.$movieArray[$i]->Star_Rating.'</text></li>';
-        echo ' </ul>'; // end list in the card
-        echo "<a class='btn btn-info' href='movie.php?id=".$movieArray[$i]->Movie_ID ."'>More</a>";
-// more info button
-        echo ' </div>';// close card body
-        echo ' </div>';// close card
+      echo '</div>';// close card body
+    echo '<ul class="list-group list-group-flush">'; // start list inside the card
+      echo '<li class="list-group-item">Release Date: <text>'.$movieArray[$i]->Release_Date.'</text></li>';
+      echo '<li class="list-group-item">Genre: <text>'.$movieArray[$i]->Genre.'</text></li>';
+      echo '<li class="list-group-item">Age Rating: <text>'.$movieArray[$i]->Age_Rating.'</text></li>';
+      echo '<li class="list-group-item">Star Rating: <text>'.$movieArray[$i]->Star_Rating.'</text></li>';
+    echo ' </ul>'; // end list in the card
+echo "<a class='btn btn-info' href='movie.php?id=".$movieArray[$i]->Movie_ID ."'>More</a>"; // more info button
+  echo ' </div>';// close card
+  echo ' </div>';// close col
+
 
       if(($counter % $cols) == 0)
       {
-          echo '</div></br>';
+          echo '</div>';
       }
     $counter++;
     }
@@ -131,7 +131,6 @@ $nbsp = $cols - ($rows % $cols);
         <?php include 'footer.php'; ?>
 <!-- </footer> -->
 
-</div><!-- end of container-->
     <?php include '../Controller/bootstrapScript.php'; ?>
 </body>
 </html>

@@ -68,7 +68,7 @@
       <div class='input-group input-group-sm mb-3'>
         <input type='text' class='form-control' placeholder="Search" aria-label='Small' aria-describedby='inputGroup-sizing-sm' id='searchTitle' name='searchTitle'>
         <div class='input-group-append'>
-          <button id='search-by-title-button' name='search-by-title-button' type='submit' class='btn btn-outline-info my-2 my-sm-0'>Search</button>
+          <button id='search-by-title-button' name='search-by-title-button' type='submit' class='btn btn-outline-info'>Search</button>
         </div>
       </div>
     </form>

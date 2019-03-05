@@ -1,5 +1,4 @@
 <?php
-include '../Model/DPH-api.php' ;
 include '../Controller/getAllMovies.php';
 include 'header.php';
 

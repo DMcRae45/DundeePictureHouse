@@ -37,6 +37,13 @@ include 'header.php';
                 <input class='form-control' type='text' name='title' placeholder='Title' required>
             </div>
 
+            <div class='form-group input-group' form-group-lg>
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupPrepend">Video</span>
+              </div>
+                <input class='form-control' type='text' name='video' placeholder='Please Past the Youtube URL into this field' required>
+            </div>
+
             <div class='form-group input-group'>
               <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroupPrepend">Poster Image</span>
@@ -71,11 +78,9 @@ include 'header.php';
                 <option value="">Please Select a Star Rating</option>
                 <option value="U">U</option>
                 <option value="PG">PG</option>
-                <option value="12">12</option>
                 <option value="12A">12A</option>
                 <option value="15">15</option>
                 <option value="18">18</option>
-                <option value="R">R</option>
               </select>
               <div class="invalid-feedback">Please Select an Age rating</div>
             </div>

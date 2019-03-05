@@ -11,32 +11,39 @@
 // </head>
 
       echo "<div class='container'>"; // Open container
+        echo "</br>";
         echo "<h1>".$movieArray->Title."</h1>"; // Display movie title
-        echo "<a class='btn btn-primary' href='booking.php' role='button'>Book now</a>"; // Button link to booking form
-        // echo '<div class="embed-responsive embed-responsive-16by9">';
-        // echo '<iframe class="embed-responsive-item" src="'.$movieArray->Video_link.'" allowfullscreen></iframe>';
-        // echo '</div>'; // trailer to go here
+        echo "</br>";
+        echo '<div class="embed-responsive embed-responsive-16by9">';
+        echo '<iframe class="embed-responsive-item" src="'.$movieArray->Video_Link.'" frameborder="0" allow="autoplay"; encrypted-media; allowfullscreen alt="This video is not supported"></iframe>';
+        echo '</div>'; // trailer to go here
         echo "</br>";
         echo "<h2>More information</h2>";
         echo "</br>";
         echo "<div class='row'>";
         echo "<div class='col-md-5'>";
-        echo "<p>Release Date: ".$movieArray->Release_Date."</p>";
-        echo "<p>Runtime: ".$movieArray->RunTime."</p>";
-        echo "<p>".nl2br($movieArray->Description)."</p>"; // Summary is declared as a substring in the select statement.
+        echo "<p>Release Date: <text>".$movieArray->Release_Date."</text></p>";
+        echo "<p>Runtime: <text>".$movieArray->RunTime."</text> Mins</p>";
+        echo "<p>Description: <text>".nl2br($movieArray->Description)."</text></p>"; // Summary is declared as a substring in the select statement.
         echo "</br>";
-        echo "<p>Genre: ".$movieArray->Genre."</p>";
+        echo "<p>Genre: <text>".$movieArray->Genre."</text></p>";
         echo "<hr>";
-        echo "<p>Actors: ".$movieArray->Actors."</p>";
+        echo "<p>Actors: <text>".$movieArray->Actors."</text></p>";
         echo "<hr>";
-        echo "<p>Director: ".$movieArray->Director."</p>";
+        echo "<p>Director: <text>".$movieArray->Director."</text></p>";
         echo "<hr>";
         echo "</div>";
-        echo "<div class='col-md-5'>";
+        echo "<div class='col-md-7'>";
         echo "<img src=".$movieArray->Image_Link." class='img-thumbnail'>";
+        echo "</br>";
+        echo "</br>";
         echo "</div>";
         echo "</div>";
+        echo "<a class='btn btn-outline-info' href='booking.php' role='button' align='right'>Book now</a>"; // Button link to booking form
       echo "</div>"; // Close container
+
+
+
 
 // Comments Section
 //nl2br is used to read "nl" inside php database as a new line or a line break "reference 'mmtuts' Youtube"

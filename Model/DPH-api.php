@@ -439,6 +439,7 @@ function AttemptInsertMovie()
 
                     // Once complete carry out the INSERT statement to database
                     $title = (filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING));
+                    $video = (filter_input(INPUT_POST, 'video', FILTER_SANITIZE_STRING));
                     $image = $fileDestination;
                     $description = (filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING));
                     $releaseDate = (filter_input(INPUT_POST, 'releaseDate', FILTER_SANITIZE_STRING));
@@ -448,6 +449,11 @@ function AttemptInsertMovie()
                     $director = (filter_input(INPUT_POST, 'director', FILTER_SANITIZE_STRING));
                     $actors = (filter_input(INPUT_POST, 'actors', FILTER_SANITIZE_STRING));
                     $language = (filter_input(INPUT_POST, 'language', FILTER_SANITIZE_STRING));
+
+                    $YoutubeURL = "watch?v=";
+                    $embededURL = "embed/";
+
+                    $video = str_replace($YoutubeURL, $embededURL, $video);
 
                     if(isset($_POST['threeD']))
                     {
@@ -472,8 +478,8 @@ function AttemptInsertMovie()
                     $query = $pdo->prepare
                     ("
 
-                    INSERT INTO DPH_Movie (Title, Image_Link, Description, Release_Date, Age_Rating, RunTime, Genre, Director, Actors, Language, 3D, Audio_Described, Star_Rating)
-                    VALUES (:title, :image, :description, :releaseDate, :ageRating, :runTime, :genre, :director, :actors, :language, :threeD, :audioDescribed, :starRating)
+                    INSERT INTO DPH_Movie (Title, Video_Link, Image_Link, Description, Release_Date, Age_Rating, RunTime, Genre, Director, Actors, Language, 3D, Audio_Described, Star_Rating)
+                    VALUES (:title, :video, :image, :description, :releaseDate, :ageRating, :runTime, :genre, :director, :actors, :language, :threeD, :audioDescribed, :starRating)
 
                     ");
 
@@ -481,6 +487,7 @@ function AttemptInsertMovie()
                     $success = $query->execute
                     ([
                       'title' => $title,
+                      'video' => $video,
                       'image' => $image,
                       'description' => $description,
                       'releaseDate' => $releaseDate,
@@ -612,20 +619,20 @@ function AttemptPromoteEmployeeByID($employeeid)
     echo 'Check Failed';
   }
 
-  $newJobRole = $oldJobRole['Job_Role'];
+  $embededURLJobRole = $oldJobRole['Job_Role'];
 
   $canDemote = false;
-  if($newJobRole == "employee")
+  if($embededURLJobRole == "employee")
   {
     $canDemote = true;
-    $newJobRole = "supervisor";
+    $embededURLJobRole = "supervisor";
   }
-  elseif($newJobRole == "supervisor")
+  elseif($embededURLJobRole == "supervisor")
   {
     $canDemote = true;
-    $newJobRole = "manager";
+    $embededURLJobRole = "manager";
   }
-  elseif($newJobRole == "manager")
+  elseif($embededURLJobRole == "manager")
   {
     echo 'Cannot Promote manager any higher than a manager';
   }
@@ -639,7 +646,7 @@ function AttemptPromoteEmployeeByID($employeeid)
 
     $success = $query->execute
     ([
-      'newJobRole' => $newJobRole,
+      'newJobRole' => $embededURLJobRole,
       'employeeid' => $employeeid
     ]);
 
@@ -673,22 +680,22 @@ function AttemptDemoteEmployeeByID($employeeid)
     echo 'Check Failed';
   }
 
-  $newJobRole = $oldJobRole['Job_Role'];
+  $embededURLJobRole = $oldJobRole['Job_Role'];
 
   $canDemote = false;
-  if($newJobRole == "employee")
+  if($embededURLJobRole == "employee")
   {
     echo 'Cannot Demote employee any lower than an employee';
   }
-  elseif($newJobRole == "supervisor")
+  elseif($embededURLJobRole == "supervisor")
   {
     $canDemote = true;
-    $newJobRole = "employee";
+    $embededURLJobRole = "employee";
   }
-  elseif($newJobRole == "manager")
+  elseif($embededURLJobRole == "manager")
   {
     $canDemote = true;
-    $newJobRole = "supervisor";
+    $embededURLJobRole = "supervisor";
   }
 
   if($canPromote = true)
@@ -700,7 +707,7 @@ function AttemptDemoteEmployeeByID($employeeid)
 
     $success = $query->execute
     ([
-      'newJobRole' => $newJobRole,
+      'newJobRole' => $embededURLJobRole,
       'employeeid' => $employeeid
     ]);
 
@@ -716,17 +723,28 @@ function AttemptDemoteEmployeeByID($employeeid)
   }
 }
 
-function DeleteUserByID($userid)
+function AttemptDeleteEmployee($employeeid)
 {
-  global $connection;
+  require 'dbConnection.php';
 
-    $stmt = mysqli_stmt_init($connection);
-    $sqlComment = "DELETE FROM NP_Users WHERE User_ID = ?";
-    mysqli_stmt_prepare($stmt, $sqlComment);
-    mysqli_stmt_bind_param($stmt, 'i', $userid);
-    mysqli_stmt_execute($stmt);
+  $query = $pdo->prepare
+  ("
+  DELETE FROM DPH_Employee WHERE Employee_ID = :employeeid
+  ");
 
-    mysqli_close($connection);
+  $success = $query->execute
+  ([
+    'employeeid' => $employeeid
+  ]);
+
+  if($success && $stmt->rowCount() > 0)
+  {
+    echo 'Successful';
+  }
+  else
+  {
+    echo 'Failed';
+  }
 }
 
 function GetAllEmployees()
