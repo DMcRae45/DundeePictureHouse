@@ -449,11 +449,52 @@ function AttemptInsertMovie()
                     $director = (filter_input(INPUT_POST, 'director', FILTER_SANITIZE_STRING));
                     $actors = (filter_input(INPUT_POST, 'actors', FILTER_SANITIZE_STRING));
                     $language = (filter_input(INPUT_POST, 'language', FILTER_SANITIZE_STRING));
+                    $starRating = (filter_input(INPUT_POST, 'starRating', FILTER_SANITIZE_STRING));
 
                     $YoutubeURL = "watch?v=";
                     $embededURL = "embed/";
+                    $video = str_replace($YoutubeURL, $embededURL, $video); // replace part of the Youtube URL to make it an embeded video for easy use by users.
+                    $releaseDate = date("d-m-Y", strtotime($releaseDate)); // Force date format DD/MM/YYYY
 
-                    $video = str_replace($YoutubeURL, $embededURL, $video);
+                    switch($starRating)
+                    {
+                      case "0":
+                        $starRating = "images/0_star.png";
+                        break;
+                      case "1":
+                        $starRating = "images/1_star.png";
+                        break;
+                      case "2":
+                        $starRating = "images/2_star.png";
+                        break;
+                      case "3":
+                        $starRating = "images/3_star.png";
+                        break;
+                      case "4":
+                        $starRating = "images/4_star.png";
+                        break;
+                      case "5":
+                        $starRating = "images/5_star.png";
+                        break;
+                    }
+                    switch($ageRating)
+                    {
+                      case "U":
+                        $starRating = "images/U.png";
+                        break;
+                      case "PG":
+                        $starRating = "images/PG.png";
+                        break;
+                      case "12A":
+                        $starRating = "images/12A.png";
+                        break;
+                      case "15":
+                        $starRating = "images/15.png";
+                        break;
+                      case "18":
+                        $starRating = "images/18.png";
+                        break;
+                    }
 
                     if(isset($_POST['threeD']))
                     {
@@ -472,8 +513,6 @@ function AttemptInsertMovie()
                     {
                       $audioDescribed = 0;
                     }
-
-                    $starRating = (filter_input(INPUT_POST, 'starRating', FILTER_SANITIZE_STRING));
 
                     $query = $pdo->prepare
                     ("
@@ -756,6 +795,7 @@ function GetAllEmployees()
   $stmt = $pdo->prepare($sql);
   $result = $stmt->fetch();
   $success = $stmt->execute();
+
   if($success && $stmt->rowCount() > 0)
   {
     //  convert to JSON
@@ -781,9 +821,118 @@ function OMDBSearch()
 }
 
 //Ticket Booking
-function InsertTicketCode()
+function GenerateTicketCode()
 {
+  $day = date('d');
+  $month = date('m');
+  $year = date('y');
+  $hour = date('H');
+  $uderid = $_SESSION['userid'];
 
+  $unencryptedCode = $day.$month.$year.$hour.$userid;
+
+  return $code = dechex($unencryptedCode); // Decimal: '$unencryptedCode' changed to Hexideciaml: '$code'
+}
+
+//Getting Tickets for a certain user
+function GetUserTickets($sessionid)
+{
+  require 'dbConnection.php';
+
+  $query = $pdo->prepare
+  ("
+  SELECT t.Code, t.Premium_Ticket, t.Movie_Title, t.Showing_Date, t.Showing_Time, t.Screen_ID, p.PayPal_Email
+  FROM DPH_Ticket t JOIN  DPH_Payment p
+  ON (t.Payment_ID = p.Payment_ID)
+  WHERE (p.Customer_ID = :sessionid)
+  ORDER BY t.Showing_Date asc
+  ");
+
+    $success = $query->execute
+    ([
+      'sessionid' => $sessionid
+    ]);
+
+
+    if($success && $query->rowCount() > 0)
+    {
+      //  convert to JSON
+      $rows = array();
+      while($r = $query->fetch())
+      {
+        $rows[] = $r;
+      }
+      return json_encode($rows);
+    }
+}
+
+function AttemptCalculatePrice()
+{
+  $adultMovieType = (filter_input(INPUT_POST, 'adultMovieType', FILTER_SANITIZE_STRING));
+  $adultQuantity = (filter_input(INPUT_POST, 'adultQuantity', FILTER_SANITIZE_STRING));
+  $childMovieType = (filter_input(INPUT_POST, 'childMovieType', FILTER_SANITIZE_STRING));
+  $childQuantity = (filter_input(INPUT_POST, 'childQuantity', FILTER_SANITIZE_STRING));
+  $studentMovieType = (filter_input(INPUT_POST, 'studentMovieType', FILTER_SANITIZE_STRING));
+  $studentQuantity = (filter_input(INPUT_POST, 'studentQuantity', FILTER_SANITIZE_STRING));
+  $seniorMovieType = (filter_input(INPUT_POST, 'seniorMovieType', FILTER_SANITIZE_STRING));
+  $seniorQuantity = (filter_input(INPUT_POST, 'seniorQuantity', FILTER_SANITIZE_STRING));
+  $familyMovieType = (filter_input(INPUT_POST, 'familyMovieType', FILTER_SANITIZE_STRING));
+  $familyQuantity = (filter_input(INPUT_POST, 'familyQuantity', FILTER_SANITIZE_STRING));
+
+  if($adultMovieType == "premium")
+  {
+    $adultPrice = 10.0;
+  }
+  else
+  {
+    $adultPrice = 8.50;
+  }
+
+  if($childMovieType == "premium")
+  {
+    $childPrice = 6.50;
+  }
+  else
+  {
+    $childPrice = 5.0;
+  }
+
+  if($studentMovieType == "premium")
+  {
+    $studentPrice = 8.0;
+  }
+  else
+  {
+    $studentPrice = 6.50;
+  }
+
+  if($seniorMovieType == "premium")
+  {
+    $seniorPrice = 8.0;
+  }
+  else
+  {
+    $seniorPrice = 6.50;
+  }
+
+  if($familyMovieType == "premium")
+  {
+    $familyPrice = 26.50;
+  }
+  else
+  {
+    $familyPrice = 22.0;
+  }
+
+  $adultCost = $adultPrice * $adultQuantity;
+  $childCost = $childPrice * $childQuantity;
+  $studentCost = $studentPrice * $studentQuantity;
+  $seniorCost = $seniorPrice * $seniorQuantity;
+  $familyCost = $familyPrice * $familyQuantity;
+
+  $totalCost = $adultCost + $childCost + $studentCost + $seniorCost + $familyCost;
+
+  return array($adultPrice, $childPrice, $studentPrice, $seniorPrice, $familyPrice, $totalCost);
 }
 
 ?>

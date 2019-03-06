@@ -7,5 +7,5 @@
 Include '../Model/DPH-api.php';
 
 $movies = GetAllMovies();
-$movieArray = json_decode($movies) ;
+$movieArray = json_decode($movies);
 ?>

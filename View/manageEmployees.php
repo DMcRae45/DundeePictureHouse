@@ -75,7 +75,6 @@ echo "
         echo "</table>";
 echo "
     </div>
-</div>
 ";
 // <footer>
   include 'footer.php';

@@ -45,7 +45,7 @@
                 }
                 if(isset($_SESSION['LoggedIn']) && isset($_SESSION['firstname']))
                 {
-                  echo "<a class='dropdown-item' href='userTickets.php'>My Tickets</a>";
+                  echo "<a class='dropdown-item' href='userTicket.php'>My Tickets</a>";
                   echo '<div class="dropdown-divider"></div>';
                   echo '<a class="dropdown-item" href="../Controller/attempt_logout.php">LogOut</a>';
                 }

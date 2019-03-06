@@ -11,36 +11,39 @@
 // </head>
 
       echo "<div class='container'>"; // Open container
-        echo "</br>";
-        echo "<h1>".$movieArray->Title."</h1>"; // Display movie title
-        echo "</br>";
-        echo '<div class="embed-responsive embed-responsive-16by9">';
-        echo '<iframe class="embed-responsive-item" src="'.$movieArray->Video_Link.'" frameborder="0" allow="autoplay"; encrypted-media; allowfullscreen alt="This video is not supported"></iframe>';
-        echo '</div>'; // trailer to go here
-        echo "</br>";
-        echo "<h2>More information</h2>";
-        echo "</br>";
-        echo "<div class='row'>";
-        echo "<div class='col-md-5'>";
-        echo "<p>Release Date: <text>".$movieArray->Release_Date."</text></p>";
-        echo "<p>Runtime: <text>".$movieArray->RunTime."</text> Mins</p>";
-        echo "<p>Description: <text>".nl2br($movieArray->Description)."</text></p>"; // Summary is declared as a substring in the select statement.
-        echo "</br>";
-        echo "<p>Genre: <text>".$movieArray->Genre."</text></p>";
-        echo "<hr>";
-        echo "<p>Actors: <text>".$movieArray->Actors."</text></p>";
-        echo "<hr>";
-        echo "<p>Director: <text>".$movieArray->Director."</text></p>";
-        echo "<hr>";
+        echo "<div class='mt-4'>";
+          echo "<h1 class='d-inline'>".$movieArray->Title."</h1>"; // Display movie title
+          echo "<img class='d-inline float-right' src=".$movieArray->Age_Rating." class='img-fluid' style='height: 3rem'>";
         echo "</div>";
-        echo "<div class='col-md-7'>";
-        echo "<img src=".$movieArray->Image_Link." class='img-thumbnail'>";
-        echo "</br>";
-        echo "</br>";
-        echo "</div>";
-        echo "</div>";
-        echo "<a class='btn btn-outline-info' href='booking.php' role='button' align='right'>Book now</a>"; // Button link to booking form
-      echo "</div>"; // Close container
+          echo '<div class="embed-responsive embed-responsive-16by9 mt-4">';
+            echo '<iframe class="embed-responsive-item" src="'.$movieArray->Video_Link.'" frameborder="0" allow="autoplay"; encrypted-media; allowfullscreen alt="This video is not supported"></iframe>';
+          echo '</div>'; // trailer to go here
+          echo "<div class='row mt-4'>";
+            echo "<div class='col-md-5'>";
+              echo "<p>Release Date: <text>".$movieArray->Release_Date."</text></p>";
+              echo "<p>Description: <text>".nl2br($movieArray->Description)."</text></p>"; // Summary is declared as a substring in the select statement.
+              echo "</br>";
+              echo "<p>Runtime: <text>".$movieArray->RunTime." Mins</text></p>";
+              echo "<hr>";
+              echo "<p>Genre: <text>".$movieArray->Genre."</text></p>";
+              echo "<hr>";
+              echo "<p>Actors: <text>".$movieArray->Actors."</text></p>";
+              echo "<hr>";
+              echo "<p>Director: <text>".$movieArray->Director."</text></p>";
+              echo "<hr>";
+              echo "<img src=".$movieArray->Star_Rating." class='img-fluid' style='height: 2rem'>";
+              echo "<hr>";
+              echo "<a class='btn btn-outline-info' href='bookTicket.php' role='button' align='right'>Book now</a>"; // Button link to booking form
+            echo "</div>";
+            echo "<div class='col-md-7'>";
+            echo '<div class="card" style="width: 100%;">'; // Open card div
+              echo '<img src="'.$movieArray->Image_Link.'" class="card-img-top" alt="Movie Poster" style="height: 50rem" onerror=this.src="images/film.placeholder.poster.jpg">'; // card image
+              echo '</div>';
+              echo "</br>";
+              echo "</br>";
+            echo "</div>";
+          echo "</div>";
+    echo "</div>"; // Close container
 
 
 

@@ -22,31 +22,6 @@
     </div>
 <?php
 
-// sort by month
-/*
-  <div class='row'>
-    <div class='col-md-4'>
-        <form method='POST' action='index.php'>
-            <select class='form-control' name='month' onchange='this.form.submit()'>
-                <option value='placeholder'>Filter By Month...</option>
-                <option value='0'>All</option>
-                <option value='1'>January</option>
-                <option value='2'>February</option>
-                <option value='3'>March</option>
-                <option value='4'>April</option>
-                <option value='5'>May</option>
-                <option value='6'>June</option>
-                <option value='7'>July</option>
-                <option value='8'>August</option>
-                <option value='9'>September</option>
-                <option value='10'>October</option>
-                <option value='11'>November</option>
-                <option value='12'>December</option>
-            </select>
-            <noscript><input type='submit' value ='Filter By Post Date'></noscript>
-        </form>
-    </div>
-*/
 echo "
   <div class='row'>
         <div class='col-md-4'>
@@ -101,8 +76,8 @@ echo "<div class='col-md-4 mt-4'>"; // open col
     echo '<ul class="list-group list-group-flush">'; // start list inside the card
       echo '<li class="list-group-item">Release Date: <text>'.$movieArray[$i]->Release_Date.'</text></li>';
       echo '<li class="list-group-item">Genre: <text>'.$movieArray[$i]->Genre.'</text></li>';
-      echo '<li class="list-group-item">Age Rating: <text>'.$movieArray[$i]->Age_Rating.'</text></li>';
-      echo '<li class="list-group-item">Star Rating: <text>'.$movieArray[$i]->Star_Rating.'</text></li>';
+      echo '<li class="list-group-item"><img src='.$movieArray[$i]->Age_Rating.' class="img-fluid" style="height: 3rem"></li>';
+      echo '<li class="list-group-item"><img src='.$movieArray[$i]->Star_Rating.' class="img-fluid" style="height: 2rem"></li>';
     echo ' </ul>'; // end list in the card
 echo "<a class='btn btn-info' href='movie.php?id=".$movieArray[$i]->Movie_ID ."'>More</a>"; // more info button
   echo ' </div>';// close card

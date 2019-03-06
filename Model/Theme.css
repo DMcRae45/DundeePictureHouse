@@ -22,16 +22,15 @@ hr
   background-color: #2a2c33;
   color: #2a2c33;
 }
-h1, h2, text
+h1, h2, text, .text
 {
   color: #ffffff;
 }
 
-@media only screen and (max-width: 600px)
+@media only screen and (max-width: 400px)
 {
   h1
   {
   font-size: 2rem;
   }
-
 }

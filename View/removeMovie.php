@@ -17,7 +17,7 @@ echo "
 <body>
   <div class='container'>
     <div class='page-header'>
-        <h1>Remove an Movie</h1>
+        <h1>Remove a Movie</h1>
     </div>
     <div class='container'>
     <div class='row'>
@@ -41,7 +41,7 @@ echo "
   ";
 
     echo "
-    <table class='table border border-dark text-center'>
+    <table class='table border border-dark text-center mt-4'>
       <thead class='thead-dark'>
           <tr>
             <th scope='col'>Movie ID</th>
@@ -57,7 +57,7 @@ echo "
         echo "<tr>";
           echo "<td>".$movieArray[$i]->Movie_ID."</td>";
           echo "<td>".$movieArray[$i]->Title."</td>";
-          echo "<td>".nl2br($movieArray[$i]->Star_Rating)."</td>";
+          echo '<td><img src='.$movieArray[$i]->Star_Rating.' class="img-fluid" style="height: 2rem"></td>';
           echo "<td> <a class='btn btn-danger' href='../Controller/attempt_removeMovie.php?id=". $movieArray[$i]->Movie_ID ."'>DELETE</a> </td>";
           echo "<tr>";
       }
