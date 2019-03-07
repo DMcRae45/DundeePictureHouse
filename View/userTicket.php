@@ -23,8 +23,11 @@ echo "
     </div>
     ";
 
+//NEXT MOVIE CARD HERE
+
+
     echo "
-    <table class='table border border-dark text-center'>
+    <table class='table border table-sm border-dark text-center'>
       <thead class='thead-dark'>
           <tr>
             <th scope='col'>Movie</th>
@@ -37,9 +40,26 @@ echo "
           </tr>
         </thead>";
 
-        for ($i=0 ; $i < sizeof($ticketArray) ; $i++)
+        $nextTicketID = NULL;
+        $datePassed = False;
+        for ($i=0 ; $i < sizeof($ticketArray) ; $i++) // its freaking out here says unexpected for.
         {
-        echo "<tr>";
+          $currentDateTime = strval($ticketArray[$i]->Showing_Date) ." ". strval($ticketArray[$i]->Showing_Time);
+          if (new DateTime() > new DateTime(strval($currentDateTime)) && $datePassed == False)
+          {
+            echo "<thead class='thead-dark'>";
+              echo "<tr>";
+                echo "<th colspan='2'>Old Tickets</th>";
+                echo "<th colspan='5'> </th>";
+              echo "</tr>";
+            echo "</thead>";
+            $datePassed = True;
+          }
+          if ($datePassed == False)
+          {
+            $nextTicketID = $ticketArray[$i]->Ticket_ID;
+          }
+          echo "<tr>";
           echo "<td>".$ticketArray[$i]->Movie_Title."</td>";
           echo "<td>".strtoupper($ticketArray[$i]->Code)."</td>";
           echo "<td>0".$ticketArray[$i]->Screen_ID."</td>";
@@ -53,9 +73,10 @@ echo "
           else{
             echo "<td>Premium Ticket</td>";
           }
-        echo "<tr>";
+        echo "</tr>";
         }
       echo "</table>";
+      //NEXT MOVIE FUNCTION HERE
 echo "
     </div>
 ";

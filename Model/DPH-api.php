@@ -459,40 +459,41 @@ function AttemptInsertMovie()
                     switch($starRating)
                     {
                       case "0":
-                        $starRating = "images/0_star.png";
+                        $starRating = "../View/images/0_star.png";
                         break;
                       case "1":
-                        $starRating = "images/1_star.png";
+                        $starRating = "../View/images/1_star.png";
                         break;
                       case "2":
-                        $starRating = "images/2_star.png";
+                        $starRating = "../View/images/2_star.png";
                         break;
                       case "3":
-                        $starRating = "images/3_star.png";
+                        $starRating = "../View/images/3_star.png";
                         break;
                       case "4":
-                        $starRating = "images/4_star.png";
+                        $starRating = "../View/images/4_star.png";
                         break;
                       case "5":
-                        $starRating = "images/5_star.png";
+                        $starRating = "../View/images/5_star.png";
                         break;
                     }
+
                     switch($ageRating)
                     {
                       case "U":
-                        $starRating = "images/U.png";
+                        $ageRating = "../View/images/U.png";
                         break;
                       case "PG":
-                        $starRating = "images/PG.png";
+                        $ageRating = "../View/images/PG.png";
                         break;
                       case "12A":
-                        $starRating = "images/12A.png";
+                        $ageRating = "../View/images/12A.png";
                         break;
                       case "15":
-                        $starRating = "images/15.png";
+                        $ageRating = "../View/images/15.png";
                         break;
                       case "18":
-                        $starRating = "images/18.png";
+                        $ageRating = "../View/images/18.png";
                         break;
                     }
 
@@ -841,11 +842,11 @@ function GetUserTickets($sessionid)
 
   $query = $pdo->prepare
   ("
-    SELECT t.Code, t.Premium_Ticket, t.Movie_Title, t.Showing_Date, t.Showing_Time, t.Screen_ID, p.PayPal_Email
+    SELECT t.Ticket_ID, t.Code, t.Premium_Ticket, t.Movie_Title, t.Showing_Date, t.Showing_Time, t.Screen_ID, p.PayPal_Email
     FROM DPH_Ticket t JOIN  DPH_Payment p
     ON (t.Payment_ID = p.Payment_ID)
     WHERE (p.Customer_ID = :sessionid)
-    ORDER BY t.Showing_Date asc
+    ORDER BY t.Showing_Date desc, t.Showing_Time desc
   ");
 
   $success = $query->execute

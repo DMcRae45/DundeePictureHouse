@@ -1,9 +1,14 @@
+/*
+    Description: javascript to calculate prices for booking form
 
+    Author: David McRae, Brad Mair
+ */
 function CalculateTotalCost()
 {
   var totalCost = 0;
-  var ticketTypeArray = ["adult","child","student","senior","family"];
-  for (i=0; i <= (ticketTypeArray.length); i++)
+  var ticketTypeArray = Array.from(arguments);
+
+  for (var i=0; i <= (ticketTypeArray.length); i++)
   {
     var movieType = document.getElementById(ticketTypeArray[i] + "MovieType").value;// gets value standard or premuim
     var quantity = document.getElementById(ticketTypeArray[i] + "Quantity").value; // gets value from 0 to 10
@@ -24,5 +29,4 @@ function CalculateTotalCost()
     var total = "£" + String(totalCost);
     document.getElementById("totalCost").innerHTML = total;
   }
-
 }
