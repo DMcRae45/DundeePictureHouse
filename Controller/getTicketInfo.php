@@ -6,6 +6,7 @@
  */
 include '../Model/DPH-api.php';
 
-$priceArray = AttemptCalculatePrice();
+$prices = GetTicketInfo();
+$priceArray = json_decode($prices);
 //header('location: ../View/bookingTicket.php');
 ?>

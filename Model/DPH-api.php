@@ -841,44 +841,51 @@ function GetUserTickets($sessionid)
 
   $query = $pdo->prepare
   ("
-  SELECT t.Code, t.Premium_Ticket, t.Movie_Title, t.Showing_Date, t.Showing_Time, t.Screen_ID, p.PayPal_Email
-  FROM DPH_Ticket t JOIN  DPH_Payment p
-  ON (t.Payment_ID = p.Payment_ID)
-  WHERE (p.Customer_ID = :sessionid)
-  ORDER BY t.Showing_Date asc
+    SELECT t.Code, t.Premium_Ticket, t.Movie_Title, t.Showing_Date, t.Showing_Time, t.Screen_ID, p.PayPal_Email
+    FROM DPH_Ticket t JOIN  DPH_Payment p
+    ON (t.Payment_ID = p.Payment_ID)
+    WHERE (p.Customer_ID = :sessionid)
+    ORDER BY t.Showing_Date asc
   ");
 
-    $success = $query->execute
-    ([
-      'sessionid' => $sessionid
-    ]);
+  $success = $query->execute
+  ([
+    'sessionid' => $sessionid
+  ]);
 
-
-    if($success && $query->rowCount() > 0)
+  if($success && $query->rowCount() > 0)
+  {
+    //  convert to JSON
+    $rows = array();
+    while($r = $query->fetch())
     {
-      //  convert to JSON
-      $rows = array();
-      while($r = $query->fetch())
-      {
-        $rows[] = $r;
-      }
-      return json_encode($rows);
+      $rows[] = $r;
     }
+    return json_encode($rows);
+  }
 }
 
-function AttemptCalculatePrice()
+function GetTicketInfo()
 {
-  $adultMovieType = (filter_input(INPUT_POST, 'adultMovieType', FILTER_SANITIZE_STRING));
-  $adultQuantity = (filter_input(INPUT_POST, 'adultQuantity', FILTER_SANITIZE_STRING));
-  $childMovieType = (filter_input(INPUT_POST, 'childMovieType', FILTER_SANITIZE_STRING));
-  $childQuantity = (filter_input(INPUT_POST, 'childQuantity', FILTER_SANITIZE_STRING));
-  $studentMovieType = (filter_input(INPUT_POST, 'studentMovieType', FILTER_SANITIZE_STRING));
-  $studentQuantity = (filter_input(INPUT_POST, 'studentQuantity', FILTER_SANITIZE_STRING));
-  $seniorMovieType = (filter_input(INPUT_POST, 'seniorMovieType', FILTER_SANITIZE_STRING));
-  $seniorQuantity = (filter_input(INPUT_POST, 'seniorQuantity', FILTER_SANITIZE_STRING));
-  $familyMovieType = (filter_input(INPUT_POST, 'familyMovieType', FILTER_SANITIZE_STRING));
-  $familyQuantity = (filter_input(INPUT_POST, 'familyQuantity', FILTER_SANITIZE_STRING));
+  require 'dbConnection.php';
 
+  $sql = "SELECT * FROM DPH_TicketPrice";
+
+  $stmt = $pdo->prepare($sql);
+  $result = $stmt->fetch();
+  $success = $stmt->execute();
+
+  if($success && $stmt->rowCount() > 0)
+  {
+    //  convert to JSON
+    $rows = array();
+    while($r = $stmt->fetch())
+    {
+      $rows[] = $r;
+    }
+    return json_encode($rows);
+  }
+/*
   if($adultMovieType == "premium")
   {
     $adultPrice = 10.0;
@@ -932,7 +939,8 @@ function AttemptCalculatePrice()
 
   $totalCost = $adultCost + $childCost + $studentCost + $seniorCost + $familyCost;
 
-  return array($adultPrice, $childPrice, $studentPrice, $seniorPrice, $familyPrice, $totalCost);
+  return array($adultPrice, $adultQuantity, $childPrice, $childQuantity, $studentPrice, $studentQuantity, $seniorPrice, $seniorQuantity, $familyPrice, $familyQuantity, $totalCost);
+  */
 }
 
 ?>
