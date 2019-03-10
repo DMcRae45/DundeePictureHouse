@@ -25,8 +25,6 @@ for ($i=0 ; $i < sizeof($priceArray) ; $i++)
     $ticketTypeArray = $ticketTypeArray.$quote.strtolower($priceArray[$i]->Ticket_Type).$quote;
   }
 }
-echo $ticketTypeArray;
-//$ticketTypeArray = json_encode($ticketTypeArray);
 ?>
 
 <body>
