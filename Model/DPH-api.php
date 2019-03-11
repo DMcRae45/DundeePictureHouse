@@ -842,7 +842,7 @@ function GetUserTickets($sessionid)
 
   $query = $pdo->prepare
   ("
-    SELECT t.Ticket_ID, t.Code, t.Premium_Ticket, t.Movie_Title, t.Showing_Date, t.Showing_Time, t.Screen_ID, p.PayPal_Email
+    SELECT t.Ticket_ID, t.Code, t.Premium_Ticket, t.Movie_ID, t.Showing_Date, t.Showing_Time, t.Screen_ID, p.PayPal_Email
     FROM DPH_Ticket t JOIN  DPH_Payment p
     ON (t.Payment_ID = p.Payment_ID)
     WHERE (p.Customer_ID = :sessionid)

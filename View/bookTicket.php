@@ -9,7 +9,6 @@
 <?php
 include 'header.php';
 include '../Controller/getTicketInfo.php';
-
 // TRYING TO PASS THIS INTO THE .JS FILE BUT FAILING
 $ticketTypeArray = "";
 $comma = ",";
@@ -39,7 +38,6 @@ for ($i=0 ; $i < sizeof($priceArray) ; $i++)
         </tr>
       </thead>
       <?php
-
       for ($i=0 ; $i < sizeof($priceArray) ; $i++)
       {
         echo "

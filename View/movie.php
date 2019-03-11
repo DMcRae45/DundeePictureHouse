@@ -2,13 +2,15 @@
 /*
     Description: Web page to display each movie as a single record depending on a selection from the users.
 
-    Author: David McRae
+    Author: David McRae, Aaron Hay
 */
 
 // <head>
      Include 'header.php';
      include '../Controller/getMovieByID.php';
 // </head>
+
+
 
       echo "<div class='container'>"; // Open container
         echo "<div class='mt-4'>";
@@ -19,7 +21,7 @@
             echo '<iframe class="embed-responsive-item" src="'.$movieArray->Video_Link.'" frameborder="0" allow="autoplay"; encrypted-media; allowfullscreen alt="This video is not supported"></iframe>';
           echo '</div>'; // trailer to go here
           echo "<div class='row mt-4'>";
-            echo "<div class='col-md-5'>";
+            echo "<div class='col-md-6'>";
               echo "<p>Release Date: <text>".$movieArray->Release_Date."</text></p>";
               echo "<p>Description: <text>".nl2br($movieArray->Description)."</text></p>"; // Summary is declared as a substring in the select statement.
               echo "</br>";
@@ -33,9 +35,12 @@
               echo "<hr>";
               echo "<img src=".$movieArray->Star_Rating." class='img-fluid' style='height: 2rem'>";
               echo "<hr>";
-              echo "<a class='btn btn-outline-info' href='bookTicket.php' role='button' align='right'>Book now</a>"; // Button link to booking form
+
+              //echo "<a class='btn btn-outline-info' href='bookTicket.php' role='button' align='right'>Book now</a>"; // Button link to booking form
+              echo "<a class='btn btn-outline-info' href='bookTicket.php?id=".$movieArray->Movie_ID ."'>Book Now</a>"; // Pass The Movie Id to the ticket page
+
             echo "</div>";
-            echo "<div class='col-md-7'>";
+            echo "<div class='col-md-6'>";
             echo '<div class="card" style="width: 100%;">'; // Open card div
               echo '<img src="'.$movieArray->Image_Link.'" class="card-img-top" alt="Movie Poster" style="height: 50rem" onerror=this.src="images/film.placeholder.poster.jpg">'; // card image
               echo '</div>';
