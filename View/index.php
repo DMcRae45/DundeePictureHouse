@@ -107,5 +107,6 @@ echo "<a class='btn btn-info' href='movie.php?id=".$movieArray[$i]->Movie_ID ."'
 <!-- </footer> -->
 
     <?php include '../Controller/bootstrapScript.php'; ?>
+    <!--Start Cookie Script--> <script type="text/javascript" charset="UTF-8" src="http://chs03.cookie-script.com/s/bbd023bc9bddca1713dc68b2e4f9de93.js"></script> <!--End Cookie Script-->
 </body>
 </html>

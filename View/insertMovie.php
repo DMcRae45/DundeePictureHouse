@@ -44,11 +44,11 @@ include 'header.php';
                 <input class='form-control' type='text' name='video' placeholder='Please Past the Youtube URL into this field' required>
             </div>
 
-            <div class='form-group input-group'>
+            <div class='form-group input-group' form-group-lg>
               <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroupPrepend">Poster Image</span>
               </div>
-                <input class='btn btn-info' type='file' name='image_link' placeholder='Image_link' required>
+                <input class='btn btn-outline-light' type='file' name='image_link' placeholder='Image_link' required>
             </div>
 
             <div class='form-group input-group'>

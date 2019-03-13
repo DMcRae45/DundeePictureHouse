@@ -10,20 +10,40 @@
 include 'header.php';
 include '../Controller/getTicketInfo.php';
 // TRYING TO PASS THIS INTO THE .JS FILE BUT FAILING
-$ticketTypeArray = "";
+$ticketTypeString = "";
 $comma = ",";
 $quote = '"';
 for ($i=0 ; $i < sizeof($priceArray) ; $i++)
 {
   if($i < sizeof($priceArray) -1)
   {
-    $ticketTypeArray = $ticketTypeArray.$quote.strtolower($priceArray[$i]->Ticket_Type).$quote.$comma;
+    $ticketTypeString = $ticketTypeString.$quote.strtolower($priceArray[$i]->Ticket_Type).$quote.$comma;
   }
   else
   {
-    $ticketTypeArray = $ticketTypeArray.$quote.strtolower($priceArray[$i]->Ticket_Type).$quote;
+    $ticketTypeString = $ticketTypeString.$quote.strtolower($priceArray[$i]->Ticket_Type).$quote;
   }
 }
+
+
+echo "<div class='container'>"; // Open container
+  echo "<div class='mt-4'>";
+    echo "<h1 class='d-inline'>".$movieArray->Title."</h1>"; // Display movie title
+    echo "<img class='d-inline float-right' src=".$movieArray->Age_Rating." class='img-fluid' style='height: 3rem'>";
+  echo "</div>";
+    echo "<div class='row mt-4'>";
+      echo "<div class='col-md-6'>";
+        echo "<p>Release Date: <text>".$movieArray->Release_Date."</text></p>";
+
+        echo "<p>Runtime: <text>".$movieArray->RunTime." Mins</text></p>";
+        echo "<hr>";
+        echo "<img src=".$movieArray->Star_Rating." class='img-fluid' style='height: 2rem'>";
+        echo "<hr>";
+      echo "</div>";
+    echo "</div>";
+echo "</div>"; // Close container
+
+
 ?>
 
 <body>
@@ -51,7 +71,7 @@ for ($i=0 ; $i < sizeof($priceArray) ; $i++)
               <div class='input-group-prepend'>
                 <span class='input-group-text' id='inputGroupPrepend'>Showing Type: </span>
               </div>
-              <select class='custom-select text' standardPrice='".$priceArray[$i]->Standard_Price."' premiumPrice='".$priceArray[$i]->Premium_Price."' id='".strtolower($priceArray[$i]->Ticket_Type)."MovieType' onchange='CalculateTotalCost(".$ticketTypeArray.")'>
+              <select class='custom-select text' standardPrice='".$priceArray[$i]->Standard_Price."' premiumPrice='".$priceArray[$i]->Premium_Price."' id='".strtolower($priceArray[$i]->Ticket_Type)."MovieType' onchange='CalculateTotalCost(".$ticketTypeString.")'>
                 <option value='standard'>Standard</option>
                 <option value='premium'>Premium</option>
               </select>
@@ -62,7 +82,7 @@ for ($i=0 ; $i < sizeof($priceArray) ; $i++)
               <div class='input-group-prepend'>
                 <span class='input-group-text' id='inputGroupPrepend'>Quantity: </span>
               </div>
-              <select class='custom-select text' id='".strtolower($priceArray[$i]->Ticket_Type)."Quantity' onchange='CalculateTotalCost(".$ticketTypeArray.")'>
+              <select class='custom-select text' id='".strtolower($priceArray[$i]->Ticket_Type)."Quantity' onchange='CalculateTotalCost(".$ticketTypeString.")'>
                 <option value='0'>0</option>
                 <option value='1'>1</option>
                 <option value='2'>2</option>

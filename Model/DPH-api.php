@@ -944,4 +944,35 @@ function GetTicketInfo()
   */
 }
 
+function GetAllScreens()
+{
+  require 'dbConnection.php';
+
+  $sql = "SELECT * FROM DPH_Screen";
+
+  $stmt = $pdo->prepare($sql);
+  $result = $stmt->fetch();
+  $success = $stmt->execute();
+
+  if($success && $stmt->rowCount() > 0)
+  {
+    //  convert to JSON
+    $rows = array();
+    while($r = $stmt->fetch())
+    {
+      $rows[] = $r;
+    }
+    return json_encode($rows);
+  }
+}
+
+function AttemptInsertShowing()
+{
+  if (isset($_POST['insertShowingSubmit']))
+  {
+    require 'dbConnection.php';
+
+
+  }
+}
 ?>
