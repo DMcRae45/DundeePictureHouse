@@ -6,5 +6,9 @@
  */
 Include '../Model/DPH-api.php';
 
-AttemptInsertShowing();
+$movies = GetAllMovies();
+$movieArray = json_decode($movies);
+
+$screens = GetAllScreens();
+$screenArray = json_decode($screens);
 ?>

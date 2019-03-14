@@ -4,7 +4,7 @@
 
     Author: David McRae
 */
-include '../Controller/attempt_insertShowing.php';
+include '../Controller/getShowingFormData.php';
 include 'header.php';
 
 //if (!isset($_SESSION['LoggedIn']) || $_SESSION['Admin_Status'] != 1)
@@ -28,7 +28,15 @@ include 'header.php';
 
     <div class='container'>
 
-        <form class='form-group needs-validation' method='POST' action='../Controller/attempt_insertMovie.php' enctype='multipart/form-data' novalidate>
+        <form class='form-group needs-validation' method='POST' action='../Controller/attempt_insertShowing.php' enctype='multipart/form-data' novalidate>
+
+
+          <div class='form-group input-group' form-group-lg>
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroupPrepend">Showing Time</span>
+            </div>
+              <input class='form-control' type='time' name='showingTime' placeholder='Showing Date' required>
+          </div>
 
             <div class='form-group input-group' form-group-lg>
               <div class="input-group-prepend">
@@ -37,20 +45,11 @@ include 'header.php';
                 <input class='form-control' type='date' name='showingDate' placeholder='Showing Date' required>
             </div>
 
-
-            <div class='form-group input-group' form-group-lg>
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroupPrepend">Showing Time</span>
-              </div>
-                <input class='form-control' type='time' name='showingTime' placeholder='Showing Date' required>
-            </div>
-
-
             <div class="form-group input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroupPrepend">Movie Showing</span>
               </div>
-              <select class="custom-select" name="movieShowing" required>
+              <select class="custom-select" name="movieid" required>
                 <option value="">Please select a Movie to show</option>
                 <?php
                 for ($i=0 ; $i < sizeof($movieArray) ; $i++)
@@ -66,7 +65,7 @@ include 'header.php';
               <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroupPrepend">Screen</span>
               </div>
-              <select class="custom-select" name="screen" required>
+              <select class="custom-select" name="screenid" required>
                 <option value="">Please select a screen to show the movie</option>
                 <?php
                 for ($i=0 ; $i < sizeof($screenArray) ; $i++)
@@ -89,6 +88,7 @@ include 'header.php';
         </form>
     </div>
 </div>
+
 
 <!-- <footer> -->
 <?php include 'footer.php'; ?>

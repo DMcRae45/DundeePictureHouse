@@ -926,6 +926,51 @@ function AttemptInsertShowing()
     require 'dbConnection.php';
 
 
+    $showingTime = (filter_input(INPUT_POST, 'showingTime', FILTER_SANITIZE_STRING));
+    $showingDate = (filter_input(INPUT_POST, 'showingDate', FILTER_SANITIZE_STRING));
+    $showingType = (filter_input(INPUT_POST, 'showingType', FILTER_SANITIZE_STRING));
+    $movieid = (filter_input(INPUT_POST, 'movieid', FILTER_SANITIZE_STRING));
+    $screenid = (filter_input(INPUT_POST, 'screenid', FILTER_SANITIZE_STRING));
+
+    if(isset($_POST['threeD']))
+    {
+      $showingType = "3D";
+    }
+    else
+    {
+      $showingType = "2D";
+    }
+
+
+    $query = $pdo->prepare
+    ("
+
+    INSERT INTO DPH_Showing (Showing_Start_Time, Showing_Date, Showing_Type, Movie_ID, Screen_ID)
+    VALUES (:showingTime, :showingDate, :showingType, :movieid, :screenid)
+
+    ");
+
+
+    $success = $query->execute
+    ([
+      'showingTime' => $showingTime,
+      'showingDate' => $showingDate,
+      'showingType' => $showingType,
+      'movieid' => $movieid,
+      'screenid' => $screenid,
+    ]);
+
+    $count = $query->rowCount();
+    if($count > 0)
+    {
+      echo "Insert Successful";
+    }
+    else
+    {
+      echo "Insert Failed";
+      echo $query -> errorInfo()[2];
+    }
+
   }
 }
 ?>
