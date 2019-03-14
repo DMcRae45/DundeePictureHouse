@@ -886,62 +886,6 @@ function GetTicketInfo()
     }
     return json_encode($rows);
   }
-/*
-  if($adultMovieType == "premium")
-  {
-    $adultPrice = 10.0;
-  }
-  else
-  {
-    $adultPrice = 8.50;
-  }
-
-  if($childMovieType == "premium")
-  {
-    $childPrice = 6.50;
-  }
-  else
-  {
-    $childPrice = 5.0;
-  }
-
-  if($studentMovieType == "premium")
-  {
-    $studentPrice = 8.0;
-  }
-  else
-  {
-    $studentPrice = 6.50;
-  }
-
-  if($seniorMovieType == "premium")
-  {
-    $seniorPrice = 8.0;
-  }
-  else
-  {
-    $seniorPrice = 6.50;
-  }
-
-  if($familyMovieType == "premium")
-  {
-    $familyPrice = 26.50;
-  }
-  else
-  {
-    $familyPrice = 22.0;
-  }
-
-  $adultCost = $adultPrice * $adultQuantity;
-  $childCost = $childPrice * $childQuantity;
-  $studentCost = $studentPrice * $studentQuantity;
-  $seniorCost = $seniorPrice * $seniorQuantity;
-  $familyCost = $familyPrice * $familyQuantity;
-
-  $totalCost = $adultCost + $childCost + $studentCost + $seniorCost + $familyCost;
-
-  return array($adultPrice, $adultQuantity, $childPrice, $childQuantity, $studentPrice, $studentQuantity, $seniorPrice, $seniorQuantity, $familyPrice, $familyQuantity, $totalCost);
-  */
 }
 
 function GetAllScreens()
