@@ -59,6 +59,14 @@ function GetAllMovies()
         {
             $sortOrder = 'ORDER BY RunTime asc';
         }
+        elseif ($ordering == "8")
+        {
+            $sortOrder = 'ORDER BY Movie_ID asc';
+        }
+        elseif ($ordering == "9")
+        {
+            $sortOrder = 'ORDER BY Movie_ID desc';
+        }
     }
 
     $sql = "SELECT * FROM DPH_Movie $sortOrder";
@@ -842,11 +850,12 @@ function GetUserTickets($sessionid)
 
   $query = $pdo->prepare
   ("
-    SELECT t.Ticket_ID, t.Code, t.Premium_Ticket, t.Movie_ID, t.Showing_Date, t.Showing_Time, t.Screen_ID, p.PayPal_Email
-    FROM DPH_Ticket t JOIN  DPH_Payment p
-    ON (t.Payment_ID = p.Payment_ID)
+    SELECT t.Ticket_ID, t.Code, t.Premium_Ticket, s.Movie_ID, s.Showing_Date, s.Showing_Start_Time, s.Screen_ID, p.PayPal_Email
+    FROM DPH_Ticket t
+    JOIN  DPH_Showing s ON (t.Showing_ID = s.Showing_ID)
+    JOIN  DPH_Payment p ON (t.Payment_ID = p.Payment_ID)
     WHERE (p.Customer_ID = :sessionid)
-    ORDER BY t.Showing_Date desc, t.Showing_Time desc
+    ORDER BY s.Showing_Date desc, s.Showing_Start_Time desc
   ");
 
   $success = $query->execute

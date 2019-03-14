@@ -62,6 +62,16 @@
             ?>
             </div>
         </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Social Media</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class='dropdown-item' href='http://www.facebook.com/share.php?u=https://mayar.abertay.ac.uk/~1403163/DPH/View/index.php'>Facebook</a>
+              <div class="dropdown-divider"></div>
+              <a class='dropdown-item' href='http://twitter.com/share?ref_scr=https://mayar.abertay.ac.uk/~1403163/DPH/View/index.php'>Twitter</a>
+              <div class="dropdown-divider"></div>
+              <a class='dropdown-item' href='https://plus.google.com/share?url=https://mayar.abertay.ac.uk/~1403163/DPH/View/index.php'>Google Plus</a>
+            </div>
+        </li>
     </ul>
 
     <form action='searchResults.php' method='post' class="form-inline my-2 my-lg-0">

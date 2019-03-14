@@ -1,18 +1,19 @@
-<html>
+
 <?php
 /*
     Description: User interface used to manage old and current movie tickets.
 
     Author: Brad Mair
 */
+
+// if (!isset($_SESSION['LoggedIn']))
+// {
+//  header("Location: customerLogin.php");
+// }
 include 'header.php';
 $sessionid = $_SESSION['userid'];
-include '../Controller/getUserTicket.php';
-if (!isset($_SESSION['LoggedIn']))
-{
- header("Location: customerLogin.php");
-}?>
-
+include '../Controller/getUserTicket.php';?>
+<html>
 <script src='../Controller/displayNextTicket.js'></script>
 <?php
 echo "
@@ -50,9 +51,9 @@ echo "
                     <hr>
                     <p id='ticketCardRUNTIME' style='opacity:0;'>RunTime: <text></text></p>
                     <hr>
-                    <p id='ticketCardDIRECT' style='opacity:0;'>Director: <text></text></p>
+                    <p id='ticketCardDIRECTOR' style='opacity:0;'>Director: <text></text></p>
                     <hr>
-                    <p id='ticketCardLANG' style='opacity:0;'>Language: <text></text></p>
+                    <p id='ticketCardLANGUAGE' style='opacity:0;'>Language: <text></text></p>
                     <hr>
                     <p id='ticketCardGENRE' style='opacity:0;'>Genre: <text></text></p>
                     <hr>
@@ -83,47 +84,62 @@ echo "
 
         $nextTicketID = NULL;
         $datePassed = False;
-        for ($i=0 ; $i < sizeof($ticketArray) ; $i++)
+        if (isset($ticketArray))
         {
-          $movie = getMovieByID($ticketArray[$i]->Movie_ID);
-          $movieDetails = json_decode($movie);
+          for ($i=0 ; $i < sizeof($ticketArray) ; $i++)
+          {
+            $movie = getMovieByID($ticketArray[$i]->Movie_ID);
+            $movieDetails = json_decode($movie);
 
-          $currentDateTime = strval($ticketArray[$i]->Showing_Date) ." ". strval($ticketArray[$i]->Showing_Time);
-          if (new DateTime() > new DateTime(strval($currentDateTime)) && $datePassed == False)
-          {
-            echo "<thead class='thead-dark'>";
-              echo "<tr>";
-                echo "<th colspan='1'>Old Tickets</th>";
-                echo "<th colspan='6'> </th>";
-              echo "</tr>";
-            echo "</thead>";
-            $datePassed = True;
+            $currentDateTime = strval($ticketArray[$i]->Showing_Date) ." ". strval($ticketArray[$i]->Showing_Start_Time);
+            if (new DateTime() > new DateTime(strval($currentDateTime)) && $datePassed == False)
+            {
+              echo "<thead class='thead-dark'>";
+                echo "<tr>";
+                  echo "<th colspan='1'>Old Tickets</th>";
+                  echo "<th colspan='6'> </th>";
+                echo "</tr>";
+              echo "</thead>";
+              $datePassed = True;
+            }
+
+            if ($datePassed == False)
+            {
+              $nextTicket = $ticketArray[$i];
+              $ticketMovie = $movieDetails;
+            }
+
+            echo "<tr>";
+            echo "<td>".$movieDetails->Title."</td>";
+            echo "<td>".strtoupper($ticketArray[$i]->Code)."</td>";
+            echo "<td>0".$ticketArray[$i]->Screen_ID."</td>";
+            echo "<td>".$ticketArray[$i]->PayPal_Email."</td>";
+            echo "<td>".$ticketArray[$i]->Showing_Date."</td>";
+            echo "<td>".$ticketArray[$i]->Showing_Start_Time."</td>";
+            if ($ticketArray[$i]->Premium_Ticket == 0)
+            {
+              echo "<td>Standard Ticket</td>";
+            }
+            else{
+              echo "<td>Premium Ticket</td>";
+            }
+          echo "</tr>";
           }
-          if ($datePassed == False)
-          {
-            $nextTicket = $ticketArray[$i];
-            $ticketMovie = $movieDetails;
-          }
-          echo "<tr>";
-          echo "<td>".$movieDetails->Title."</td>";
-          echo "<td>".strtoupper($ticketArray[$i]->Code)."</td>";
-          echo "<td>0".$ticketArray[$i]->Screen_ID."</td>";
-          echo "<td>".$ticketArray[$i]->PayPal_Email."</td>";
-          echo "<td>".$ticketArray[$i]->Showing_Date."</td>";
-          echo "<td>".$ticketArray[$i]->Showing_Time."</td>";
-          if ($ticketArray[$i]->Premium_Ticket == 0)
-          {
-            echo "<td>Standard Ticket</td>";
-          }
-          else{
-            echo "<td>Premium Ticket</td>";
-          }
-        echo "</tr>";
+        }
+        else{
+          echo "<thead class='thead-dark'>";
+            echo "<tr>";
+              echo "<th colspan='2'>No Tickets to show</th>";
+              echo "<th colspan='5'> </th>";
+            echo "</tr>";
+          echo "</thead>";
         }
       echo "</table>";
-      $ticketInfoArray = '"'.$ticketMovie->Title.'","'.$nextTicket->Code.'","'.$nextTicket->Premium_Ticket.'","'.$nextTicket->Screen_ID.'","'.$nextTicket->PayPal_Email.'","'.$nextTicket->Showing_Date.'",';
-      $ticketInfoArray = $ticketInfoArray.'"'.$ticketMovie->Image_Link.'","'.$ticketMovie->Age_Rating.'","'.$ticketMovie->RunTime.'","'.$ticketMovie->Director.'","'.$ticketMovie->Language.'","'.$ticketMovie->Genre.'","'.$nextTicket->Showing_Time.'"';
-      echo "<script>DisplayTicket(".$ticketInfoArray.")</script>";
+      if ($nextTicket != NULL){
+        $ticketInfoArray = '"'.$ticketMovie->Title.'","'.$nextTicket->Code.'","'.$nextTicket->Premium_Ticket.'","'.$nextTicket->Screen_ID.'","'.$nextTicket->PayPal_Email.'","'.$nextTicket->Showing_Date.'",';
+        $ticketInfoArray = $ticketInfoArray.'"'.$ticketMovie->Image_Link.'","'.$ticketMovie->Age_Rating.'","'.$ticketMovie->RunTime.'","'.$ticketMovie->Director.'","'.$ticketMovie->Language.'","'.$ticketMovie->Genre.'","'.$nextTicket->Showing_Start_Time.'"';
+        echo "<script>DisplayTicket(".$ticketInfoArray.")</script>";
+      }
 echo "
     </div>
 ";

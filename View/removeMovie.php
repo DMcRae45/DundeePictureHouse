@@ -59,7 +59,7 @@ echo "
           echo "<td>".$movieArray[$i]->Title."</td>";
           echo '<td><img src='.$movieArray[$i]->Star_Rating.' class="img-fluid" style="height: 2rem"></td>';
           echo "<td> <a class='btn btn-danger' href='../Controller/attempt_removeMovie.php?id=". $movieArray[$i]->Movie_ID ."'>DELETE</a> </td>";
-          echo "<tr>";
+          echo "</tr>";
       }
       echo "</table>";
 echo "

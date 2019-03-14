@@ -1,4 +1,11 @@
 <?php
+
+/*
+    Description: User interface used to manage and alter movies listed on the site.
+
+    Author: Brad Mair
+*/
+
 include '../Controller/getAllMovies.php';
 include 'header.php';
 
