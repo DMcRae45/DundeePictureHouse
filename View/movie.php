@@ -39,7 +39,7 @@
               echo "<h6>2D</h6>";
               for ($i=0 ; $i < sizeof($twoDMovieArray) ; $i++)
               {
-                echo "<button type= 'button' class='btn btn-outline-info' href='bookTicket.php?id=".$movieArray->Movie_ID ."' >$twoDMovieArray->Showing_Start_Time</button>";// BROKENNNNNNNNNNNNNN
+                echo "<button type= 'button' class='btn btn-outline-info' href='bookTicket.php?id=".$movieArray->Movie_ID ."' >".$twoDMovieArray[$i]->Showing_Start_Time."</button>";// BROKENNNNNNNNNNNNNN
               }
               echo "</div>";
 
@@ -47,7 +47,7 @@
               echo "<h6>3D</h6>";
               for ($i=0 ; $i < sizeof($threeDMovieArray) ; $i++)
               {
-                echo "<a class='btn btn-outline-info' href='bookTicket.php?id=".$movieArray->Movie_ID ."'>.$threeDMovieArray->Showing_Start_Time.</a>";
+                echo "<a class='btn btn-outline-info' href='bookTicket.php?id=".$movieArray->Movie_ID ."'>".$threeDMovieArray[$i]->Showing_Start_Time."</a>";
               }
               echo "</div>";
 
