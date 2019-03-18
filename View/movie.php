@@ -7,10 +7,8 @@
 
 // <head>
      Include 'header.php';
-     include '../Controller/getMovieByID.php';
+     include '../Controller/getMovieAndTimes.php';
 // </head>
-
-
 
       echo "<div class='container'>"; // Open container
         echo "<div class='mt-4'>";
@@ -35,6 +33,27 @@
               echo "<hr>";
               echo "<img src=".$movieArray->Star_Rating." class='img-fluid' style='height: 2rem'>";
               echo "<hr>";
+              // CANNY DISPLAY THE TIME IN TNE BUTTON :O
+//////////////////////////////////////////////////////////////////
+              echo "<div>";
+              echo "<h6>2D</h6>";
+              for ($i=0 ; $i < sizeof($twoDMovieArray) ; $i++)
+              {
+                echo "<button type= 'button' class='btn btn-outline-info' href='bookTicket.php?id=".$movieArray->Movie_ID ."' >$twoDMovieArray->Showing_Start_Time</button>";// BROKENNNNNNNNNNNNNN
+              }
+              echo "</div>";
+
+              echo "<div>";
+              echo "<h6>3D</h6>";
+              for ($i=0 ; $i < sizeof($threeDMovieArray) ; $i++)
+              {
+                echo "<a class='btn btn-outline-info' href='bookTicket.php?id=".$movieArray->Movie_ID ."'>.$threeDMovieArray->Showing_Start_Time.</a>";
+              }
+              echo "</div>";
+
+/////////////////////////////////////////////////////////////////
+
+
 
               //echo "<a class='btn btn-outline-info' href='bookTicket.php' role='button' align='right'>Book now</a>"; // Button link to booking form
               echo "<a class='btn btn-outline-info' href='bookTicket.php?id=".$movieArray->Movie_ID ."'>Book Now</a>"; // Pass The Movie Id to the ticket page
@@ -82,6 +101,8 @@
 // {
 //   echo "Login or register an account to Comment on this article.";
 // }
+
+
 // <footer>
       Include 'footer.php';
 // </footer>

@@ -925,7 +925,6 @@ function AttemptInsertShowing()
   {
     require 'dbConnection.php';
 
-
     $showingTime = (filter_input(INPUT_POST, 'showingTime', FILTER_SANITIZE_STRING));
     $showingDate = (filter_input(INPUT_POST, 'showingDate', FILTER_SANITIZE_STRING));
     $showingType = (filter_input(INPUT_POST, 'showingType', FILTER_SANITIZE_STRING));
@@ -941,7 +940,6 @@ function AttemptInsertShowing()
       $showingType = "2D";
     }
 
-
     $query = $pdo->prepare
     ("
 
@@ -949,7 +947,6 @@ function AttemptInsertShowing()
     VALUES (:showingTime, :showingDate, :showingType, :movieid, :screenid)
 
     ");
-
 
     $success = $query->execute
     ([
@@ -970,7 +967,61 @@ function AttemptInsertShowing()
       echo "Insert Failed";
       echo $query -> errorInfo()[2];
     }
+  }
+}
 
+function GetTwoDShowings($movieid)
+{
+  require 'dbConnection.php';
+
+  $twoD = "2D";
+
+  $sql = "SELECT * FROM DPH_Showing WHERE  Movie_ID = :movieid && Showing_Type = :twoD";
+
+  $stmt = $pdo->prepare($sql);
+  $result = $stmt->fetch();
+  $success = $stmt->execute
+  ([
+    'movieid' => $movieid,
+    'twoD' => $twoD
+  ]);
+  if($success && $stmt->rowCount() > 0)
+  {
+    //  convert to JSON
+    $rows = array();
+    while($r = $stmt->fetch())
+    {
+      $rows[] = $r;
+    }
+    return json_encode($rows);
+  }
+}
+
+function GetThreeDShowings($movieid)
+{
+  require 'dbConnection.php';
+
+  $threeD = "3D";
+
+  $sql = "SELECT * FROM DPH_Showing WHERE Movie_ID = :movieid && Showing_Type = :threeD";
+
+  $stmt = $pdo->prepare($sql);
+  $result = $stmt->fetch();
+  $success = $stmt->execute
+  ([
+    'movieid' => $movieid,
+    'threeD' => $threeD
+  ]);
+
+  if($success && $stmt->rowCount() > 0)
+  {
+    //  convert to JSON
+    $rows = array();
+    while($r = $stmt->fetch())
+    {
+      $rows[] = $r;
+    }
+    return json_encode($rows);
   }
 }
 ?>
