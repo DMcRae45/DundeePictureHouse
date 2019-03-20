@@ -26,8 +26,9 @@ body, .form-control, .input-group-text, .custom-select, .list-group-item
   height:50rem;
 }
 
-.card-body, .card-title, .card-text
+.card-body, .card-title, .card-text, .card-header
 {
+    text-decoration:none; 
     background-color: #2a2c33;
     color: #ffffff;
 }

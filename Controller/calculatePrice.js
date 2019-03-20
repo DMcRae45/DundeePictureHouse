@@ -8,7 +8,7 @@ function CalculateTotalCost()
   var totalCost = 0;
   var ticketTypeArray = Array.from(arguments);
 
-  for (var i=0; i <= (ticketTypeArray.length); i++)
+  for (var i=0; i < (ticketTypeArray.length); i++)
   {
     var movieType = document.getElementById(ticketTypeArray[i] + "MovieType").value;// gets value standard or premuim
     var quantity = document.getElementById(ticketTypeArray[i] + "Quantity").value; // gets value from 0 to 10

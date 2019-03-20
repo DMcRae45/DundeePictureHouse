@@ -71,9 +71,47 @@
               //   </li>
               // </ul>';
 
-              for ($day=0 ; $day < 7 ; $day++)
+              // for ($day=0 ; $day < 7 ; $day++)
+              // {
+              //   $showingDateString = date_format($showingDate,"Y-m-d");
+              //
+              //   $twoDMovie = GetTwoDShowings($movieid, $showingDateString);
+              //   $twoDMovieArray = json_decode($twoDMovie);
+              //
+              //   $threeDMovie = GetThreeDShowings($movieid, $showingDateString);
+              //   $threeDMovieArray = json_decode($threeDMovie);
+              //
+              //   $showingDate = date_modify($showingDate,'+1 day');
+              //
+              //   echo "<div>";
+              //   echo "<h6>2D</h6>";
+              //   for ($i=0 ; $i < sizeof($twoDMovieArray) ; $i++)
+              //   {
+              //     echo "<div class='d-inline mr-2 mb-2'>";
+              //     $time = date("H:i", strtotime($twoDMovieArray[$i]->Showing_Start_Time)); // Format the time to Hours and Minutes
+              //     echo "<a class='btn btn-outline-info' href='bookTicket.php?id=".$movieArray->Movie_ID."&type=2D&time=".$twoDMovieArray[$i]->Showing_Start_Time."'>".$time."</a>";
+              //     echo "</div>";
+              //   }
+              //   echo "</div>";
+              //   echo "<hr>";
+              //   echo "<div>";
+              //   echo "<h6>3D</h6>";
+              //   for ($i=0 ; $i < sizeof($threeDMovieArray) ; $i++)
+              //   {
+              //     echo "<div class='d-inline mr-2 mb-2'>";
+              //     $time = date("H:i", strtotime($threeDMovieArray[$i]->Showing_Start_Time)); // Format the time to Hours and Minutes.
+              //     echo "<a class='btn btn-outline-info' href='bookTicket.php?id=".$movieArray->Movie_ID."&type=3D&time=".$threeDMovieArray[$i]->Showing_Start_Time."'>".$time."</a>";
+              //     echo "</div>";
+              //   }
+              //   echo "</div>";
+              // }
+
+
+              echo "<div id='accordion'>";
+              for ($day=1 ; $day < 8 ; $day++)
               {
                 $showingDateString = date_format($showingDate,"Y-m-d");
+                $showingTabDate = date_format($showingDate,"l");
 
                 $twoDMovie = GetTwoDShowings($movieid, $showingDateString);
                 $twoDMovieArray = json_decode($twoDMovie);
@@ -82,53 +120,46 @@
                 $threeDMovieArray = json_decode($threeDMovie);
 
                 $showingDate = date_modify($showingDate,'+1 day');
-
-                echo "<div>";
-                echo "<h6>2D</h6>";
-                for ($i=0 ; $i < sizeof($twoDMovieArray) ; $i++)
-                {
-                  echo "<div class='d-inline mr-2 mb-2'>";
-                  $time = date("H:i", strtotime($twoDMovieArray[$i]->Showing_Start_Time)); // Format the time to Hours and Minutes
-
-                  echo "<a class='btn btn-outline-info' href='bookTicket.php?id=".$movieArray->Movie_ID."&type=2D&time=".$twoDMovieArray[$i]->Showing_Start_Time."'>".$time."</a>";
+                echo "<div class='card bg-info mh-1'>";
+                  echo "<button class='card-header btn btn-outine-info font-weight-bold' id='headingDay".$showingTabDate."' data-toggle='collapse' data-target='#collapseDay".$showingTabDate."' aria-expanded='true' aria-controls='collapseDay".$showingTabDate."'>".$showingTabDate."</button>";
+                  echo "<div id='collapseDay".$showingTabDate."' class='collapse' aria-labelledby='headingDay".$showingTabDate."' data-parent='#accordion'>";
+                    echo "<div class='card-body'>";
+                        echo "<h6>2D</h6>";
+                        if (isset($twoDMovieArray) && sizeof($twoDMovieArray) > 0)
+                          {
+                            for ($i=0 ; $i < sizeof($twoDMovieArray) ; $i++)
+                            {
+                              echo "<div class='d-inline mr-2 mb-2'>";
+                                $time = date("H:i", strtotime($twoDMovieArray[$i]->Showing_Start_Time)); // Format the time to Hours and Minutes
+                                echo "<a class='btn btn-outline-info' href='bookTicket.php?id=".$movieArray->Movie_ID."&type=2D&time=".$twoDMovieArray[$i]->Showing_Start_Time."'>".$time."</a>";
+                              echo "</div>";
+                            }
+                          }
+                          else
+                          {
+                            echo"<p class='text-info'>No Showings on this day</p>";
+                          }
+                          echo "<hr>";
+                            echo "<h6>3D</h6>";
+                            if (isset($threeDMovieArray) && sizeof($threeDMovieArray) > 0)
+                              {
+                                for ($i=0 ; $i < sizeof($threeDMovieArray) ; $i++)
+                                {
+                                  echo "<div class='d-inline mr-2 mb-2'>";
+                                    $time = date("H:i", strtotime($threeDMovieArray[$i]->Showing_Start_Time)); // Format the time to Hours and Minutes.
+                                    echo "<a class='btn btn-outline-info' href='bookTicket.php?id=".$movieArray->Movie_ID."&type=3D&time=".$threeDMovieArray[$i]->Showing_Start_Time."'>".$time."</a>";
+                                  echo "</div>";
+                                }
+                              }
+                              else
+                              {
+                                echo"<p class='text-info'>No Showings on this day</p>";
+                              }
+                    echo "</div>";
                   echo "</div>";
-                }
                 echo "</div>";
-                echo "<hr>";
-                echo "<div>";
-                echo "<h6>3D</h6>";
-                for ($i=0 ; $i < sizeof($threeDMovieArray) ; $i++)
-                {
-                  echo "<div class='d-inline mr-2 mb-2'>";
-                  $time = date("H:i", strtotime($threeDMovieArray[$i]->Showing_Start_Time)); // Format the time to Hours and Minutes.
-
-                  echo "<a class='btn btn-outline-info' href='bookTicket.php?id=".$movieArray->Movie_ID."&type=3D&time=".$threeDMovieArray[$i]->Showing_Start_Time."'>".$time."</a>";
-                  echo "</div>";
-                }
-                echo "</div>";
-
               }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+              echo '</div>';
 
 
 
