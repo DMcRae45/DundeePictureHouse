@@ -17,9 +17,11 @@
             Brad Mair - Student No. 1803815</br>
                       </br>
             Pixel Density</br>
-            +</br>
-            The dead pixel</br>
-            Abertay University </br>
+          </p>
+          <p>
+            <a href="http://www.facebook.com/share.php?u=https://mayar.abertay.ac.uk/~1403163/DPH/View/index.php" class="fab fa-facebook-square fa-3x"></a>
+            <a href="http://twitter.com/share?ref_scr=https://mayar.abertay.ac.uk/~1403163/DPH/View/index.php" class="fab fa-twitter-square fa-3x"></a>
+            <a href="http://instagram.com/share?ref_scr=https://mayar.abertay.ac.uk/~1403163/DPH/View/index.php" class="fab fa-instagram fa-3x"></a>
           </p>
         </div>
         <!-- Grid column -->

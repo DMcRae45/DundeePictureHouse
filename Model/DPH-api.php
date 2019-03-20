@@ -37,11 +37,11 @@ function GetAllMovies()
         }
         elseif ($ordering == "2")
         {
-            $sortOrder = 'ORDER BY Age_Rating asc';
+            $sortOrder = 'ORDER BY Age_Ordering asc';
         }
         elseif ($ordering == "3")
         {
-            $sortOrder = 'ORDER BY Age_Rating desc';
+            $sortOrder = 'ORDER BY Age_Ordering desc';
         }
         elseif ($ordering == "4")
         {
@@ -490,18 +490,23 @@ function AttemptInsertMovie()
                     {
                       case "U":
                         $ageRating = "../View/images/U.png";
+                        $ageOrdering = "0";
                         break;
                       case "PG":
                         $ageRating = "../View/images/PG.png";
+                        $ageOrdering = "1";
                         break;
                       case "12A":
                         $ageRating = "../View/images/12A.png";
+                        $ageOrdering = "2";
                         break;
                       case "15":
                         $ageRating = "../View/images/15.png";
+                        $ageOrdering = "3";
                         break;
                       case "18":
                         $ageRating = "../View/images/18.png";
+                        $ageOrdering = "4";
                         break;
                     }
 
@@ -526,8 +531,8 @@ function AttemptInsertMovie()
                     $query = $pdo->prepare
                     ("
 
-                    INSERT INTO DPH_Movie (Title, Video_Link, Image_Link, Description, Release_Date, Age_Rating, RunTime, Genre, Director, Actors, Language, 3D, Audio_Described, Star_Rating)
-                    VALUES (:title, :video, :image, :description, :releaseDate, :ageRating, :runTime, :genre, :director, :actors, :language, :threeD, :audioDescribed, :starRating)
+                    INSERT INTO DPH_Movie (Title, Video_Link, Image_Link, Description, Release_Date, Age_Ordering, Age_Rating, RunTime, Genre, Director, Actors, Language, 3D, Audio_Described, Star_Rating)
+                    VALUES (:title, :video, :image, :description, :releaseDate, :ageOrdering, :ageRating, :runTime, :genre, :director, :actors, :language, :threeD, :audioDescribed, :starRating)
 
                     ");
 
@@ -539,6 +544,7 @@ function AttemptInsertMovie()
                       'image' => $image,
                       'description' => $description,
                       'releaseDate' => $releaseDate,
+                      'ageOrdering' => $ageOrdering,
                       'ageRating' => $ageRating,
                       'runTime' => $runTime,
                       'genre' => $genre,
@@ -644,6 +650,34 @@ function getMovieByID($movieid)
   else
   {
     echo "Nope";
+  }
+
+  return json_encode($row);
+}
+
+function getShowingInfo($movieid, $showingType, $showingTime)
+{
+  require 'dbConnection.php';
+
+  $query = $pdo->prepare
+  ("
+  SELECT * FROM DPH_Showing WHERE Movie_ID = :movieid && Showing_Type = :showingType && Showing_Start_Time = :showingTime LIMIT 1
+  ");
+
+  $success = $query->execute
+  ([
+    'movieid' => $movieid,
+    'showingType' => $showingType,
+    'showingTime' => $showingTime
+  ]);
+
+  if($success && $query->rowCount() > 0)
+  {
+    $row = $query->fetch();
+  }
+  else
+  {
+    echo "ACCESS DENIED - stop typing in the url please";
   }
 
   return json_encode($row);
@@ -970,20 +1004,21 @@ function AttemptInsertShowing()
   }
 }
 
-function GetTwoDShowings($movieid)
+function GetTwoDShowings($movieid, $showingDate)
 {
   require 'dbConnection.php';
 
   $twoD = "2D";
 
-  $sql = "SELECT * FROM DPH_Showing WHERE  Movie_ID = :movieid && Showing_Type = :twoD";
+  $sql = "SELECT * FROM DPH_Showing WHERE  Movie_ID = :movieid && Showing_Type = :twoD && Showing_Date = :showingDate ORDER BY Showing_Start_Time asc";
 
   $stmt = $pdo->prepare($sql);
   $result = $stmt->fetch();
   $success = $stmt->execute
   ([
     'movieid' => $movieid,
-    'twoD' => $twoD
+    'twoD' => $twoD,
+    'showingDate' => $showingDate
   ]);
   if($success && $stmt->rowCount() > 0)
   {
@@ -997,20 +1032,21 @@ function GetTwoDShowings($movieid)
   }
 }
 
-function GetThreeDShowings($movieid)
+function GetThreeDShowings($movieid, $showingDate)
 {
   require 'dbConnection.php';
 
   $threeD = "3D";
 
-  $sql = "SELECT * FROM DPH_Showing WHERE Movie_ID = :movieid && Showing_Type = :threeD";
+  $sql = "SELECT * FROM DPH_Showing WHERE Movie_ID = :movieid && Showing_Type = :threeD && Showing_Date = :showingDate ORDER BY Showing_Start_Time asc";
 
   $stmt = $pdo->prepare($sql);
   $result = $stmt->fetch();
   $success = $stmt->execute
   ([
     'movieid' => $movieid,
-    'threeD' => $threeD
+    'threeD' => $threeD,
+    'showingDate' => $showingDate
   ]);
 
   if($success && $stmt->rowCount() > 0)
@@ -1024,4 +1060,7 @@ function GetThreeDShowings($movieid)
     return json_encode($rows);
   }
 }
+
+
+
 ?>

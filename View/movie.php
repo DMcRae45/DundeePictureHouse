@@ -2,7 +2,7 @@
 /*
     Description: Web page to display each movie as a single record depending on a selection from the users.
 
-    Author: David McRae, Aaron Hay
+    Author: David McRae, Aaron Hay, Brad Mair
 */
 
 // <head>
@@ -33,35 +33,139 @@
               echo "<hr>";
               echo "<img src=".$movieArray->Star_Rating." class='img-fluid' style='height: 2rem'>";
               echo "<hr>";
-              // CANNY DISPLAY THE TIME IN TNE BUTTON :O
-//////////////////////////////////////////////////////////////////
+
+
+              // echo "<select id='showingDate' onchange='fuckYerMa()'>
+              //         <option value='0'>Today</option>
+              //         <option value='1'>Tomorrow</option>
+              //         <option value='2'>...</option>
+              //         <option value='3'>...</option>
+              //         <option value='4'>...</option>
+              //         <option value='5'>...</option>
+              //         <option value='6'>...</option>
+              //       </select>";
+
+
+              // TABS TO BE NAMED DEPENDING ON THE CURRENT DAY //  day of the week = date('N');
+              // echo '<ul class="nav nav-tabs">
+              //   <li class="nav-item">
+              //     <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Today</button>
+              //   </li>
+              //   <li class="nav-item">
+              //     <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Tomorrow</button>
+              //   </li>
+              //   <li class="nav-item">
+              //     <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">...</button>
+              //   </li>
+              //   <li class="nav-item">
+              //     <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">...</button>
+              //   </li>
+              //   <li class="nav-item">
+              //     <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">...</button>
+              //   </li>
+              //   <li class="nav-item">
+              //     <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">...</button>
+              //   </li>
+              //   <li class="nav-item">
+              //     <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">...</button>
+              //   </li>
+              // </ul>';
+
+              for ($day=0 ; $day < 7 ; $day++)
+              {
+                $showingDateString = date_format($showingDate,"Y-m-d");
+
+                $twoDMovie = GetTwoDShowings($movieid, $showingDateString);
+                $twoDMovieArray = json_decode($twoDMovie);
+
+                $threeDMovie = GetThreeDShowings($movieid, $showingDateString);
+                $threeDMovieArray = json_decode($threeDMovie);
+
+                $showingDate = date_modify($showingDate,'+1 day');
+
+                echo "<div>";
+                echo "<h6>2D</h6>";
+                for ($i=0 ; $i < sizeof($twoDMovieArray) ; $i++)
+                {
+                  echo "<div class='d-inline mr-2 mb-2'>";
+                  $time = date("H:i", strtotime($twoDMovieArray[$i]->Showing_Start_Time)); // Format the time to Hours and Minutes
+
+                  echo "<a class='btn btn-outline-info' href='bookTicket.php?id=".$movieArray->Movie_ID."&type=2D&time=".$twoDMovieArray[$i]->Showing_Start_Time."'>".$time."</a>";
+                  echo "</div>";
+                }
+                echo "</div>";
+                echo "<hr>";
+                echo "<div>";
+                echo "<h6>3D</h6>";
+                for ($i=0 ; $i < sizeof($threeDMovieArray) ; $i++)
+                {
+                  echo "<div class='d-inline mr-2 mb-2'>";
+                  $time = date("H:i", strtotime($threeDMovieArray[$i]->Showing_Start_Time)); // Format the time to Hours and Minutes.
+
+                  echo "<a class='btn btn-outline-info' href='bookTicket.php?id=".$movieArray->Movie_ID."&type=3D&time=".$threeDMovieArray[$i]->Showing_Start_Time."'>".$time."</a>";
+                  echo "</div>";
+                }
+                echo "</div>";
+
+              }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              /*
               echo "<div>";
               echo "<h6>2D</h6>";
-              for ($i=0 ; $i < sizeof($twoDMovieArray) ; $i++)
+              for ($i=0 ; $i < sizeof($twoDMovieArrayday0) ; $i++)
               {
-                echo "<button type= 'button' class='btn btn-outline-info' href='bookTicket.php?id=".$movieArray->Movie_ID ."' >".$twoDMovieArray[$i]->Showing_Start_Time."</button>";// BROKENNNNNNNNNNNNNN
+                echo "<div class='d-inline mr-2 mb-2'>";
+                $time = date("H:i", strtotime($twoDMovieArray[$i]->Showing_Start_Time)); // Format the time to Hours and Minutes
+
+                echo "<a class='btn btn-outline-info' href='bookTicket.php?id=".$movieArray->Movie_ID."&type=2D&time=".$twoDMovieArrayday0[$i]->Showing_Start_Time."'>".$time."</a>";
+                echo "</div>";
               }
               echo "</div>";
-
+              echo "<hr>";
               echo "<div>";
               echo "<h6>3D</h6>";
-              for ($i=0 ; $i < sizeof($threeDMovieArray) ; $i++)
+              for ($i=0 ; $i < sizeof($threeDMovieArrayday0) ; $i++)
               {
-                echo "<a class='btn btn-outline-info' href='bookTicket.php?id=".$movieArray->Movie_ID ."'>".$threeDMovieArray[$i]->Showing_Start_Time."</a>";
-              }
-              echo "</div>";
+                echo "<div class='d-inline mr-2 mb-2'>";
+                $time = date("H:i", strtotime($threeDMovieArrayday0[$i]->Showing_Start_Time)); // Format the time to Hours and Minutes.
 
-/////////////////////////////////////////////////////////////////
+                echo "<a class='btn btn-outline-info' href='bookTicket.php?id=".$movieArray->Movie_ID."&type=3D&time=".$threeDMovieArrayday0[$i]->Showing_Start_Time."'>".$time."</a>";
+                echo "</div>";
+              }
+              echo "</div>";              */
 
 
 
               //echo "<a class='btn btn-outline-info' href='bookTicket.php' role='button' align='right'>Book now</a>"; // Button link to booking form
-              echo "<a class='btn btn-outline-info' href='bookTicket.php?id=".$movieArray->Movie_ID ."'>Book Now</a>"; // Pass The Movie Id to the ticket page
+              //echo "<a class='btn btn-outline-info' href='bookTicket.php?id=".$movieArray->Movie_ID ."'>Book Now</a>"; // Pass The Movie Id to the ticket page
 
             echo "</div>";
             echo "<div class='col-md-6'>";
-            echo '<div class="card" style="width: 100%;">'; // Open card div
-              echo '<img src="'.$movieArray->Image_Link.'" class="card-img-top" alt="Movie Poster" style="height: 50rem" onerror=this.src="images/film.placeholder.poster.jpg">'; // card image
+            echo '<div class="card">'; // Open card div
+              echo '<img src="'.$movieArray->Image_Link.'" class="card-img-top moviePage" alt="Movie Poster" onerror=this.src="images/film.placeholder.poster.jpg">'; // card image
               echo '</div>';
               echo "</br>";
               echo "</br>";

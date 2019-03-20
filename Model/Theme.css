@@ -12,6 +12,20 @@ body, .form-control, .input-group-text, .custom-select, .list-group-item
 
 }
 
+.card
+{
+  width:100%;
+}
+
+.homePage
+{
+  height:30rem;
+}
+.specififc
+{
+  height:50rem;
+}
+
 .card-body, .card-title, .card-text
 {
     background-color: #2a2c33;
@@ -29,6 +43,14 @@ h1, h2, text, .text
 
 @media only screen and (max-width: 400px)
 {
+  .homePage
+  {
+    height:30rem;
+  }
+  .moviePage
+  {
+    height:30rem;
+  }
   h1
   {
   font-size: 2rem;

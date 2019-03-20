@@ -9,7 +9,7 @@
 <?php
 include 'header.php';
 include '../Controller/getTicketInfo.php';
-// TRYING TO PASS THIS INTO THE .JS FILE BUT FAILING
+
 $ticketTypeString = "";
 $comma = ",";
 $quote = '"';
@@ -38,6 +38,10 @@ echo "<div class='container'>"; // Open container
         echo "<p>Runtime: <text>".$movieArray->RunTime." Mins</text></p>";
         echo "<hr>";
         echo "<img src=".$movieArray->Star_Rating." class='img-fluid' style='height: 2rem'>";
+        echo "<hr>";
+        echo "<p>Showing Time: <text>".$showingArray->Showing_Start_Time."</text></p>";
+        echo "<hr>";
+        echo "<p>Screen: <text>".$showingArray->Screen_ID."</text></p>";
         echo "<hr>";
       echo "</div>";
     echo "</div>";

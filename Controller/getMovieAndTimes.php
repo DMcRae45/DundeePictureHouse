@@ -6,13 +6,11 @@
 Include '../Model/DPH-api.php';
 
 $movieid = $_GET['id'];
+$showingDate = date_create(date('y')."-".date('m')."-".date('d'));
+//$showingDate = date_format($showingDate,"Y-m-d");
 
 $movie = getMovieByID($movieid);
 $movieArray = json_decode($movie);
 
-$twoDMovie = GetTwoDShowings($movieid);
-$twoDMovieArray = json_decode($twoDMovie);
 
-$threeDMovie = GetThreeDShowings($movieid);
-$threeDMovieArray = json_decode($threeDMovie);
 ?>

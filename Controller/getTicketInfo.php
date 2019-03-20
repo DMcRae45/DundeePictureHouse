@@ -6,11 +6,21 @@
  */
 include '../Model/DPH-api.php';
 
+$movieid = $_GET['id'];
+$showingType = $_GET['type'];
+$showingTime = $_GET['time'];
+
+$movie = getMovieByID($movieid);
+$movieArray = json_decode($movie);
+
+$showing = getShowingInfo($movieid, $showingType, $showingTime);
+$showingArray = json_decode($showing);
+
 $prices = GetTicketInfo();
 $priceArray = json_decode($prices);
 
-$movieid = $_GET['id'];
-$movie = getMovieByID($movieid);
-$movieArray = json_decode($movie);
+
+
+
 //header('location: ../View/bookingTicket.php');
 ?>
