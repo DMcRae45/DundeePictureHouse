@@ -108,10 +108,11 @@
 
 
               echo "<div id='accordion'>";
-              for ($day=1 ; $day < 8 ; $day++)
+              for ($day=0 ; $day < 7 ; $day++)
               {
                 $showingDateString = date_format($showingDate,"Y-m-d");
-                $showingTabDate = date_format($showingDate,"l");
+                $showingTabDate = date_format($showingDate,"l")." the ".date_format($showingDate,"jS");
+                $showingVar = date_format($showingDate,"l");
 
                 $twoDMovie = GetTwoDShowings($movieid, $showingDateString);
                 $twoDMovieArray = json_decode($twoDMovie);
@@ -121,8 +122,16 @@
 
                 $showingDate = date_modify($showingDate,'+1 day');
                 echo "<div class='card bg-info mh-1'>";
-                  echo "<button class='card-header btn btn-outine-info font-weight-bold' id='headingDay".$showingTabDate."' data-toggle='collapse' data-target='#collapseDay".$showingTabDate."' aria-expanded='true' aria-controls='collapseDay".$showingTabDate."'>".$showingTabDate."</button>";
-                  echo "<div id='collapseDay".$showingTabDate."' class='collapse' aria-labelledby='headingDay".$showingTabDate."' data-parent='#accordion'>";
+                  if ($day == 0)
+                  {
+                    echo "<button class='card-header btn btn-outine-info font-weight-bold' id='headingDay".$showingVar."' data-toggle='collapse' data-target='#collapseDay".$showingVar."' aria-expanded='true' aria-controls='collapseDay".$showingVar."'>Today</button>";
+                    echo "<div id='collapseDay".$showingVar."' class='collapse show' aria-labelledby='headingDay".$showingVar."' data-parent='#accordion'>";
+                  }
+                  else
+                  {
+                    echo "<button class='card-header btn btn-outine-info font-weight-bold' id='headingDay".$showingVar."' data-toggle='collapse' data-target='#collapseDay".$showingVar."' aria-expanded='true' aria-controls='collapseDay".$showingVar."'>".$showingTabDate."</button>";
+                    echo "<div id='collapseDay".$showingVar."' class='collapse' aria-labelledby='headingDay".$showingVar."' data-parent='#accordion'>";
+                  }
                     echo "<div class='card-body'>";
                         echo "<h6>2D</h6>";
                         if (isset($twoDMovieArray) && sizeof($twoDMovieArray) > 0)
