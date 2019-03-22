@@ -655,32 +655,32 @@ function getMovieByID($movieid)
   return json_encode($row);
 }
 
-function getShowingInfo($movieid, $showingType, $showingTime)
+function getShowingInfo($movieid, $showingType, $showingTime, $showingDate)
 {
   require 'dbConnection.php';
 
   $query = $pdo->prepare
   ("
-  SELECT * FROM DPH_Showing WHERE Movie_ID = :movieid && Showing_Type = :showingType && Showing_Start_Time = :showingTime LIMIT 1
+  SELECT * FROM DPH_Showing WHERE Movie_ID = :movieid && Showing_Type = :showingType && Showing_Start_Time = :showingTime && Showing_Date = :showingDate LIMIT 1
   ");
 
   $success = $query->execute
   ([
     'movieid' => $movieid,
     'showingType' => $showingType,
-    'showingTime' => $showingTime
+    'showingTime' => $showingTime,
+    'showingDate' => $showingDate
   ]);
 
   if($success && $query->rowCount() > 0)
   {
     $row = $query->fetch();
+    return json_encode($row);
   }
   else
   {
     echo "ACCESS DENIED - stop typing in the url please";
   }
-
-  return json_encode($row);
 }
 
 function AttemptPromoteEmployeeByID($employeeid)
@@ -1062,5 +1062,66 @@ function GetThreeDShowings($movieid, $showingDate)
 }
 
 
+function insertPayments($customerid, $transactionid, $paymentStatus, $buyerName, $buyerEmail, $buyerID, $grossAmount, $currencyCode)
+{
 
+  require 'dbConnection.php';
+
+// may need to add date here
+  $query =
+  ("
+
+    INSERT INTO DPH_Payment (Customer_ID, Transaction_ID, Gross_Payment, Currency_Code, Buyer_ID, Buyer_Name, Buyer_Email, Payment_Status)
+    VALUES(:customerid, :transactionid, :grossPayment, :currencyCode, :buyerid, :buyerName, :buyerEmail, :paymentStatus)
+
+  ");
+
+  $stmt = $pdo->prepare($query);
+
+  // Runs and executes the query
+  $success = $stmt->execute
+  ([
+      'customerid' => $customerid,
+      'transactionid' => $transactionid,
+      'grossPayment' => $grossAmount,
+      'currencyCode' => $currencyCode,
+      'buyerid' => $buyerID,
+      'buyerName' => $buyerName,
+      'buyerEmail' => $buyerEmail,
+      'paymentStatus' => $paymentStatus
+  ]);
+
+      $count = $stmt->rowCount();
+      if($success)
+      {
+        echo "Insert Successful";
+      }
+      else
+      {
+        echo "Insert Failed";
+        echo $query -> errorInfo()[2];
+      }
+}
+
+function GetTicketQuantities()
+{
+  $quantity_Adult = (filter_input(INPUT_POST, 'ticketQuantityAdult', FILTER_SANITIZE_STRING));
+  $quantity_Child = (filter_input(INPUT_POST, 'ticketQuantityChild', FILTER_SANITIZE_STRING));
+  $quantity_Student = (filter_input(INPUT_POST, 'ticketQuantityStudent', FILTER_SANITIZE_STRING));
+  $quantity_Senior = (filter_input(INPUT_POST, 'ticketQuantitySenior', FILTER_SANITIZE_STRING));
+  $quantity_Family = (filter_input(INPUT_POST, 'ticketQuantityFamily', FILTER_SANITIZE_STRING));
+
+  return array($quantity_Adult, $quantity_Child, $quantity_Student, $quantity_Senior, $quantity_Family);
+}
+
+function GetTicketTypes()
+{
+  $showingType_Adult = (filter_input(INPUT_POST, 'showingTypeAdult', FILTER_SANITIZE_STRING));
+  $showingType_Child = (filter_input(INPUT_POST, 'showingTypeChild', FILTER_SANITIZE_STRING));
+  $showingType_Student = (filter_input(INPUT_POST, 'showingTypeStudent', FILTER_SANITIZE_STRING));
+  $showingType_Senior = (filter_input(INPUT_POST, 'showingTypeSenior', FILTER_SANITIZE_STRING));
+  $showingType_Family = (filter_input(INPUT_POST, 'showingTypeFamily', FILTER_SANITIZE_STRING));
+
+  return array($showingType_Adult, $showingType_Child, $showingType_Student, $showingType_Senior, $showingType_Family);
+}
 ?>

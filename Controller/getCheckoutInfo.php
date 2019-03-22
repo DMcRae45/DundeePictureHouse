@@ -1,10 +1,9 @@
 <?php
-/*
-    Description: Action for the dropdown options in the bookingTicket page.
 
-    Author: David McRae
- */
 include '../Model/DPH-api.php';
+
+$prices = GetTicketInfo();
+$priceArray = json_decode($prices);
 
 $movieid = $_GET['id'];
 $showingType = $_GET['type'];
@@ -17,8 +16,7 @@ $movieArray = json_decode($movie);
 $showing = getShowingInfo($movieid, $showingType, $showingTime, $showingDateString);
 $showingArray = json_decode($showing);
 
-$prices = GetTicketInfo();
-$priceArray = json_decode($prices);
+$quantityArray = GetTicketQuantities();
+$ticketTypesArray = GetTicketTypes();
 
-//header('location: ../View/bookingTicket.php');
 ?>

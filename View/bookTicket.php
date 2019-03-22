@@ -47,13 +47,13 @@ echo "<div class='container'>"; // Open container
     echo "</div>";
 echo "</div>"; // Close container
 
-
 ?>
 
 <body>
 <div class="container table-responsive">
   <table class='table border border-dark text-center mt-4'>
-    <form method="POST" action="">
+    <?php echo "<form method='POST' action='checkout.php?id=".$movieid."&type=".$showingType."&time=".$showingTime."&date=".$showingDateString."'>";?>
+
       <thead class='thead-dark'>
         <tr>
           <th scope='col'>Ticket Type</th>
@@ -75,7 +75,7 @@ echo "</div>"; // Close container
               <div class='input-group-prepend'>
                 <span class='input-group-text' id='inputGroupPrepend'>Showing Type: </span>
               </div>
-              <select class='custom-select text' standardPrice='".$priceArray[$i]->Standard_Price."' premiumPrice='".$priceArray[$i]->Premium_Price."' id='".strtolower($priceArray[$i]->Ticket_Type)."MovieType' onchange='CalculateTotalCost(".$ticketTypeString.")'>
+              <select class='custom-select text' name='showingType".$priceArray[$i]->Ticket_Type."' standardPrice='".$priceArray[$i]->Standard_Price."' premiumPrice='".$priceArray[$i]->Premium_Price."' id='".strtolower($priceArray[$i]->Ticket_Type)."MovieType' onchange='CalculateTotalCost(".$ticketTypeString.")'>
                 <option value='standard'>Standard</option>
                 <option value='premium'>Premium</option>
               </select>
@@ -86,7 +86,7 @@ echo "</div>"; // Close container
               <div class='input-group-prepend'>
                 <span class='input-group-text' id='inputGroupPrepend'>Quantity: </span>
               </div>
-              <select class='custom-select text' id='".strtolower($priceArray[$i]->Ticket_Type)."Quantity' onchange='CalculateTotalCost(".$ticketTypeString.")'>
+              <select class='custom-select text' name= 'ticketQuantity".$priceArray[$i]->Ticket_Type."' id='".strtolower($priceArray[$i]->Ticket_Type)."Quantity' onchange='CalculateTotalCost(".$ticketTypeString.")'>
                 <option value='0'>0</option>
                 <option value='1'>1</option>
                 <option value='2'>2</option>
@@ -111,7 +111,7 @@ echo "</div>"; // Close container
         <td><?php echo "<h6 id='totalCost'>£0</h6>"; ?></td>
       </tr>
       <tr>
-        <td colspan="3"><button class='btn btn-info btn-block' href='../Controller/attempt_checkout.php'>Checkout</button></td>
+        <td colspan="3"><button class='btn btn-info btn-block'>Checkout</button></td>
       </tr>
     </form>
   </table>
