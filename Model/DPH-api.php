@@ -23,17 +23,17 @@ function GetAllMovies()
     //     }
     // }
 
-    $sortOrder = 'ORDER BY Release_Date desc';
+    $sortOrder = 'ORDER BY Release_Ordering desc';
     if (filter_input(INPUT_POST, "ordering", FILTER_SANITIZE_STRING))
     {
         $ordering = filter_input (INPUT_POST, "ordering", FILTER_SANITIZE_STRING);
         if ($ordering == "0")
         {
-            $sortOrder = 'ORDER BY Release_Date desc';
+            $sortOrder = 'ORDER BY Release_Ordering desc';
         }
         elseif ($ordering == "1")
         {
-            $sortOrder = 'ORDER BY Release_Date asc';
+            $sortOrder = 'ORDER BY Release_Ordering asc';
         }
         elseif ($ordering == "2")
         {
@@ -462,6 +462,7 @@ function AttemptInsertMovie()
                     $YoutubeURL = "watch?v=";
                     $embededURL = "embed/";
                     $video = str_replace($YoutubeURL, $embededURL, $video); // replace part of the Youtube URL to make it an embeded video for easy use by users.
+                    $releaseOrder = date("Y-m-d", strtotime($releaseDate)); // Force date format DD/MM/YYYY
                     $releaseDate = date("d-m-Y", strtotime($releaseDate)); // Force date format DD/MM/YYYY
 
                     switch($starRating)
@@ -531,8 +532,8 @@ function AttemptInsertMovie()
                     $query = $pdo->prepare
                     ("
 
-                    INSERT INTO DPH_Movie (Title, Video_Link, Image_Link, Description, Release_Date, Age_Ordering, Age_Rating, RunTime, Genre, Director, Actors, Language, 3D, Audio_Described, Star_Rating)
-                    VALUES (:title, :video, :image, :description, :releaseDate, :ageOrdering, :ageRating, :runTime, :genre, :director, :actors, :language, :threeD, :audioDescribed, :starRating)
+                    INSERT INTO DPH_Movie (Title, Video_Link, Image_Link, Description, Release_Ordering, Release_Date, Age_Ordering, Age_Rating, RunTime, Genre, Director, Actors, Language, 3D, Audio_Described, Star_Rating)
+                    VALUES (:title, :video, :image, :description, :releaseOrder, :releaseDate, :ageOrdering, :ageRating, :runTime, :genre, :director, :actors, :language, :threeD, :audioDescribed, :starRating)
 
                     ");
 
@@ -543,6 +544,7 @@ function AttemptInsertMovie()
                       'video' => $video,
                       'image' => $image,
                       'description' => $description,
+                      'releaseOrder' => $releaseOrder,
                       'releaseDate' => $releaseDate,
                       'ageOrdering' => $ageOrdering,
                       'ageRating' => $ageRating,

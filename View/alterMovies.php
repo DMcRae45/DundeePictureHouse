@@ -43,8 +43,8 @@ if (!isset($moiveID))
                         <option value='1'>Release Date (Oldest to Newest)</option>
                         <option value='4'>Title (A-Z)</option>
                         <option value='5'>Title (Z-A)</option>
-                        <option value='2'>Age_Rating (Lowest to Highest)</option>
-                        <option value='3'>Age_Rating (Lowest to Highest)</option>
+                        <option value='2'>Age Rating (Lowest to Highest)</option>
+                        <option value='3'>Age Rating (Lowest to Highest)</option>
                     </select>
                     <noscript><input type='submit' value ='Sort By'></noscript>
                 </form>
