@@ -23,7 +23,7 @@ echo "
   <div class='container'>
     ";
     //NEXT MOVIE CARD HERE
-    echo "<div class='container-fluid'>
+    echo "<div class='container'>
             <div class='page-header'>
                 <h3>Up Next</h3>
             </div>
@@ -88,8 +88,8 @@ echo "
         {
           for ($i=0 ; $i < sizeof($ticketArray) ; $i++)
           {
-            $movie = getMovieByID($ticketArray[$i]->Movie_ID);
-            $movieDetails = json_decode($movie);
+            $moiveIndex = $ticketArray[$i]->Movie_ID;
+            include '../Controller/getMovieDetailsByID.php';
 
             $currentDateTime = strval($ticketArray[$i]->Showing_Date) ." ". strval($ticketArray[$i]->Showing_Start_Time);
             if (new DateTime() > new DateTime(strval($currentDateTime)) && $datePassed == False)
@@ -135,7 +135,7 @@ echo "
           echo "</thead>";
         }
       echo "</table>";
-      if ($nextTicket != NULL){
+      if (isset($nextTicket)){
         $ticketInfoArray = '"'.$ticketMovie->Title.'","'.$nextTicket->Code.'","'.$nextTicket->Premium_Ticket.'","'.$nextTicket->Screen_ID.'","'.$nextTicket->PayPal_Email.'","'.$nextTicket->Showing_Date.'",';
         $ticketInfoArray = $ticketInfoArray.'"'.$ticketMovie->Image_Link.'","'.$ticketMovie->Age_Rating.'","'.$ticketMovie->RunTime.'","'.$ticketMovie->Director.'","'.$ticketMovie->Language.'","'.$ticketMovie->Genre.'","'.$nextTicket->Showing_Start_Time.'"';
         echo "<script>DisplayTicket(".$ticketInfoArray.")</script>";

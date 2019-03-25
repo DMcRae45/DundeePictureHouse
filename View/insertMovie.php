@@ -40,7 +40,7 @@ include 'header.php';
               <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroupPrepend">Video</span>
               </div>
-                <input class='form-control' type='text' name='video' placeholder='Please Past the Youtube URL into this field' required>
+                <input class='form-control' type='text' name='video' placeholder='Please paste the Youtube URL into this field' required>
             </div>
 
             <div class='form-group input-group' form-group-lg>

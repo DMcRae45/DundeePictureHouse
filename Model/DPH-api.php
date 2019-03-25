@@ -637,7 +637,7 @@ function getMovieByID($movieid)
 
   $query = $pdo->prepare
   ("
-  SELECT * FROM DPH_Movie WHERE Movie_ID = :movieid LIMIT 1
+  SELECT *, 3D as DDD FROM DPH_Movie WHERE Movie_ID = :movieid LIMIT 1
   ");
 
   $success = $query->execute
