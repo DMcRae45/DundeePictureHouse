@@ -42,7 +42,7 @@ echo "
                     <hr>
                     <p id='ticketCardSCREEN' style='opacity:0;'>Screen: <text></text></p>
                     <hr>
-                    <p id='ticketCardPAYPAL' style='opacity:0;'>PayPal E-Mail: <text></text></p>
+                    <p id='ticketCardPAYPAL' style='opacity:0;'>E-Mail: <text></text></p>
                     <hr>
                     <p id='ticketCardDATE' style='opacity:0;'>Date: <text></text></p>
                   </div>
@@ -75,7 +75,7 @@ echo "
             <th scope='col'>Movie</th>
             <th scope='col'>Ticket Code</th>
             <th scope='col'>Screen</th>
-            <th scope='col'>PayPal E-Mail</th>
+            <th scope='col'>E-Mail</th>
             <th scope='col'>Showing Date</th>
             <th scope='col'>Showing Time</th>
             <th scope='col'>Ticket Type</th>
@@ -113,7 +113,7 @@ echo "
             echo "<td>".$movieDetails->Title."</td>";
             echo "<td>".strtoupper($ticketArray[$i]->Code)."</td>";
             echo "<td>0".$ticketArray[$i]->Screen_ID."</td>";
-            echo "<td>".$ticketArray[$i]->PayPal_Email."</td>";
+            echo "<td>".$ticketArray[$i]->Buyer_Email."</td>";
             echo "<td>".$ticketArray[$i]->Showing_Date."</td>";
             echo "<td>".$ticketArray[$i]->Showing_Start_Time."</td>";
             if ($ticketArray[$i]->Premium_Ticket == 0)

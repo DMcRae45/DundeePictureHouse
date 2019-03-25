@@ -52,7 +52,7 @@ echo "</div>"; // Close container
 <body>
 <div class="container table-responsive">
   <table class='table border border-dark text-center mt-4'>
-    <?php echo "<form method='POST' action='checkout.php?id=".$movieid."&type=".$showingType."&time=".$showingTime."&date=".$showingDateString."'>";?>
+    <?php echo "<form method='POST' action='checkout.php?showingid=".$showingID."'>";?>
 
       <thead class='thead-dark'>
         <tr>

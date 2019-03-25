@@ -1,20 +1,26 @@
 <?php
 
 include '../Model/DPH-api.php';
+include '../Model/PaypalExpress.php';
 
 $prices = GetTicketInfo();
 $priceArray = json_decode($prices);
 
-$movieid = $_GET['id'];
-$showingType = $_GET['type'];
-$showingTime = $_GET['time'];
-$showingDateString = $_GET['date'];
+// $movieid = $_GET['id'];
+// $showingType = $_GET['type'];
+// $showingTime = $_GET['time'];
+// $showingDateString = $_GET['date'];
 
-$movie = getMovieByID($movieid);
+$showingID = $_GET['showingid'];
+
+$showingDetails = getShowingByID($showingID);
+$showingArray = json_decode($showingDetails);
+
+$movie = getMovieByID($showingArray->Movie_ID);
 $movieArray = json_decode($movie);
 
-$showing = getShowingInfo($movieid, $showingType, $showingTime, $showingDateString);
-$showingArray = json_decode($showing);
+// $showing = getShowingInfo($movieid, $showingType, $showingTime, $showingDateString);
+// $showingArray = json_decode($showing);
 
 $quantityArray = GetTicketQuantities();
 $ticketTypesArray = GetTicketTypes();

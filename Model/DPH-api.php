@@ -648,42 +648,65 @@ function getMovieByID($movieid)
   if($success && $query->rowCount() > 0)
   {
     $row = $query->fetch();
+    return json_encode($row);
   }
   else
   {
     echo "Nope";
   }
-
-  return json_encode($row);
 }
 
-function getShowingInfo($movieid, $showingType, $showingTime, $showingDate)
+function getShowingByID($showingid)
 {
   require 'dbConnection.php';
 
   $query = $pdo->prepare
   ("
-  SELECT * FROM DPH_Showing WHERE Movie_ID = :movieid && Showing_Type = :showingType && Showing_Start_Time = :showingTime && Showing_Date = :showingDate LIMIT 1
+  SELECT * FROM DPH_Showing WHERE Showing_ID = :showingid LIMIT 1
   ");
 
   $success = $query->execute
   ([
-    'movieid' => $movieid,
-    'showingType' => $showingType,
-    'showingTime' => $showingTime,
-    'showingDate' => $showingDate
+    'showingid' => $showingid
   ]);
 
   if($success && $query->rowCount() > 0)
   {
     $row = $query->fetch();
-    return json_encode($row);
   }
   else
   {
-    echo "ACCESS DENIED - stop typing in the url please";
-  }
+    echo "Nope";
+  }return json_encode($row);
 }
+
+// function getShowingInfo($movieid, $showingType, $showingTime, $showingDate)
+// {
+//   require 'dbConnection.php';
+//
+//   $query = $pdo->prepare
+//   ("
+//   SELECT * FROM DPH_Showing WHERE Movie_ID = :movieid && Showing_Type = :showingType && Showing_Start_Time = :showingTime && Showing_Date = :showingDate LIMIT 1
+//   ");
+//
+//   $success = $query->execute
+//   ([
+//     'movieid' => $movieid,
+//     'showingType' => $showingType,
+//     'showingTime' => $showingTime,
+//     'showingDate' => $showingDate
+//   ]);
+//
+//   if($success && $query->rowCount() > 0)
+//   {
+//     $row = $query->fetch();
+//     return json_encode($row);
+//   }
+//   else
+//   {
+//     echo "ACCESS DENIED - stop typing in the url please";
+//   }
+// }
 
 function AttemptPromoteEmployeeByID($employeeid)
 {
@@ -872,7 +895,7 @@ function GenerateTicketCode()
   $month = date('m');
   $year = date('y');
   $hour = date('H');
-  $uderid = $_SESSION['userid'];
+  $userid = $_SESSION['userid'];
 
   $unencryptedCode = $day.$month.$year.$hour.$userid;
 
@@ -1066,10 +1089,9 @@ function GetThreeDShowings($movieid, $showingDate)
 
 function insertPayments($customerid, $transactionid, $paymentStatus, $buyerName, $buyerEmail, $buyerID, $grossAmount, $currencyCode)
 {
-
   require 'dbConnection.php';
 
-// may need to add date here
+  // may need to add date here
   $query =
   ("
 
@@ -1093,16 +1115,15 @@ function insertPayments($customerid, $transactionid, $paymentStatus, $buyerName,
       'paymentStatus' => $paymentStatus
   ]);
 
-      $count = $stmt->rowCount();
-      if($success)
-      {
-        echo "Insert Successful";
-      }
-      else
-      {
-        echo "Insert Failed";
-        echo $query -> errorInfo()[2];
-      }
+  if($success  && $stmt->rowCount() > 0)
+  {
+    echo "Insert Successful";
+  }
+  else
+  {
+    echo "Insert Failed";
+    echo $query -> errorInfo()[2];
+  }
 }
 
 function GetTicketQuantities()
@@ -1125,5 +1146,62 @@ function GetTicketTypes()
   $showingType_Family = (filter_input(INPUT_POST, 'showingTypeFamily', FILTER_SANITIZE_STRING));
 
   return array($showingType_Adult, $showingType_Child, $showingType_Student, $showingType_Senior, $showingType_Family);
+}
+
+function CreateUserTicket($code, $premiumTicket, $paymentid, $showingid)
+{
+  require 'dbConnection.php';
+
+  // may need to add date here
+    $query =
+    ("
+
+      INSERT INTO DPH_Ticket (Code, Premium_Ticket, Payment_ID, Showing_ID)
+      VALUES(:code, :premiumTicket, :paymentid, :showingid)
+
+    ");
+
+    $stmt = $pdo->prepare($query);
+
+    // Runs and executes the query
+    $success = $stmt->execute
+    ([
+        'code' => $code,
+        'premiumTicket' => $premiumTicket,
+        'paymentid' => $paymentid,
+        'showingid' => $showingid
+    ]);
+
+    if($success  && $stmt->rowCount() > 0)
+    {
+      echo "Insert Successful";
+    }
+    else
+    {
+      echo "Insert Failed";
+      echo $query -> errorInfo()[2];
+    }
+}
+
+function GetPaymentID($customerid)
+{
+  require '../Model/dbConnection.php';
+
+  $query =
+  ("
+    SELECT Payment_ID FROM DPH_Payment WHERE Customer_ID = :customerid ORDER BY Payment_ID desc LIMIT 1
+  ");
+  $stmt = $pdo->prepare($query);
+  $success = $stmt->execute
+  ([
+      'customerid' => $customerid
+  ]);
+
+  if($success && $stmt->rowCount() > 0)
+  {
+
+  $paymentid =  $stmt->fetch();
+  return $paymentid;
+  }
 }
 ?>

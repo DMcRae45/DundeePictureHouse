@@ -35,7 +35,7 @@ paypal.Button.render({
             // Show a confirmation message to the buyer
             window.alert('Thank you for your purchase!');
             // Redirect to the payment process page
-            window.location = "../Controller/process.php?paymentID="+data.paymentID+"&token="+data.paymentToken+"&payerID="+data.payerID;
+            window.location = "../Controller/process.php?paymentID="+data.paymentID+"&token="+data.paymentToken+"&payerID="+data.payerID+"&showingid="+<?php echo $showingID ?>;
         });
     }
 }, '#paypal-button');

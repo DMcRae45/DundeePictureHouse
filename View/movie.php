@@ -140,7 +140,7 @@
                             {
                               echo "<div class='d-inline mr-2 mb-2'>";
                                 $time = date("H:i", strtotime($twoDMovieArray[$i]->Showing_Start_Time)); // Format the time to Hours and Minutes
-                                echo "<a class='btn btn-outline-info' href='bookTicket.php?id=".$movieArray->Movie_ID."&type=2D&time=".$twoDMovieArray[$i]->Showing_Start_Time."&date=".$showingDateString."'>".$time."</a>";
+                                echo "<a class='btn btn-outline-info' href='bookTicket.php?showingid=".$twoDMovieArray[$i]->Showing_ID."'>".$time."</a>";
                               echo "</div>";
                             }
                           }
@@ -156,7 +156,7 @@
                                 {
                                   echo "<div class='d-inline mr-2 mb-2'>";
                                     $time = date("H:i", strtotime($threeDMovieArray[$i]->Showing_Start_Time)); // Format the time to Hours and Minutes.
-                                    echo "<a class='btn btn-outline-info' href='bookTicket.php?id=".$movieArray->Movie_ID."&type=3D&time=".$threeDMovieArray[$i]->Showing_Start_Time."&date=".$showingDateString."'>".$time."</a>";
+                                    echo "<a class='btn btn-outline-info' href='bookTicket.php?showingid=".$threeDMovieArray[$i]->Showing_ID."'>".$time."</a>";
                                   echo "</div>";
                                 }
                               }

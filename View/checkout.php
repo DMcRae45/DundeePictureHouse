@@ -4,9 +4,6 @@
 include '../Controller/getCheckoutInfo.php';
 include 'header.php';
 
-// Include and initialize paypal class
-
-include '../Model/PaypalExpress.php';
 $paypal = new PaypalExpress;
 ?>
 
@@ -22,14 +19,14 @@ $paypal = new PaypalExpress;
         echo "<div class='col-md-3'>";
           echo "<p>Showing At: <text>Dundee Picture House</text></p>";
           echo "<hr>";
-          echo "<p>Starting At: <text>".$showingTime."</text></p>";
+          echo "<p>Starting At: <text>".$showingArray->Showing_Start_Time."</text></p>";
           echo "<hr>";
-          echo "<p>Showing In: <text>".$showingType."</text></p>";
+          echo "<p>Showing In: <text>".$showingArray->Showing_Type."</text></p>";
           echo "<hr>";
         echo "</div>";
 
         echo "<div class='col-md-3'>";
-          echo "<p>Date: <text>".$showingDateString."</text></p>";
+          echo "<p>Date: <text>".$showingArray->Showing_Date."</text></p>";
           echo "<hr>";
           echo "<p>RunTime: <text>".$movieArray->RunTime."</text></p>";
           echo "<hr>";

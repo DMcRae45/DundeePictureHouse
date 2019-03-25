@@ -1,12 +1,11 @@
 <?php
 session_start();
-$redirectStr = '';
 if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID']) ){
     // Include database and API
-    include '../Model/DPH-api.php';
-
+    //include '../Model/DPH-api.php';
+    include '../Controller/getCheckoutInfo.php';
 // Include and initialize paypal class
-    include '../Model/PaypalExpress.php';
+    //include '../Model/PaypalExpress.php';
     $paypal = new PaypalExpress;
 
     // Get payment info from URL
@@ -30,15 +29,52 @@ if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID
         $buyerEmail = $paymentCheck->payer->payer_info->email;
         $paymentStatus = $paymentCheck->state;
 
-        $insert = insertPayments($customerid, $transactionid, $paymentStatus, $buyerName, $buyerEmail, $buyerID, $grossAmount, $currencyCode);
+        insertPayments($customerid, $transactionid, $paymentStatus, $buyerName, $buyerEmail, $buyerID, $grossAmount, $currencyCode);
+
+        $paymentid = GetPaymentID($customerid);
+        $code = GenerateTicketCode();
+
+        for ($i=0 ; $i < sizeof($quantityArray) ; $i++)
+        {
+        echo "Quantity array:".$quantityArray[$i];
+        }
+        for ($i=0 ; $i < sizeof($ticketTypesArray) ; $i++)
+        {
+        echo "ticketTypes array:".$ticketTypesArray[$i];
+        }
+
+
+
+        for ($i=0 ; $i < sizeof($quantityArray) ; $i++)
+        {
+          //for ($j= 0; $j < $quantityArray[$i]; $j++)
+          if($quantityArray[$i] >= 1)
+          {
+            if($ticketTypesArray[$i] == "premium")
+            {
+              $premiumTicket = 1;
+              CreateUserTicket($code, $premiumTicket ,$paymentid, $showingID);
+            }
+            elseif($ticketTypesArray[$i] == "standard")
+            {
+              $premiumTicket = 0;
+              CreateUserTicket($code, $premiumTicket ,$paymentid, $showingID);
+            }
+            else
+            {
+              echo "NAW, thanks for trying though";
+            }
+          }
+        }
+
       }
     // Redirect to payment status page
-    header("Location:payment-status.php".$redirectStr);
+    //header("Location:../View/paymentSuccess.php");
 }
 else
 {
     // Redirect to the home page
-    header("Location:index.php");
+    header("Location:../View/index.php");
 }
 
 ?>
