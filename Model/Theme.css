@@ -5,11 +5,10 @@
 
     Author: David McRae
  */
-body, .form-control, .input-group-text, .custom-select, .list-group-item
+body, .form-control, .input-group-text, .custom-select, .list-group-item, input:-moz-read-only
 {
   background-color: #17181c;
   color:#17a2b8;
-
 }
 
 .card
@@ -56,4 +55,10 @@ h1, h2, text, .text
   {
   font-size: 2rem;
   }
+}
+
+input[readonly], input[value], textarea, select[value]
+{
+    background-color: #17181c !important;
+    color: #ffffff !important;
 }
