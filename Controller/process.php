@@ -2,10 +2,9 @@
 session_start();
 if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID']) ){
     // Include database and API
-    //include '../Model/DPH-api.php';
-    include '../Controller/getCheckoutInfo.php';
-// Include and initialize paypal class
-    //include '../Model/PaypalExpress.php';
+    include '../Model/DPH-api.php';
+    include '../Model/PaypalExpress.php';
+    
     $paypal = new PaypalExpress;
 
     // Get payment info from URL
@@ -32,33 +31,27 @@ if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID
         insertPayments($customerid, $transactionid, $paymentStatus, $buyerName, $buyerEmail, $buyerID, $grossAmount, $currencyCode);
 
         $paymentid = GetPaymentID($customerid);
-        $code = GenerateTicketCode();
+
+        $ticketTypesArray = $_SESSION['ticketTypeBasket'];
+        $quantityArray = $_SESSION['quantityBasket'];
+        $showingID = $_GET['showingid'];
 
         for ($i=0 ; $i < sizeof($quantityArray) ; $i++)
         {
-        echo "Quantity array:".$quantityArray[$i];
-        }
-        for ($i=0 ; $i < sizeof($ticketTypesArray) ; $i++)
-        {
-        echo "ticketTypes array:".$ticketTypesArray[$i];
-        }
-
-
-
-        for ($i=0 ; $i < sizeof($quantityArray) ; $i++)
-        {
-          //for ($j= 0; $j < $quantityArray[$i]; $j++)
-          if($quantityArray[$i] >= 1)
+          echo "<br>";
+          for ($j=0 ; $j < $quantityArray[$i] ; $j++)
           {
             if($ticketTypesArray[$i] == "premium")
             {
               $premiumTicket = 1;
-              CreateUserTicket($code, $premiumTicket ,$paymentid, $showingID);
+              $code = GenerateTicketCode();
+              CreateUserTicket($code, $premiumTicket, $paymentid[0], $showingID);
             }
             elseif($ticketTypesArray[$i] == "standard")
             {
               $premiumTicket = 0;
-              CreateUserTicket($code, $premiumTicket ,$paymentid, $showingID);
+              $code = GenerateTicketCode();
+              CreateUserTicket($code, $premiumTicket, $paymentid[0], $showingID);
             }
             else
             {

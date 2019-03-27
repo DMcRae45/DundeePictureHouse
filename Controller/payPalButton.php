@@ -28,6 +28,11 @@ paypal.Button.render({
       });
     },
 
+    <?php
+    $_SESSION['ticketTypeBasket'] = $ticketTypesArray;
+    $_SESSION['quantityBasket'] = $quantityArray;
+     ?>
+
     // Execute the payment
     onAuthorize: function (data, actions) {
         return actions.payment.execute()

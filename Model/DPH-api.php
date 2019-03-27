@@ -892,34 +892,6 @@ function getShowingByID($showingid)
   }return json_encode($row);
 }
 
-// function getShowingInfo($movieid, $showingType, $showingTime, $showingDate)
-// {
-//   require 'dbConnection.php';
-//
-//   $query = $pdo->prepare
-//   ("
-//   SELECT * FROM DPH_Showing WHERE Movie_ID = :movieid && Showing_Type = :showingType && Showing_Start_Time = :showingTime && Showing_Date = :showingDate LIMIT 1
-//   ");
-//
-//   $success = $query->execute
-//   ([
-//     'movieid' => $movieid,
-//     'showingType' => $showingType,
-//     'showingTime' => $showingTime,
-//     'showingDate' => $showingDate
-//   ]);
-//
-//   if($success && $query->rowCount() > 0)
-//   {
-//     $row = $query->fetch();
-//     return json_encode($row);
-//   }
-//   else
-//   {
-//     echo "ACCESS DENIED - stop typing in the url please";
-//   }
-// }
-
 function AttemptPromoteEmployeeByID($employeeid)
 {
   require 'dbConnection.php';
@@ -1110,8 +1082,11 @@ function GenerateTicketCode()
   $userid = $_SESSION['userid'];
 
   $unencryptedCode = $day.$month.$year.$hour.$userid;
+  $unencryptedCode = floatval($unencryptedCode); // dechex() will only accpet flaots when dealing with such high valued integers
 
-  return $code = dechex($unencryptedCode); // Decimal: '$unencryptedCode' changed to Hexideciaml: '$code'
+  $code = dechex($unencryptedCode); // Decimal: '$unencryptedCode' changed to Hexideciaml: '$code'
+
+  return $code;
 }
 
 //Getting Tickets for a certain user
@@ -1345,7 +1320,7 @@ function GetTicketQuantities()
   $quantity_Senior = (filter_input(INPUT_POST, 'ticketQuantitySenior', FILTER_SANITIZE_STRING));
   $quantity_Family = (filter_input(INPUT_POST, 'ticketQuantityFamily', FILTER_SANITIZE_STRING));
 
-  return array($quantity_Adult, $quantity_Child, $quantity_Student, $quantity_Senior, $quantity_Family);
+  return json_encode(array($quantity_Adult, $quantity_Child, $quantity_Student, $quantity_Senior, $quantity_Family));
 }
 
 function GetTicketTypes()
@@ -1356,7 +1331,7 @@ function GetTicketTypes()
   $showingType_Senior = (filter_input(INPUT_POST, 'showingTypeSenior', FILTER_SANITIZE_STRING));
   $showingType_Family = (filter_input(INPUT_POST, 'showingTypeFamily', FILTER_SANITIZE_STRING));
 
-  return array($showingType_Adult, $showingType_Child, $showingType_Student, $showingType_Senior, $showingType_Family);
+  return json_encode(array($showingType_Adult, $showingType_Child, $showingType_Student, $showingType_Senior, $showingType_Family));
 }
 
 function CreateUserTicket($code, $premiumTicket, $paymentid, $showingid)
