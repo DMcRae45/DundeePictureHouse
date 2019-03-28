@@ -43,7 +43,7 @@
                         echo '<div class="dropdown-divider"></div>';  // divider between menu items
                         echo '<a class="dropdown-item" href="registerCustomer.php">Register</a>';
                         echo '<div class="dropdown-divider"></div>';
-                        echo '<a class="dropdown-item" href="employeeLogin.php?returnURL='.$_SERVER['REQUEST_URI'].'">Employee</a>';
+                        echo '<a class="dropdown-item" href="employeeLogin.php?returnURL='.$_SERVER['REQUEST_URI'].'">Employee Login</a>';
                 }
                 if(isset($_SESSION['LoggedIn']) && isset($_SESSION['firstname']))
                 {
@@ -67,20 +67,10 @@
             ?>
             </div>
         </li>
-        <!-- <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Social Media</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class='dropdown-item' href='http://www.facebook.com/share.php?u=https://mayar.abertay.ac.uk/~1403163/DPH/View/index.php'>Facebook</a>
-              <div class="dropdown-divider"></div>
-              <a class='dropdown-item' href='http://twitter.com/share?ref_scr=https://mayar.abertay.ac.uk/~1403163/DPH/View/index.php'>Twitter</a>
-              <div class="dropdown-divider"></div>
-              <a class='dropdown-item' href='https://plus.google.com/share?url=https://mayar.abertay.ac.uk/~1403163/DPH/View/index.php'>Google Plus</a>
-            </div>
-        </li> -->
     </ul>
 
     <form action='searchResults.php' method='post' class="form-inline my-2 my-lg-0">
-      <div class='input-group input-group-sm mb-3'>
+      <div class='input-group input-group-sm'>
         <input type='text' class='form-control' placeholder="Search" aria-label='Small' aria-describedby='inputGroup-sizing-sm' id='searchTitle' name='searchTitle'>
         <div class='input-group-append'>
           <button id='search-by-title-button' name='search-by-title-button' type='submit' class='btn btn-outline-info'>Search</button>
