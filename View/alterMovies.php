@@ -31,77 +31,68 @@ if (isset($_GET['movieID']))
 {
   $moiveIndex = $_GET['movieID'];
   include '../Controller/getMovieDetailsByID.php';
-  echo "<form class='form-group needs-validation' method='POST' action='' enctype='multipart/form-data' novalidate>
-
+  echo "<a class='btn btn-outline-info' href='alterMovies.php'><-Return</a><br><br>";
+  echo "<form class='form-group needs-validation' method='POST' action='../Controller/attempt_updateMovie.php?movieid=".$moiveIndex."' enctype='multipart/form-data' novalidate>
           <div class='row'>
             <div class='col-md-4'>
               <div class='card form-group input-group' form-group-lg>
                 <img src='".$movieDetails->Image_Link."' class='card-img-top' alt='Movie Poster' onerror=this.src='images/film.placeholder.poster.jpg'>
-                <input class='btn btn-dark' type='file' name='image_link' placeholder='Image_link' required>
+                <input class='btn btn-dark inputfile' type='file' name='image_link' required/>
               </div>
-            </div>
+            </div>";
 
-            <div class='col-md-8'>
-              <div class='embed-responsive embed-responsive-16by9 card-img-top'>
-                <iframe class='embed-responsive-item' src='".$movieDetails->Video_Link."' frameborder='0' allow='autoplay'; encrypted-media; allowfullscreen alt='This video is not supported'></iframe>
-              </div>
-              <div class='form-group input-group' form-group-lg>
-                <div class='input-group-prepend'>
-                  <span class='input-group-text' id='inputGroupPrepend'>Video</span>
+            echo "<div class='col-md-8'>
+                    <div class='card form-group' form-group-lg>
+                      <div class='embed-responsive embed-responsive-16by9'>
+                        <iframe class='embed-responsive-item' src='".$movieDetails->Video_Link."' frameborder='0' allow='autoplay'; encrypted-media; allowfullscreen alt='This video is not supported'></iframe>
+                      </div>
+                      <div class='input-group'>
+                        <div class='input-group-prepend'>
+                          <span class='input-group-text' id='inputGroupPrepend'>Video</span>
+                        </div>";
+                        $YoutubeURL = "watch?v=";
+                        $embededURL = "embed/";
+                        $video = str_replace($embededURL, $YoutubeURL, $movieDetails->Video_Link);
+                  echo "<input class='form-control' type='text' name='video' placeholder='Please paste the Youtube URL into this field' value='".$video."' required>
+                      </div>
+                    </div>";
+          echo "<div class='form-group input-group' form-group-lg>
+                  <div class='input-group-prepend'>
+                    <span class='input-group-text' id='inputGroupPrepend'>Movie ID</span>
+                  </div>
+                  <input class='form-control' type='text' name='index' value='".$movieDetails->Movie_ID."' readonly>
+                </div>";
+
+
+          echo "<div class='form-group input-group' form-group-lg>
+                  <div class='input-group-prepend'>
+                    <span class='input-group-text' id='inputGroupPrepend'>Title</span>
+                  </div>
+                  <input class='form-control' type='text' name='title' placeholder='Title' value='".$movieDetails->Title."' required>
                 </div>
-                <input class='form-control' type='text' name='video' placeholder='Please paste the Youtube URL into this field' required>
               </div>
+            </div>";
 
-              <div class='form-group input-group' form-group-lg>
-                <div class='input-group-prepend'>
-                  <span class='input-group-text' id='inputGroupPrepend'>Title</span>
-                </div>
-                <input class='form-control' type='text' name='title' placeholder='Title' value='".$movieDetails->Title."' required>
-              </div>
-              <div class='form-group input-group' form-group-lg>
-                <div class='input-group-prepend'>
-                  <span class='input-group-text' id='inputGroupPrepend'>Star Rating</span>
-                </div>
-                <select class='custom-select' name='starRating' value='".$movieDetails->Star_Rating."' required>";
-                for ($i=0 ; $i <= 5 ; $i++)
-                {
-                  $movieStarRating = "../View/images/".$i."_star.png";
-                  if (($movieDetails->Star_Rating) == $movieStarRating)
-                  {
-                    echo "<option value='".$i."' selected>".$i."</option>";
-                  }
-                  else
-                  {
-                    echo "<option value='".$i."'>".$i."</option>";
-                  }
-                }
-                echo "</select>
-                <div class='invalid-feedback'>Please Select a star rating</div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class='form-group input-group'>
+          echo "<div class='form-group input-group'>
             <div class='input-group-prepend'>
               <span class='input-group-text' id='inputGroupPrepend'>Decription</span>
             </div>
               </br>
               <textarea class='form-control' type='text' name='description' placeholder='Description' rows='5' required>".$movieDetails->Description."</textarea>
-          </div>
+          </div>";
 
-          <div class='form-group input-group' form-group-lg>
+          echo "<div class='form-group input-group' form-group-lg>
             <div class='input-group-prepend'>
               <span class='input-group-text' id='inputGroupPrepend'>Release Date</span>
             </div>
               <input class='form-control' type='date' name='releaseDate' placeholder='Release Date' value='".$movieDetails->Release_Ordering."' required>
-          </div>
+          </div>";
 
-          <div class='form-group input-group'>
+          echo "<div class='form-group input-group'>
             <div class='input-group-prepend'>
               <span class='input-group-text' id='inputGroupPrepend'>Age Rating</span>
             </div>
-            <select class='custom-select' name='ageRating' required>";
+            <select class='custom-select' name='ageRating' value='".$movieDetails->Age_Rating."' required>";
               if ($movieDetails->Age_Ordering == "0")
               {
                 echo "<option value='U' selected>U</option>";
@@ -149,44 +140,44 @@ if (isset($_GET['movieID']))
 
             echo "</select>
             <div class='invalid-feedback'>Please Select an Age rating</div>
-          </div>
+          </div>";
 
-          <div class='form-group input-group' form-group-lg>
+          echo "<div class='form-group input-group' form-group-lg>
             <div class='input-group-prepend'>
               <span class='input-group-text' id='inputGroupPrepend'>RunTime</span>
             </div>
               <input class='form-control' type='text' name='runTime' placeholder='RunTime' value='".$movieDetails->RunTime."' required>
-          </div>
+          </div>";
 
-          <div class='form-group input-group' form-group-lg>
+          echo "<div class='form-group input-group' form-group-lg>
             <div class='input-group-prepend'>
               <span class='input-group-text' id='inputGroupPrepend'>Genre</span>
             </div>
               <input class='form-control' type='text' name='genre' placeholder='Genre' value='".$movieDetails->Genre."' required>
-          </div>
+          </div>";
 
-          <div class='form-group input-group' form-group-lg>
+          echo "<div class='form-group input-group' form-group-lg>
             <div class='input-group-prepend'>
               <span class='input-group-text' id='inputGroupPrepend'>Director</span>
             </div>
               <input class='form-control' type='text' name='director' placeholder='Director' value='".$movieDetails->Director."' required>
-          </div>
+          </div>";
 
-          <div class='form-group input-group' form-group-lg>
+          echo "<div class='form-group input-group' form-group-lg>
             <div class='input-group-prepend'>
               <span class='input-group-text' id='inputGroupPrepend'>Actors</span>
             </div>
               <input class='form-control' type='text' name='actors' placeholder='Actors' value='".$movieDetails->Actors."' required>
-          </div>
+          </div>";
 
-          <div class='form-group input-group' form-group-lg>
+          echo "<div class='form-group input-group' form-group-lg>
             <div class='input-group-prepend'>
               <span class='input-group-text' id='inputGroupPrepend'>Language</span>
             </div>
               <input class='form-control' type='text' name='language' placeholder='Language' value='".$movieDetails->Language."' required>
-          </div>
+          </div>";
 
-          <div class='form-group form-check input-group'>
+          echo "<div class='form-group form-check input-group'>
             <div class='input-group-prepend'>
               <span class='input-group-text' id='inputGroupPrepend'>3D</span>
             </div>";
@@ -212,8 +203,31 @@ if (isset($_GET['movieID']))
           {
             echo "<input class='form-check-input' type='checkbox' name='audioDescribed' id='invalidCheck'>";
           }
-      echo "</div>
-          <button class='form-control' type='submit' name='insertMovieSubmit'>Insert Movie</button>
+      echo "</div>";
+
+      echo "<div class='form-group input-group' form-group-lg>
+        <div class='input-group-prepend'>
+          <span class='input-group-text' id='inputGroupPrepend'>Star Rating</span>
+        </div>
+        <select class='custom-select' name='starRating' value='".$movieDetails->Star_Rating."' required>";
+        for ($i=0 ; $i <= 5 ; $i++)
+        {
+          $movieStarRating = "../View/images/".$i."_star.png";
+          if (($movieDetails->Star_Rating) == $movieStarRating)
+          {
+            echo "<option value='".$i."' selected>".$i."</option>";
+          }
+          else
+          {
+            echo "<option value='".$i."'>".$i."</option>";
+          }
+        }
+        echo "</select>
+        <div class='invalid-feedback'>Please Select a star rating</div>
+      </div>";
+
+    echo "<button class='form-control' type='submit' name='updateMovieSubmit'>Update Movie</button>
+      </div>
       </form>";
 }
 else
