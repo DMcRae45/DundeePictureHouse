@@ -34,42 +34,6 @@
               echo "<img src=".$movieArray->Star_Rating." class='img-fluid' style='height: 2rem'>";
               echo "<hr>";
 
-              // for ($day=0 ; $day < 7 ; $day++)
-              // {
-              //   $showingDateString = date_format($showingDate,"Y-m-d");
-              //
-              //   $twoDMovie = GetTwoDShowings($movieid, $showingDateString);
-              //   $twoDMovieArray = json_decode($twoDMovie);
-              //
-              //   $threeDMovie = GetThreeDShowings($movieid, $showingDateString);
-              //   $threeDMovieArray = json_decode($threeDMovie);
-              //
-              //   $showingDate = date_modify($showingDate,'+1 day');
-              //
-              //   echo "<div>";
-              //   echo "<h6>2D</h6>";
-              //   for ($i=0 ; $i < sizeof($twoDMovieArray) ; $i++)
-              //   {
-              //     echo "<div class='d-inline mr-2 mb-2'>";
-              //     $time = date("H:i", strtotime($twoDMovieArray[$i]->Showing_Start_Time)); // Format the time to Hours and Minutes
-              //     echo "<a class='btn btn-outline-info' href='bookTicket.php?id=".$movieArray->Movie_ID."&type=2D&time=".$twoDMovieArray[$i]->Showing_Start_Time."'>".$time."</a>";
-              //     echo "</div>";
-              //   }
-              //   echo "</div>";
-              //   echo "<hr>";
-              //   echo "<div>";
-              //   echo "<h6>3D</h6>";
-              //   for ($i=0 ; $i < sizeof($threeDMovieArray) ; $i++)
-              //   {
-              //     echo "<div class='d-inline mr-2 mb-2'>";
-              //     $time = date("H:i", strtotime($threeDMovieArray[$i]->Showing_Start_Time)); // Format the time to Hours and Minutes.
-              //     echo "<a class='btn btn-outline-info' href='bookTicket.php?id=".$movieArray->Movie_ID."&type=3D&time=".$threeDMovieArray[$i]->Showing_Start_Time."'>".$time."</a>";
-              //     echo "</div>";
-              //   }
-              //   echo "</div>";
-              // }
-
-
               echo '<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
                 <ol class="carousel-indicators">
                   <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>

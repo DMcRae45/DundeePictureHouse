@@ -14,4 +14,9 @@ $returnURL = (isset($_GET['returnURL'])) ? $_GET['returnURL'] : FALSE;
     AttemptEmployeeLogIn();
     header('location: '.$returnURL);
   }
+  else
+  {
+    AttemptEmployeeLogIn();
+    header('location: ../View/index.php');
+  }
 ?>

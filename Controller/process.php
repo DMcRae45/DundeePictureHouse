@@ -4,7 +4,7 @@ if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID
     // Include database and API
     include '../Model/DPH-api.php';
     include '../Model/PaypalExpress.php';
-    
+
     $paypal = new PaypalExpress;
 
     // Get payment info from URL
@@ -31,6 +31,7 @@ if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID
         insertPayments($customerid, $transactionid, $paymentStatus, $buyerName, $buyerEmail, $buyerID, $grossAmount, $currencyCode);
 
         $paymentid = GetPaymentID($customerid);
+        $code = GenerateTicketCode();
 
         $ticketTypesArray = $_SESSION['ticketTypeBasket'];
         $quantityArray = $_SESSION['quantityBasket'];
@@ -44,13 +45,11 @@ if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID
             if($ticketTypesArray[$i] == "premium")
             {
               $premiumTicket = 1;
-              $code = GenerateTicketCode();
               CreateUserTicket($code, $premiumTicket, $paymentid[0], $showingID);
             }
             elseif($ticketTypesArray[$i] == "standard")
             {
               $premiumTicket = 0;
-              $code = GenerateTicketCode();
               CreateUserTicket($code, $premiumTicket, $paymentid[0], $showingID);
             }
             else
@@ -59,10 +58,10 @@ if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID
             }
           }
         }
-
+        include 'emailConfirmation.php';
       }
     // Redirect to payment status page
-    //header("Location:../View/paymentSuccess.php");
+    header("Location:../View/userTicket.php");
 }
 else
 {

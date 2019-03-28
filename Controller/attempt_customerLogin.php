@@ -14,4 +14,9 @@ $returnURL = (isset($_GET['returnURL'])) ? $_GET['returnURL'] : FALSE;
     AttemptCustomerLogIn();
     header('location: '.$returnURL);
   }
+  else
+  {
+    AttemptCustomerLogIn();
+    header('location: ../View/index.php');
+  }
 ?>

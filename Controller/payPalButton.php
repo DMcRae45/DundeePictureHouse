@@ -31,6 +31,7 @@ paypal.Button.render({
     <?php
     $_SESSION['ticketTypeBasket'] = $ticketTypesArray;
     $_SESSION['quantityBasket'] = $quantityArray;
+    $_SESSION['priceArray'] = $priceArray;
      ?>
 
     // Execute the payment
