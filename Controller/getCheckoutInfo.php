@@ -22,7 +22,10 @@ $movieArray = json_decode($movie);
 // $showing = getShowingInfo($movieid, $showingType, $showingTime, $showingDateString);
 // $showingArray = json_decode($showing);
 
-$quantityArray = GetTicketQuantities();
-$ticketTypesArray = GetTicketTypes();
+$quantities = GetTicketQuantities();
+$quantityArray = json_decode($quantities);
+
+$ticketTypes = GetTicketTypes();
+$ticketTypesArray = json_decode($ticketTypes);
 
 ?>

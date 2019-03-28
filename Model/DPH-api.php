@@ -1134,7 +1134,9 @@ function GetTicketQuantities()
   $quantity_Senior = (filter_input(INPUT_POST, 'ticketQuantitySenior', FILTER_SANITIZE_STRING));
   $quantity_Family = (filter_input(INPUT_POST, 'ticketQuantityFamily', FILTER_SANITIZE_STRING));
 
-  return array($quantity_Adult, $quantity_Child, $quantity_Student, $quantity_Senior, $quantity_Family);
+  $array = array($quantity_Adult, $quantity_Child, $quantity_Student, $quantity_Senior, $quantity_Family);
+
+  return json_encode($array);
 }
 
 function GetTicketTypes()
@@ -1145,7 +1147,9 @@ function GetTicketTypes()
   $showingType_Senior = (filter_input(INPUT_POST, 'showingTypeSenior', FILTER_SANITIZE_STRING));
   $showingType_Family = (filter_input(INPUT_POST, 'showingTypeFamily', FILTER_SANITIZE_STRING));
 
-  return array($showingType_Adult, $showingType_Child, $showingType_Student, $showingType_Senior, $showingType_Family);
+  $array = array($showingType_Adult, $showingType_Child, $showingType_Student, $showingType_Senior, $showingType_Family);
+
+  return json_encode($array);
 }
 
 function CreateUserTicket($code, $premiumTicket, $paymentid, $showingid)
@@ -1191,6 +1195,7 @@ function GetPaymentID($customerid)
   ("
     SELECT Payment_ID FROM DPH_Payment WHERE Customer_ID = :customerid ORDER BY Payment_ID desc LIMIT 1
   ");
+
   $stmt = $pdo->prepare($query);
   $success = $stmt->execute
   ([
@@ -1199,9 +1204,8 @@ function GetPaymentID($customerid)
 
   if($success && $stmt->rowCount() > 0)
   {
-
-  $paymentid =  $stmt->fetch();
-  return $paymentid;
+    $paymentid =  $stmt->fetch();
+    return json_decode($paymentid);
   }
 }
 ?>

@@ -34,6 +34,9 @@ if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID
         $paymentid = GetPaymentID($customerid);
         $code = GenerateTicketCode();
 
+        echo "payment id: ".$paymentid;
+        echo "code: ".$code;
+
         for ($i=0 ; $i < sizeof($quantityArray) ; $i++)
         {
         echo "Quantity array:".$quantityArray[$i];
@@ -62,7 +65,7 @@ if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID
             }
             else
             {
-              echo "NAW, thanks for trying though";
+              echo "tickets were not as expected.";
             }
           }
         }
