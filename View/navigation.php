@@ -42,6 +42,8 @@
                         echo '<a class="dropdown-item" href="customerLogin.php?returnURL='.$_SERVER['REQUEST_URI'].'">Login</a>';
                         echo '<div class="dropdown-divider"></div>';  // divider between menu items
                         echo '<a class="dropdown-item" href="registerCustomer.php">Register</a>';
+                        echo '<div class="dropdown-divider"></div>';
+                        echo '<a class="dropdown-item" href="employeeLogin.php?returnURL='.$_SERVER['REQUEST_URI'].'">Employee</a>';
                 }
                 if(isset($_SESSION['LoggedIn']) && isset($_SESSION['firstname']))
                 {
@@ -52,10 +54,13 @@
                 if(isset($_SESSION['jobrole']) && $_SESSION['jobrole'] == "manager")
                 {
                   echo "<a class='dropdown-item' href='insertMovie.php'>Insert Movie</a>";
-                  echo '<div class="dropdown-divider"></div>';
+                  echo "<a class='dropdown-item' href='alterMovies.php'>Update Movie</a>";
                   echo "<a class='dropdown-item' href='removeMovie.php'>Remove Movie</a>";
                   echo '<div class="dropdown-divider"></div>';
+                  echo "<a class='dropdown-item' href='insertShowing.php'>Insert Showing</a>";
+                  echo '<div class="dropdown-divider"></div>';
                   echo "<a class='dropdown-item' href='manageEmployees.php'>Manage Employees</a>";
+                  echo "<a class='dropdown-item' href='registerEmployee.php'>Register New Employee</a>";
                   echo '<div class="dropdown-divider"></div>';
                   echo '<a class="dropdown-item" href="../Controller/attempt_logout.php?returnURL='.$_SERVER['REQUEST_URI'].'">LogOut</a>';
                 }

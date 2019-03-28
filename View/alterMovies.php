@@ -31,7 +31,7 @@ if (isset($_GET['movieID']))
 {
   $moiveIndex = $_GET['movieID'];
   include '../Controller/getMovieDetailsByID.php';
-  echo "<a class='btn btn-outline-info' href='alterMovies.php'><-Return</a><br><br>";
+  echo "<a class='btn btn-outline-info' href='alterMovies.php'>< Return</a><br><br>";
   echo "<form class='form-group needs-validation' method='POST' action='../Controller/attempt_updateMovie.php?movieid=".$moiveIndex."' enctype='multipart/form-data' novalidate>
           <div class='row'>
             <div class='col-md-4'>

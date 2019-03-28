@@ -43,6 +43,11 @@ echo "
 
         for ($i=0 ; $i < sizeof($employeeArray) ; $i++)
         {
+          if($_SESSION['userid'] == $employeeArray[$i]->Employee_ID){
+            $disable = "disabled";
+          } else{
+            $disable = "";
+          }
         //echo "<div class='border border-success'>";
         echo "<tr>";
           echo "<td>".$employeeArray[$i]->Employee_ID."</td>";
@@ -52,23 +57,23 @@ echo "
           echo "<td>".$employeeArray[$i]->Job_Role."</td>";
           if($employeeArray[$i]->Job_Role == "manager")
           {
-            echo "<td> <button class='btn btn-secondary' href=''>PROMOTE</button> </td>";
+            echo "<td> <button class='btn btn-secondary ".$disable."' href=''>PROMOTE</button> </td>";
           }
           else
           {
-            echo "<td> <a class='btn btn-success' href='../Controller/attempt_promoteEmployee.php?id=". $employeeArray[$i]->Employee_ID ."'>PROMOTE</a> </td>";
+            echo "<td> <a class='btn btn-success ".$disable."' href='../Controller/attempt_promoteEmployee.php?id=". $employeeArray[$i]->Employee_ID ."'>PROMOTE</a> </td>";
           }
 
 
           if($employeeArray[$i]->Job_Role == "employee")
           {
-            echo "<td> <button class='btn btn-secondary' href=''>DEMOTE</button> </td>";
+            echo "<td> <button class='btn btn-secondary ".$disable."' href=''>DEMOTE</button> </td>";
           }
           else
           {
-            echo "<td> <a class='btn btn-danger' href='../Controller/attempt_demoteEmployee.php?id=". $employeeArray[$i]->Employee_ID ."'>DEMOTE</a> </td>";
+            echo "<td> <a class='btn btn-danger ".$disable."' href='../Controller/attempt_demoteEmployee.php?id=". $employeeArray[$i]->Employee_ID ."'>DEMOTE</a> </td>";
           }
-          echo "<td> <a class='btn btn-danger' href='../Controller/attempt_deleteEmployee.php?id=". $employeeArray[$i]->Employee_ID ."'>DELETE</a> </td>";
+          echo "<td> <a class='btn btn-danger ".$disable."' href='../Controller/attempt_deleteEmployee.php?id=". $employeeArray[$i]->Employee_ID ."'>DELETE</a> </td>";
 
           echo "<tr>";
         }

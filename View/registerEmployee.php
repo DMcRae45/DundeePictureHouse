@@ -33,13 +33,19 @@
 
           <!-- TOP ROW for the form is firtname and last name -->
             <div class="form-row">
-                <div class="col-md-6 mb-3 form-group">
+                <div class="col-md-6 mb-3 form-group input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroupPrepend">Firstname</span>
+                  </div>
                     <input class="form-control" type="text" id="validationTooltip" name="firstName" placeholder="Firstname" required>
                     <div class="invalid-feedback">
                       You cannot Leave This field Empty.
                     </div>
                 </div>
-                <div class="col-md-6 form-group">
+                <div class="col-md-6 form-group input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroupPrepend">Surname</span>
+                  </div>
                     <input class="form-control" type="text" name="surname" placeholder="Lastname" required>
                     <div class="invalid-feedback">
                       You cannot Leave This field Empty.
@@ -48,7 +54,10 @@
             </div>
             <!-- END TOP ROW -->
 
-            <div class="form-group">
+            <div class="form-group input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupPrepend">Job Role</span>
+              </div>
               <select class="custom-select" name="jobrole" required>
                 <option value="">Select the Job Role</option>
                 <option value="employee">Employee</option>
@@ -58,13 +67,19 @@
               <div class="invalid-feedback">Please Select a Jobe Role</div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupPrepend">Username</span>
+              </div>
                 <input class="form-control" type="text" name="username" placeholder="Username" required>
                 <div class="invalid-feedback">
                   You cannot Leave This field Empty.
                 </div>
               </div>
-            <div class="form-group">
+            <div class="form-group input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupPrepend">Password</span>
+              </div>
                 <input class="form-control" type="password" name="password" placeholder="Password" required>
                 <div class="invalid-feedback">
                   You cannot Leave This field Empty.
@@ -79,9 +94,6 @@
                     <div class="invalid-feedback">
                       You cannot Leave This field Empty.
                     </div>
-                <div class="input-group-append">
-                    <span class="input-group-text" id="inputGroupAppend" name="appendPasswordConfirm"></span>
-                </div>
                 </div>
 
             <button class="form-control" type="submit" name="registerEmployeeSubmit">Register</button>

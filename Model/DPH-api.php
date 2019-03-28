@@ -392,7 +392,7 @@ function AttemptEmployeeLogin()
       if ($result && password_verify($password, $result['Password']))
       {
         $_SESSION['LoggedIn'] = true;
-        $_SESSION['userid'] = $result['User_ID'];
+        $_SESSION['userid'] = $result['Employee_ID'];
         $_SESSION['username'] = $result['Username'];
         $_SESSION['jobrole'] = $result['Job_Role'];
       }
