@@ -33,8 +33,10 @@ if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID
         $paymentid = GetPaymentID($customerid);
         $code = GenerateTicketCode();
 
-        $ticketTypesArray = $_SESSION['ticketTypeBasket'];
+        $seatingTypesArray = $_SESSION['seatingTypeBasket'];
         $quantityArray = $_SESSION['quantityBasket'];
+        $priceArray = $_SESSION['priceArray'];
+
         $showingID = $_GET['showingid'];
 
         for ($i=0 ; $i < sizeof($quantityArray) ; $i++)
@@ -42,23 +44,14 @@ if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID
           echo "<br>";
           for ($j=0 ; $j < $quantityArray[$i] ; $j++)
           {
-            if($ticketTypesArray[$i] == "premium")
+            if($seatingTypesArray[$i] == "premium")
             {
-              $premiumTicket = 1;
-<<<<<<< HEAD
-              CreateUserTicket($code, $ticketTypesArray[$j],$premiumTicket, $paymentid[0], $showingID);
-=======
-              CreateUserTicket($code, $premiumTicket, $paymentid[0], $showingID);
->>>>>>> ef595200052f8444987d6fb850bb667d1dfe736f
+              CreateUserTicket($code, $priceArray[$i]->Ticket_Type, $seatingTypesArray[$i], $paymentid[0], $showingID);
             }
-            elseif($ticketTypesArray[$i] == "standard")
+            elseif($seatingTypesArray[$i] == "standard")
             {
               $premiumTicket = 0;
-<<<<<<< HEAD
-              CreateUserTicket($code, $ticketTypesArray[$j], $premiumTicket, $paymentid[0], $showingID);
-=======
-              CreateUserTicket($code, $premiumTicket, $paymentid[0], $showingID);
->>>>>>> ef595200052f8444987d6fb850bb667d1dfe736f
+              CreateUserTicket($code, $priceArray[$i]->Ticket_Type, $seatingTypesArray[$i], $paymentid[0], $showingID);
             }
             else
             {
@@ -66,6 +59,10 @@ if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID
             }
           }
         }
+        // Destroy session variable no longer needed to create a ticket.
+        //Destroy($_SESSION['seatingTypeBasket']);
+
+
         include 'emailConfirmation.php';
       }
     // Redirect to payment status page

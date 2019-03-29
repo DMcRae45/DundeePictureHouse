@@ -57,11 +57,11 @@ $paypal = new PaypalExpress;
      {
         if($quantityArray[$i] >= 1)
         {
-        if($ticketTypesArray[$i] == "premium")
+        if($seatingTypesArray[$i] == "premium")
         {
           $ticketCost[$i] = $quantityArray[$i]*$priceArray[$i]->Premium_Price;
           echo "<tr>
-                <td>".$quantityArray[$i]."x ".ucfirst($ticketTypesArray[$i])." ".$priceArray[$i]->Ticket_Type."</td>
+                <td>".$quantityArray[$i]."x ".ucfirst($seatingTypesArray[$i])." ".$priceArray[$i]->Ticket_Type."</td>
                 <td></td>
                 <td> £".$ticketCost[$i]."</td>
                 </tr>";
@@ -70,7 +70,7 @@ $paypal = new PaypalExpress;
         {
           $ticketCost[$i] = $quantityArray[$i] * $priceArray[$i]->Standard_Price;
           echo "<tr>
-                <td>".$quantityArray[$i]."x ".ucfirst($ticketTypesArray[$i])." ".$priceArray[$i]->Ticket_Type."</td>
+                <td>".$quantityArray[$i]."x ".ucfirst($seatingTypesArray[$i])." ".$priceArray[$i]->Ticket_Type."</td>
                 <td></td>
                 <td> £".$ticketCost[$i]."</td>
                 </tr>";

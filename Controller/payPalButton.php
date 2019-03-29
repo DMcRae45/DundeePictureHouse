@@ -29,10 +29,10 @@ paypal.Button.render({
     },
 
     <?php
-    $_SESSION['ticketTypeBasket'] = $ticketTypesArray;
+    $_SESSION['seatingTypeBasket'] = $seatingTypesArray;
     $_SESSION['quantityBasket'] = $quantityArray;
     $_SESSION['priceArray'] = $priceArray;
-     ?>
+    ?>
 
     // Execute the payment
     onAuthorize: function (data, actions) {

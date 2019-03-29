@@ -1142,20 +1142,20 @@ function GetTicketQuantities()
   return json_encode($array);
 }
 
-function GetTicketTypes()
+function GetSeatingTypes()
 {
-  $showingType_Adult = (filter_input(INPUT_POST, 'showingTypeAdult', FILTER_SANITIZE_STRING));
-  $showingType_Child = (filter_input(INPUT_POST, 'showingTypeChild', FILTER_SANITIZE_STRING));
-  $showingType_Student = (filter_input(INPUT_POST, 'showingTypeStudent', FILTER_SANITIZE_STRING));
-  $showingType_Senior = (filter_input(INPUT_POST, 'showingTypeSenior', FILTER_SANITIZE_STRING));
-  $showingType_Family = (filter_input(INPUT_POST, 'showingTypeFamily', FILTER_SANITIZE_STRING));
+  $seatingType_Adult = (filter_input(INPUT_POST, 'seatingTypeAdult', FILTER_SANITIZE_STRING));
+  $seatingType_Child = (filter_input(INPUT_POST, 'seatingTypeChild', FILTER_SANITIZE_STRING));
+  $seatingType_Student = (filter_input(INPUT_POST, 'seatingTypeStudent', FILTER_SANITIZE_STRING));
+  $seatingType_Senior = (filter_input(INPUT_POST, 'seatingTypeSenior', FILTER_SANITIZE_STRING));
+  $seatingType_Family = (filter_input(INPUT_POST, 'seatingTypeFamily', FILTER_SANITIZE_STRING));
 
-  $array = array($showingType_Adult, $showingType_Child, $showingType_Student, $showingType_Senior, $showingType_Family);
+  $array = array($seatingType_Adult, $seatingType_Child, $seatingType_Student, $seatingType_Senior, $seatingType_Family);
 
   return json_encode($array);
 }
 
-function CreateUserTicket($code, $premiumTicket, $paymentid, $showingid)
+function CreateUserTicket($code, $ticketType, $seatingType, $paymentid, $showingid)
 {
   require 'dbConnection.php';
 
@@ -1163,8 +1163,8 @@ function CreateUserTicket($code, $premiumTicket, $paymentid, $showingid)
     $query =
     ("
 
-      INSERT INTO DPH_Ticket (Code, Premium_Ticket, Payment_ID, Showing_ID)
-      VALUES(:code, :premiumTicket, :paymentid, :showingid)
+      INSERT INTO DPH_Ticket (Code, Ticket_Type, Seating_Type, Payment_ID, Showing_ID)
+      VALUES(:code, :ticketType, :seatingType, :paymentid, :showingid)
 
     ");
 
@@ -1174,7 +1174,8 @@ function CreateUserTicket($code, $premiumTicket, $paymentid, $showingid)
     $success = $stmt->execute
     ([
         'code' => $code,
-        'premiumTicket' => $premiumTicket,
+        'ticketType' => $ticketType,
+        'seatingType' => $seatingType,
         'paymentid' => $paymentid,
         'showingid' => $showingid
     ]);

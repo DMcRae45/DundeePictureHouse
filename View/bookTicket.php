@@ -75,7 +75,7 @@ echo "</div>"; // Close container
               <div class='input-group-prepend'>
                 <span class='input-group-text' id='inputGroupPrepend'>Showing Type: </span>
               </div>
-              <select class='custom-select text' name='showingType".$priceArray[$i]->Ticket_Type."' standardPrice='".$priceArray[$i]->Standard_Price."' premiumPrice='".$priceArray[$i]->Premium_Price."' id='".strtolower($priceArray[$i]->Ticket_Type)."MovieType' onchange='CalculateTotalCost(".$ticketTypeString.")'>
+              <select class='custom-select text' name='seatingType".$priceArray[$i]->Ticket_Type."' standardPrice='".$priceArray[$i]->Standard_Price."' premiumPrice='".$priceArray[$i]->Premium_Price."' id='".strtolower($priceArray[$i]->Ticket_Type)."MovieType' onchange='CalculateTotalCost(".$ticketTypeString.")'>
                 <option value='standard'>Standard</option>
                 <option value='premium'>Premium</option>
               </select>

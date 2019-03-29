@@ -5,7 +5,7 @@
 
     Author: David McRae
  */
-body, .form-control, .input-group-text, .custom-select, .list-group-item, input:-moz-read-only
+body, .form-control, .input-group-text, .custom-select, .list-group-item
 {
   background-color: #17181c;
   color:#17a2b8;
