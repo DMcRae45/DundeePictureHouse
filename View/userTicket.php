@@ -1,157 +1,171 @@
-
 <?php
 /*
-    Description: User interface used to manage old and current movie tickets.
+    Description: Allows users to see most recent ticket an up comming tickets for future showings.
 
-    Author: Brad Mair
+    Author: David McRae
 */
-
-// if (!isset($_SESSION['LoggedIn']))
-// {
-//  header("Location: customerLogin.php");
-// }
 include 'header.php';
-$sessionid = $_SESSION['userid'];
-include '../Controller/getUserTicket.php';?>
-<html>
-<script src='../Controller/displayNextTicket.js'></script>
-<?php
-echo "
-<title>DPH - My Tickets</title>
-<body>
-<br>
-  <div class='container'>
-    ";
-    //NEXT MOVIE CARD HERE
-    echo "<div class='container'>
-            <div class='page-header'>
-                <h3>Up Next</h3>
-            </div>
-            <div class='row mt-4'>
-              <div class='col-md-3'>
-                <img id='ticketCardIMG' src='images/film.placeholder.poster.jpg' class='card-img-top' alt='Movie Poster' onerror=this.src='images/film.placeholder.poster.jpg'>
-              </div>
-              <div class='col-md-9'>
-                <div class='row mt-4'>
-                  <div class='col-md-5'>
-                    <p id='ticketCardTITLE'><text>No Upcoming Ticket(s)</text></p>
-                    <hr>
-                    <p id='ticketCardCODE' style='opacity:0;'>Ticket: <text></text></p>
-                    <hr>
-                    <p id='ticketCardTYPE' style='opacity:0;'>Ticket Type: <text></text></p>
-                    <hr>
-                    <p id='ticketCardSCREEN' style='opacity:0;'>Screen: <text></text></p>
-                    <hr>
-                    <p id='ticketCardPAYPAL' style='opacity:0;'>E-Mail: <text></text></p>
-                    <hr>
-                    <p id='ticketCardDATE' style='opacity:0;'>Date: <text></text></p>
-                  </div>
-                  <div class='col-md-4'>
-                    <img  id='ticketCardAGE' src='' class='img-fluid' style='height: 1.5rem' onerror=this.style.opacity=0>
-                    <hr>
-                    <p id='ticketCardRUNTIME' style='opacity:0;'>RunTime: <text></text></p>
-                    <hr>
-                    <p id='ticketCardDIRECTOR' style='opacity:0;'>Director: <text></text></p>
-                    <hr>
-                    <p id='ticketCardLANGUAGE' style='opacity:0;'>Language: <text></text></p>
-                    <hr>
-                    <p id='ticketCardGENRE' style='opacity:0;'>Genre: <text></text></p>
-                    <hr>
-                    <p id='ticketCardTIME' style='opacity:0;'>Time: <text></text></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <br>";
+include '../Controller/getUserTicket.php';
 
-    echo "
-    <div class='page-header'>
-        <h3>My Tickets</h3>
-    </div>
-    <table class='table border table border-dark text-center'>
-      <thead class='thead-dark'>
+ if(!$_SESSION['LoggedIn'] == true)
+ {
+  header("Location:../View/index.php");
+ }
+ else
+ {
+   // code...
+
+
+echo "<body>";
+echo "<div class='container'>"; // Open container
+  echo "<div class='mt-4'>";
+    echo "<h3 class='d-inline'>".$userTicketArray->Title."</h3>"; // Display movie title
+  echo "</div>";
+    echo "<div class='row mt-4 mx-auto'>";
+      echo "<div class='col-md-3'>";
+        echo "<p>Showing At: <text>Dundee Picture House</text></p>";
+        echo "<hr>";
+        echo "<p>Starting At: <text>".$userTicketArray->Showing_Start_Time."</text></p>";
+        echo "<hr>";
+        echo "<p>Showing In: <text>".$userTicketArray->Showing_Type."</text></p>";
+        echo "<hr>";
+      echo "</div>";
+
+      echo "<div class='col-md-3'>";
+        echo "<p>Date: <text>".$userTicketArray->Showing_Date."</text></p>";
+        echo "<hr>";
+        echo "<p>Screen: <text>".$userTicketArray->Screen_ID."</text></p>";
+        echo "<hr>";
+      echo "</div>";
+    echo "</div>";
+
+echo "</div>"; // Close container
+
+
+
+echo "
+  <body>
+  <div>
+  <text>Ticket For Your Next Showing</text>
+  </div>
+  <div class='container table-responsive'>
+    <table class='table border border-dark text-center mt-4'>
+        <thead class='thead-dark'>
           <tr>
-            <th scope='col'>Movie</th>
             <th scope='col'>Ticket Code</th>
             <th scope='col'>Screen</th>
-            <th scope='col'>E-Mail</th>
-            <th scope='col'>Showing Date</th>
-            <th scope='col'>Showing Time</th>
+            <th scope='col'>Movie</th>
             <th scope='col'>Ticket Type</th>
+            <th scope='col'>Seating Type</th>
+            <th scope='col'>Date</th>
+            <th scope='col'>Time</th>
           </tr>
-        </thead>";
-
-        $nextTicketID = NULL;
-        $datePassed = False;
-        if (isset($ticketArray))
+        </thead>
+        ";
+        $latestCode = $userTicketArray[0]->Code;
+        $index = 0;
+        while($latestCode == $userTicketArray[0]->Code)
         {
-          for ($i=0 ; $i < sizeof($ticketArray) ; $i++)
-          {
-            $moiveIndex = $ticketArray[$i]->Movie_ID;
-            include '../Controller/getMovieDetailsByID.php';
+          echo "
+            <tr>
 
-            $currentDateTime = strval($ticketArray[$i]->Showing_Date) ." ". strval($ticketArray[$i]->Showing_Start_Time);
-            if (new DateTime() > new DateTime(strval($currentDateTime)) && $datePassed == False)
-            {
-              echo "<thead class='thead-dark'>";
-                echo "<tr>";
-                  echo "<th colspan='1'>Old Tickets</th>";
-                  echo "<th colspan='6'> </th>";
-                echo "</tr>";
-              echo "</thead>";
-              $datePassed = True;
-            }
+              <td>
+                <h6>".$userTicketArray[$index]->Code."</h6>
+              </td>
 
-            if ($datePassed == False)
-            {
-              $nextTicket = $ticketArray[$i];
-              $ticketMovie = $movieDetails;
-            }
+              <td>
+                <text>".$userTicketArray[$index]->Screen_ID."</text>
+              </td>
 
-            echo "<tr>";
-            echo "<td>".$movieDetails->Title."</td>";
-            echo "<td>".strtoupper($ticketArray[$i]->Code)."</td>";
-            echo "<td>0".$ticketArray[$i]->Screen_ID."</td>";
-            echo "<td>".$ticketArray[$i]->Buyer_Email."</td>";
-            echo "<td>".$ticketArray[$i]->Showing_Date."</td>";
-            echo "<td>".$ticketArray[$i]->Showing_Start_Time."</td>";
-            if ($ticketArray[$i]->Premium_Ticket == 0)
-            {
-              echo "<td>Standard Ticket</td>";
-            }
-            else{
-              echo "<td>Premium Ticket</td>";
-            }
-          echo "</tr>";
-          }
+              <td>
+                <text>".$userTicketArray[$index]->Title."</text>
+              </td>
+
+              <td>
+                <text>".$userTicketArray[$index]->Ticket_Type."</text>
+              </td>
+
+              <td>
+                <text>".$userTicketArray[$index]->Seating_Type."</text>
+              </td>
+
+              <td>
+                <text>".$userTicketArray[$index]->Showing_Date."</text>
+              </td>
+
+              <td>
+                <text>".$userTicketArray[$index]->Showing_Start_Time."</text>
+              </td>
+
+            </tr>
+          ";
+          $index++;
+          $latestCode = $userTicketArray[$index]->Code;
         }
-        else{
-          echo "<thead class='thead-dark'>";
-            echo "<tr>";
-              echo "<th colspan='2'>No Tickets to show</th>";
-              echo "<th colspan='5'> </th>";
-            echo "</tr>";
-          echo "</thead>";
-        }
-      echo "</table>";
-      if (isset($nextTicket)){
-        $ticketInfoArray = '"'.$ticketMovie->Title.'","'.$nextTicket->Code.'","'.$nextTicket->Premium_Ticket.'","'.$nextTicket->Screen_ID.'","'.$nextTicket->Buyer_Email.'","'.$nextTicket->Showing_Date.'",';
-        $ticketInfoArray = $ticketInfoArray.'"'.$ticketMovie->Image_Link.'","'.$ticketMovie->Age_Rating.'","'.$ticketMovie->RunTime.'","'.$ticketMovie->Director.'","'.$ticketMovie->Language.'","'.$ticketMovie->Genre.'","'.$nextTicket->Showing_Start_Time.'"';
-        echo "<script>DisplayTicket(".$ticketInfoArray.")</script>";
-      }
+
 echo "
-    </div>
-";
-// <footer>
-  include 'footer.php';
-// </footer>
-// <Script>
-  include '../Controller/bootstrapScript.php';
-// </Script>
+<div>
+<text>UpComing Showings</text>
+</div>
+        <div class='container table-responsive'>
+          <table class='table border border-dark text-center mt-4'>
+
+              <thead class='thead-dark'>
+                <tr>
+                  <th scope='col'>Ticket Code</th>
+                  <th scope='col'>Screen</th>
+                  <th scope='col'>Movie</th>
+                  <th scope='col'>Ticket Type</th>
+                  <th scope='col'>Seating Type</th>
+                  <th scope='col'>Date</th>
+                  <th scope='col'>Time</th>
+                </tr>
+              </thead>
+      ";
+              for($index = $index; $index < sizeof($userTicketArray) ; $index++)
+              {
+                echo "
+                  <tr>
+
+                    <td>
+                      <h6>".$userTicketArray[$index]->Code."</h6>
+                    </td>
+
+                    <td>
+                      <text>".$userTicketArray[$index]->Screen_ID."</text>
+                    </td>
+
+                    <td>
+                      <text>".$userTicketArray[$index]->Title."</text>
+                    </td>
+
+                    <td>
+                      <text>".$userTicketArray[$index]->Ticket_Type."</text>
+                    </td>
+
+                    <td>
+                      <text>".$userTicketArray[$index]->Seating_Type."</text>
+                    </td>
+
+                    <td>
+                      <text>".$userTicketArray[$index]->Showing_Date."</text>
+                    </td>
+
+                    <td>
+                      <text>".$userTicketArray[$index]->Showing_Start_Time."</text>
+                    </td>
+
+                  </tr>
+                ";
+              }
+
+
+include 'footer.php';
+include '../Controller/bootstrapScript.php';
+
 echo "
 </body>
 </html>
 ";
-
+}
 ?>
