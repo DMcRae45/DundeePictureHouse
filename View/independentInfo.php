@@ -23,6 +23,7 @@
 
   <?php
     include 'footer.php';
+    include 'bootstrapScript.php';
    ?>
  </body>
 </html>

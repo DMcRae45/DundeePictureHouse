@@ -6,6 +6,8 @@
 */
 include '../Model/DPH-api.php';
 
-$Tickets = GetUserTickets($sessionid);
-$ticketArray = json_decode($Tickets);
+$userid = $_SESSION['userid'];
+
+$Tickets = GetUserTickets($userid);
+$userTicketArray = json_decode($Tickets);
 ?>

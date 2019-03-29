@@ -5,11 +5,13 @@ include '../Controller/getCheckoutInfo.php';
 include 'header.php';
 
 $paypal = new PaypalExpress;
-?>
-
-<body>
-
-<?php
+if (!isset($_SESSION['LoggedIn']))
+{
+  header("Location: index.php");
+}
+else
+{
+  echo "<body>";
   echo "<div class='container'>"; // Open container
     echo "<div class='mt-4'>";
       echo "<h3 class='d-inline'>".$movieArray->Title."</h3>"; // Display movie title
@@ -87,13 +89,16 @@ $paypal = new PaypalExpress;
       </table>";
 
       echo "<div class='float-right' id='paypal-button'></div>";
-    ?>
+    echo "
   </div>
 </div>
+";
 
-<?php
 include '../Controller/payPalButton.php';
 include '../Controller/bootstrapScript.php';
-?>
+
+echo "
 </body>
 </html>
+";
+}

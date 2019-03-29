@@ -34,6 +34,8 @@
               echo "<img src=".$movieArray->Star_Rating." class='img-fluid' style='height: 2rem'>";
               echo "<hr>";
 
+              if($_SESSION['LoggedIn'] == true)
+              {
               echo '<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
                 <ol class="carousel-indicators">
                   <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -116,70 +118,16 @@
                 </a>
               </div>
               </br>';
-
-
-              // echo "<div id='accordion'>";
-              // for ($day=0 ; $day < 7 ; $day++)
-              // {
-              //   $showingDateString = date_format($showingDate,"Y-m-d");
-              //   $showingTabDate = date_format($showingDate,"l")." the ".date_format($showingDate,"jS");
-              //   $showingVar = date_format($showingDate,"l");
-              //
-              //   $twoDMovie = GetTwoDShowings($movieid, $showingDateString);
-              //   $twoDMovieArray = json_decode($twoDMovie);
-              //
-              //   $threeDMovie = GetThreeDShowings($movieid, $showingDateString);
-              //   $threeDMovieArray = json_decode($threeDMovie);
-              //
-              //   $showingDate = date_modify($showingDate,'+1 day');
-              //   echo "<div class='card bg-info mh-1'>";
-              //     if ($day == 0)
-              //     {
-              //       echo "<button class='card-header btn btn-outine-info font-weight-bold' id='headingDay".$showingVar."' data-toggle='collapse' data-target='#collapseDay".$showingVar."' aria-expanded='true' aria-controls='collapseDay".$showingVar."'>Today</button>";
-              //       echo "<div id='collapseDay".$showingVar."' class='collapse show' aria-labelledby='headingDay".$showingVar."' data-parent='#accordion'>";
-              //     }
-              //     else
-              //     {
-              //       echo "<button class='card-header btn btn-outine-info font-weight-bold' id='headingDay".$showingVar."' data-toggle='collapse' data-target='#collapseDay".$showingVar."' aria-expanded='true' aria-controls='collapseDay".$showingVar."'>".$showingTabDate."</button>";
-              //       echo "<div id='collapseDay".$showingVar."' class='collapse' aria-labelledby='headingDay".$showingVar."' data-parent='#accordion'>";
-              //     }
-              //       echo "<div class='card-body'>";
-              //           echo "<h6>2D</h6>";
-              //           if (isset($twoDMovieArray) && sizeof($twoDMovieArray) > 0)
-              //             {
-              //               for ($i=0 ; $i < sizeof($twoDMovieArray) ; $i++)
-              //               {
-              //                 echo "<div class='d-inline mr-2 mb-2'>";
-              //                   $time = date("H:i", strtotime($twoDMovieArray[$i]->Showing_Start_Time)); // Format the time to Hours and Minutes
-              //                   echo "<a class='btn btn-outline-info' href='bookTicket.php?showingid=".$twoDMovieArray[$i]->Showing_ID."'>".$time."</a>";
-              //                 echo "</div>";
-              //               }
-              //             }
-              //             else
-              //             {
-              //               echo"<p class='text-info'>No Showings on this day</p>";
-              //             }
-              //             echo "<hr>";
-              //               echo "<h6>3D</h6>";
-              //               if (isset($threeDMovieArray) && sizeof($threeDMovieArray) > 0)
-              //                 {
-              //                   for ($i=0 ; $i < sizeof($threeDMovieArray) ; $i++)
-              //                   {
-              //                     echo "<div class='d-inline mr-2 mb-2'>";
-              //                       $time = date("H:i", strtotime($threeDMovieArray[$i]->Showing_Start_Time)); // Format the time to Hours and Minutes.
-              //                       echo "<a class='btn btn-outline-info' href='bookTicket.php?showingid=".$threeDMovieArray[$i]->Showing_ID."'>".$time."</a>";
-              //                     echo "</div>";
-              //                   }
-              //                 }
-              //                 else
-              //                 {
-              //                   echo"<p class='text-info'>No Showings on this day</p>";
-              //                 }
-              //       echo "</div>";
-              //     echo "</div>";
-              //   echo "</div>";
-              // }
-              // echo '</div>';
+            }
+            else
+            {
+              echo "<div class= 'pt-3 pb-3 text-center border border-info'>
+              You must login to be able to see showing times and book tickets.
+              </br>
+              </br>
+              You can <a href='registerCustomer.php'>Register</a> a new account or <a href='customerLogin.php'>Login</a> here.
+              </div>";
+            }
             echo "</div>";
             echo "<div class='col-md-6'>";
             echo '<div class="card">'; // Open card div
