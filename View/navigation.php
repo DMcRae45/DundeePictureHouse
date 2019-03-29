@@ -39,17 +39,15 @@
             <?php
                 if(!isset($_SESSION['LoggedIn']))
                 {
-                        echo '<a class="dropdown-item" href="customerLogin.php?returnURL='.$_SERVER['REQUEST_URI'].'">Login</a>';
-                        echo '<div class="dropdown-divider"></div>';  // divider between menu items
-                        echo '<a class="dropdown-item" href="registerCustomer.php">Register</a>';
-                        echo '<div class="dropdown-divider"></div>';
-                        echo '<a class="dropdown-item" href="employeeLogin.php?returnURL='.$_SERVER['REQUEST_URI'].'">Employee Login</a>';
+                  echo '<a class="dropdown-item" href="customerLogin.php">Login</a>';
+                  echo '<div class="dropdown-divider"></div>';  // divider between menu items
+                  echo '<a class="dropdown-item" href="registerCustomer.php">Register</a>';
                 }
                 if(isset($_SESSION['LoggedIn']) && isset($_SESSION['firstname']))
                 {
                   echo "<a class='dropdown-item' href='userTicket.php'>My Tickets</a>";
                   echo '<div class="dropdown-divider"></div>';
-                  echo '<a class="dropdown-item" href="../Controller/attempt_logout.php?returnURL='.$_SERVER['REQUEST_URI'].'">LogOut</a>';
+                  echo '<a class="dropdown-item" href="../Controller/attempt_logout.php">LogOut</a>';
                 }
                 if(isset($_SESSION['jobrole']) && $_SESSION['jobrole'] == "manager")
                 {
@@ -62,7 +60,7 @@
                   echo "<a class='dropdown-item' href='manageEmployees.php'>Manage Employees</a>";
                   echo "<a class='dropdown-item' href='registerEmployee.php'>Register New Employee</a>";
                   echo '<div class="dropdown-divider"></div>';
-                  echo '<a class="dropdown-item" href="../Controller/attempt_logout.php?returnURL='.$_SERVER['REQUEST_URI'].'">LogOut</a>';
+                  echo '<a class="dropdown-item" href="../Controller/attempt_logout.php">LogOut</a>';
                 }
             ?>
             </div>
