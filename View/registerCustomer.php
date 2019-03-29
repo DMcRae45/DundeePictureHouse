@@ -17,12 +17,12 @@
 
 <!-- contains the visible web page-->
 
-  <div class="page-header container">
-      <h1>Register Account</h1>
-  </div>
-
 <!-- Container for the Form -->
     <div class="container">
+
+      <div class="page-header">
+          <h1 class="text-center mt-4">Register for an account</h1>
+      </div>
 
 <!-- Form -->
         <form class="form-group needs-validation" action="../Controller/attempt_registerCustomer.php" method="POST" novalidate>
@@ -31,27 +31,27 @@
             <div class="form-row">
                 <div class="col-md-6 form-group input-group">
                   <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupPrepend">First Name</span>
+                    <span class="input-group-text mt-4" id="inputGroupPrepend">First Name</span>
                   </div>
-                    <input class="form-control" type="text" id="firstName" name="firstName" placeholder="Firstname" required>
+                    <input class="form-control mt-4" type="text" id="firstName" name="firstName" placeholder="Firstname" required>
                       <div class="invalid-feedback">
                         You cannot Leave This field Empty.
                       </div>
                   <div class="input-group-append">
-                      <span class="input-group-text" id="inputGroupAppend" name="appendFirstName"></span>
+                      <span class="input-group-text mt-4" id="inputGroupAppend" name="appendFirstName"></span>
                   </div>
                 </div>
 
                 <div class="col-md-6 form-group input-group">
                   <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupPrepend">Surname</span>
+                    <span class="input-group-text mt-4" id="inputGroupPrepend">Surname</span>
                   </div>
-                    <input class="form-control" type="text" id="surname" name="surname" placeholder="Lastname" required>
+                    <input class="form-control mt-4" type="text" id="surname" name="surname" placeholder="Lastname" required>
                       <div class="invalid-feedback">
                         You cannot Leave This field Empty.
                       </div>
                   <div class="input-group-append">
-                      <span class="input-group-text" id="inputGroupAppend" name="appendSurname"></span>
+                      <span class="input-group-text mt-4" id="inputGroupAppend" name="appendSurname"></span>
                   </div>
                   </div>
             </div>
