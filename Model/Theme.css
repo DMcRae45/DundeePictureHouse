@@ -25,6 +25,28 @@ body, .form-control, .input-group-text, .custom-select, .list-group-item, input:
   height:50rem;
 }
 
+.carousel-card
+{
+   padding-left:4rem;
+   padding-right:4rem;
+   height:100%;
+}
+
+.carousel-control-prev, .carousel-control-next
+{
+  margin-top: 3rem;
+}
+
+.carousel-indicators
+{
+  margin-bottom: 0.25rem;
+}
+
+.showingTime
+{
+  margin-bottom: 5px;
+}
+
 .card-body, .card-title, .card-text, .card-header
 {
     background-color: #2a2c33;

@@ -8,6 +8,15 @@ include '../Model/DPH-api.php';
 
 session_start();
 
-AttemptCustomerLogIn();
-header('location: ../View/index.php');
+$returnURL = (isset($_GET['returnURL'])) ? $_GET['returnURL'] : FALSE;
+  if ($returnURL)
+  {
+    AttemptCustomerLogIn();
+    header('location: '.$returnURL);
+  }
+  else
+  {
+    AttemptCustomerLogIn();
+    header('location: ../View/index.php');
+  }
 ?>

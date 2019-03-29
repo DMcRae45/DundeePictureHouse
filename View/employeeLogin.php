@@ -8,8 +8,8 @@
 <html>
 <head>
     <?php
-        include '../Model/DPH-api.php';
         include 'header.php';
+        include '../Controller/getReturnURL.php';
     ?>
 </head>
 <body>
@@ -20,7 +20,7 @@
       <h1> Employee Login page </h1>
   </div>
 
-    <form class="form-group needs-validation" action="../Controller/attempt_employeeLogin.php" method="POST" novalidate>
+    <?php echo '<form class="form-group needs-validation" action="../Controller/attempt_employeeLogin.php?returnURL='.$returnURL.'" method="POST" novalidate>'?>
 
       <div class="form-group">
           <input class="form-control" type="text" id="username" name="username" placeholder="Username" required>

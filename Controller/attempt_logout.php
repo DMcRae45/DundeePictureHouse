@@ -8,7 +8,10 @@
 include '../Model/DPH-api.php';
 
 session_start();
-
-AttemptLogOut();
-header('location: ../View/index.php');
+$returnURL = (isset($_GET['returnURL'])) ? $_GET['returnURL'] : FALSE;
+  if ($returnURL)
+  {
+    AttemptLogOut();
+    header('location: '.$returnURL);
+  }
 ?>

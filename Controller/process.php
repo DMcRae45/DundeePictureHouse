@@ -45,12 +45,20 @@ if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID
             if($ticketTypesArray[$i] == "premium")
             {
               $premiumTicket = 1;
+<<<<<<< HEAD
               CreateUserTicket($code, $ticketTypesArray[$j],$premiumTicket, $paymentid[0], $showingID);
+=======
+              CreateUserTicket($code, $premiumTicket, $paymentid[0], $showingID);
+>>>>>>> ef595200052f8444987d6fb850bb667d1dfe736f
             }
             elseif($ticketTypesArray[$i] == "standard")
             {
               $premiumTicket = 0;
+<<<<<<< HEAD
               CreateUserTicket($code, $ticketTypesArray[$j], $premiumTicket, $paymentid[0], $showingID);
+=======
+              CreateUserTicket($code, $premiumTicket, $paymentid[0], $showingID);
+>>>>>>> ef595200052f8444987d6fb850bb667d1dfe736f
             }
             else
             {
@@ -58,10 +66,10 @@ if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID
             }
           }
         }
-
+        include 'emailConfirmation.php';
       }
     // Redirect to payment status page
-    //header("Location:../View/paymentSuccess.php");
+    header("Location:../View/userTicket.php");
 }
 else
 {

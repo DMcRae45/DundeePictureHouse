@@ -136,7 +136,7 @@ echo "
         }
       echo "</table>";
       if (isset($nextTicket)){
-        $ticketInfoArray = '"'.$ticketMovie->Title.'","'.$nextTicket->Code.'","'.$nextTicket->Premium_Ticket.'","'.$nextTicket->Screen_ID.'","'.$nextTicket->PayPal_Email.'","'.$nextTicket->Showing_Date.'",';
+        $ticketInfoArray = '"'.$ticketMovie->Title.'","'.$nextTicket->Code.'","'.$nextTicket->Premium_Ticket.'","'.$nextTicket->Screen_ID.'","'.$nextTicket->Buyer_Email.'","'.$nextTicket->Showing_Date.'",';
         $ticketInfoArray = $ticketInfoArray.'"'.$ticketMovie->Image_Link.'","'.$ticketMovie->Age_Rating.'","'.$ticketMovie->RunTime.'","'.$ticketMovie->Director.'","'.$ticketMovie->Language.'","'.$ticketMovie->Genre.'","'.$nextTicket->Showing_Start_Time.'"';
         echo "<script>DisplayTicket(".$ticketInfoArray.")</script>";
       }

@@ -392,7 +392,7 @@ function AttemptEmployeeLogin()
       if ($result && password_verify($password, $result['Password']))
       {
         $_SESSION['LoggedIn'] = true;
-        $_SESSION['userid'] = $result['User_ID'];
+        $_SESSION['userid'] = $result['Employee_ID'];
         $_SESSION['username'] = $result['Username'];
         $_SESSION['jobrole'] = $result['Job_Role'];
       }
@@ -912,7 +912,7 @@ function GetUserTickets($sessionid)
 
   $query = $pdo->prepare
   ("
-    SELECT t.Ticket_ID, t.Code, t.Premium_Ticket, s.Movie_ID, s.Showing_Date, s.Showing_Start_Time, s.Screen_ID, p.PayPal_Email
+    SELECT t.Ticket_ID, t.Code, t.Premium_Ticket, s.Movie_ID, s.Showing_Date, s.Showing_Start_Time, s.Screen_ID, p.Buyer_Email
     FROM DPH_Ticket t
     JOIN  DPH_Showing s ON (t.Showing_ID = s.Showing_ID)
     JOIN  DPH_Payment p ON (t.Payment_ID = p.Payment_ID)
