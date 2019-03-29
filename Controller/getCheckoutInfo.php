@@ -24,12 +24,6 @@ $movieArray = json_decode($movie);
 
 $quantities = GetTicketQuantities();
 $quantityArray = json_decode($quantities);
-<<<<<<< HEAD
-
-$ticketTypes = GetTicketTypes();
-$ticketTypesArray = json_decode($ticketTypes);
-=======
->>>>>>> eaec130b46ee53d2f84d25c120626f9716762028
 
 $ticketTypes = GetTicketTypes();
 $ticketTypesArray = json_decode($ticketTypes);

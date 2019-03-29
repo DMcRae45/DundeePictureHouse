@@ -4,7 +4,7 @@ if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID
     // Include database and API
     include '../Model/DPH-api.php';
     include '../Model/PaypalExpress.php';
-    
+
     $paypal = new PaypalExpress;
 
     // Get payment info from URL
@@ -31,23 +31,7 @@ if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID
         insertPayments($customerid, $transactionid, $paymentStatus, $buyerName, $buyerEmail, $buyerID, $grossAmount, $currencyCode);
 
         $paymentid = GetPaymentID($customerid);
-<<<<<<< HEAD
         $code = GenerateTicketCode();
-
-        echo "payment id: ".$paymentid;
-        echo "code: ".$code;
-
-        for ($i=0 ; $i < sizeof($quantityArray) ; $i++)
-        {
-        echo "Quantity array:".$quantityArray[$i];
-        }
-        for ($i=0 ; $i < sizeof($ticketTypesArray) ; $i++)
-        {
-        echo "ticketTypes array:".$ticketTypesArray[$i];
-        }
-
-=======
->>>>>>> eaec130b46ee53d2f84d25c120626f9716762028
 
         $ticketTypesArray = $_SESSION['ticketTypeBasket'];
         $quantityArray = $_SESSION['quantityBasket'];
@@ -61,14 +45,12 @@ if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID
             if($ticketTypesArray[$i] == "premium")
             {
               $premiumTicket = 1;
-              $code = GenerateTicketCode();
-              CreateUserTicket($code, $premiumTicket, $paymentid[0], $showingID);
+              CreateUserTicket($code, $ticketTypesArray[$j],$premiumTicket, $paymentid[0], $showingID);
             }
             elseif($ticketTypesArray[$i] == "standard")
             {
               $premiumTicket = 0;
-              $code = GenerateTicketCode();
-              CreateUserTicket($code, $premiumTicket, $paymentid[0], $showingID);
+              CreateUserTicket($code, $ticketTypesArray[$j], $premiumTicket, $paymentid[0], $showingID);
             }
             else
             {

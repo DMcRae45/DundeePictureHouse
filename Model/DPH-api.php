@@ -462,7 +462,7 @@ function AttemptInsertMovie()
                     $YoutubeURL = "watch?v=";
                     $embededURL = "embed/";
                     $video = str_replace($YoutubeURL, $embededURL, $video); // replace part of the Youtube URL to make it an embeded video for easy use by users.
-                    $releaseOrder = date("Y-m-d", strtotime($releaseDate));
+                    $releaseOrder = date("Y-m-d", strtotime($releaseDate)); // Force date format DD/MM/YYYY
                     $releaseDate = date("d-m-Y", strtotime($releaseDate)); // Force date format DD/MM/YYYY
 
                     switch($starRating)
@@ -586,218 +586,6 @@ function AttemptInsertMovie()
     }
 }
 
-function AttemptUpdateMovie()
-{
-    Require 'dbConnection.php';
-
-    // Checks if submit button has been pressed
-    if (isset($_POST['updateMovieSubmit']))
-    {
-      $index = (filter_input(INPUT_POST, 'index', FILTER_SANITIZE_STRING));
-      $movieEncode = getMovieByID($index);
-      $movie_details = json_decode($movieEncode);
-
-      $file = $_FILES['image_link'];
-
-      // Checks there are no errors
-      if ($_FILES['image_link']['error'] === 0)
-      {
-        $fileName = $_FILES['image_link']['name'];
-        $fileTmpName = $_FILES['image_link']['tmp_name'];
-        $fileError = $_FILES['image_link']['error'];
-        $fileType = $_FILES['image_link']['type'];
-
-        $fileExt = explode('.', $fileName);
-        $fileActualExt = strtolower(end($fileExt));
-
-        $allowed = array('jpg', 'jpeg', 'png');
-
-        if (in_array($fileActualExt, $allowed))
-        {
-          $newImage = True;
-        }
-      }
-      else
-      {
-        $oldImage = $movie_details->Image_Link;
-      }
-
-        // Checks if file is an allowed type
-        if (isset($newImage) || isset($oldImage))
-        {
-                // Checks file size is below stated value
-                if ($_FILES['image_link']['size'] < 1000000 || isset($oldImage))
-                {
-                  if (!isset($oldImage))
-                  {
-                    try
-                    {
-                      unlink($movie_details->Image_Link);
-                    }
-                    catch (Exception $e) {}
-                    // Gives file a unique id to stop overwriting of files with same name
-                    $fileNameNew = uniqid('', true) . "." . $fileActualExt;
-                    // Determines file location
-                    $fileDestination = '../View/images/' . $fileNameNew;
-                    // Sends file to specified location
-                    move_uploaded_file($fileTmpName, $fileDestination);
-                  }
-                  else
-                  {
-                    $fileDestination = $oldImage;
-                  }
-
-                    // Once complete carry out the INSERT statement to database
-                    $title = (filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING));
-                    $video = (filter_input(INPUT_POST, 'video', FILTER_SANITIZE_STRING));
-                    $image = $fileDestination;
-                    $description = (filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING));
-                    $releaseDate = (filter_input(INPUT_POST, 'releaseDate', FILTER_SANITIZE_STRING));
-                    $ageRating = (filter_input(INPUT_POST, 'ageRating', FILTER_SANITIZE_STRING));
-                    $runTime = (filter_input(INPUT_POST, 'runTime', FILTER_SANITIZE_NUMBER_INT));
-                    $genre = (filter_input(INPUT_POST, 'genre', FILTER_SANITIZE_STRING));
-                    $director = (filter_input(INPUT_POST, 'director', FILTER_SANITIZE_STRING));
-                    $actors = (filter_input(INPUT_POST, 'actors', FILTER_SANITIZE_STRING));
-                    $language = (filter_input(INPUT_POST, 'language', FILTER_SANITIZE_STRING));
-                    $starRating = (filter_input(INPUT_POST, 'starRating', FILTER_SANITIZE_STRING));
-
-                    $YoutubeURL = "watch?v=";
-                    $embededURL = "embed/";
-                    $video = str_replace($YoutubeURL, $embededURL, $video); // replace part of the Youtube URL to make it an embeded video for easy use by users.
-                    $releaseOrder = date("Y-m-d", strtotime($releaseDate));
-                    $releaseDate = date("d-m-Y", strtotime($releaseDate)); // Force date format DD/MM/YYYY
-
-                    switch($starRating)
-                    {
-                      case "0":
-                        $starRating = "../View/images/0_star.png";
-                        break;
-                      case "1":
-                        $starRating = "../View/images/1_star.png";
-                        break;
-                      case "2":
-                        $starRating = "../View/images/2_star.png";
-                        break;
-                      case "3":
-                        $starRating = "../View/images/3_star.png";
-                        break;
-                      case "4":
-                        $starRating = "../View/images/4_star.png";
-                        break;
-                      case "5":
-                        $starRating = "../View/images/5_star.png";
-                        break;
-                    }
-
-                    switch($ageRating)
-                    {
-                      case "U":
-                        $ageRating = "../View/images/U.png";
-                        $ageOrdering = "0";
-                        break;
-                      case "PG":
-                        $ageRating = "../View/images/PG.png";
-                        $ageOrdering = "1";
-                        break;
-                      case "12A":
-                        $ageRating = "../View/images/12A.png";
-                        $ageOrdering = "2";
-                        break;
-                      case "15":
-                        $ageRating = "../View/images/15.png";
-                        $ageOrdering = "3";
-                        break;
-                      case "18":
-                        $ageRating = "../View/images/18.png";
-                        $ageOrdering = "4";
-                        break;
-                    }
-
-                    if(isset($_POST['threeD']))
-                    {
-                      $threeD = 1;
-                    }
-                    else
-                    {
-                      $threeD = 0;
-                    }
-
-                    if(isset($_POST['audioDescribed']))
-                    {
-                      $audioDescribed = 1;
-                    }
-                    else
-                    {
-                      $audioDescribed = 0;
-                    }
-
-                    $query = $pdo->prepare
-                    ("
-                    UPDATE DPH_Movie
-                    SET
-                    Title = :title,
-                    Video_Link = :video,
-                    Image_Link = :image,
-                    Description = :description,
-                    Release_Ordering = :releaseOrder,
-                    Release_Date = :releaseDate,
-                    Age_Ordering = :ageOrdering,
-                    Age_Rating = :ageRating,
-                    RunTime = :runTime,
-                    Genre = :genre,
-                    Director = :director,
-                    Actors = :actors,
-                    Language = :language,
-                    3D = :threeD,
-                    Audio_Described = :audioDescribed,
-                    Star_Rating = :starRating
-                    WHERE Movie_ID = ".$index."
-                    ");
-
-                    $success = $query->execute
-                    ([
-                      'title' => $title,
-                      'video' => $video,
-                      'image' => $image,
-                      'description' => $description,
-                      'releaseOrder' => $releaseOrder,
-                      'releaseDate' => $releaseDate,
-                      'ageOrdering' => $ageOrdering,
-                      'ageRating' => $ageRating,
-                      'runTime' => $runTime,
-                      'genre' => $genre,
-                      'director' => $director,
-                      'actors' => $actors,
-                      'language' => $language,
-                      'threeD' => $threeD,
-                      'audioDescribed' => $audioDescribed,
-                      'starRating' => $starRating
-                    ]);
-
-                    $count = $query->rowCount();
-                    if($count > 0)
-                    {
-                      echo "Insert Successful";
-                    }
-                    else
-                    {
-                      echo "Insert Failed";
-                      echo $query -> errorInfo()[2];
-                    }
-                }
-                else
-                {
-                    echo "Your file is too big!";
-                }
-
-        }
-        else
-        {
-            echo "You cannot upload files of this type!";
-        }
-    }
-}
-
 function RemoveMovieByID($movieid)
 {
   require 'dbConnection.php';
@@ -891,6 +679,34 @@ function getShowingByID($showingid)
     echo "Nope";
   }return json_encode($row);
 }
+
+// function getShowingInfo($movieid, $showingType, $showingTime, $showingDate)
+// {
+//   require 'dbConnection.php';
+//
+//   $query = $pdo->prepare
+//   ("
+//   SELECT * FROM DPH_Showing WHERE Movie_ID = :movieid && Showing_Type = :showingType && Showing_Start_Time = :showingTime && Showing_Date = :showingDate LIMIT 1
+//   ");
+//
+//   $success = $query->execute
+//   ([
+//     'movieid' => $movieid,
+//     'showingType' => $showingType,
+//     'showingTime' => $showingTime,
+//     'showingDate' => $showingDate
+//   ]);
+//
+//   if($success && $query->rowCount() > 0)
+//   {
+//     $row = $query->fetch();
+//     return json_encode($row);
+//   }
+//   else
+//   {
+//     echo "ACCESS DENIED - stop typing in the url please";
+//   }
+// }
 
 function AttemptPromoteEmployeeByID($employeeid)
 {
@@ -1075,16 +891,16 @@ function OMDBSearch()
 //Ticket Booking
 function GenerateTicketCode()
 {
-  $day = date('d');
-  $month = date('m');
-  $year = date('y');
-  $hour = date('H');
+  $day = dechex(date('d'));
+  $month = dechex(date('m'));
+  $year = dechex(date('y'));
+  $hour = dechex(date('H'));
+  $minute = dechex(date('i'));
+  $second = dechex(date('s'));
+
   $userid = $_SESSION['userid'];
 
-  $unencryptedCode = $day.$month.$year.$hour.$userid;
-  $unencryptedCode = floatval($unencryptedCode); // dechex() will only accpet flaots when dealing with such high valued integers
-
-  $code = dechex($unencryptedCode); // Decimal: '$unencryptedCode' changed to Hexideciaml: '$code'
+  $code = $day.$month.$year.$hour.$minute.$second.$userid;
 
   return $code;
 }
@@ -1273,6 +1089,7 @@ function GetThreeDShowings($movieid, $showingDate)
   }
 }
 
+
 function insertPayments($customerid, $transactionid, $paymentStatus, $buyerName, $buyerEmail, $buyerID, $grossAmount, $currencyCode)
 {
   require 'dbConnection.php';
@@ -1320,13 +1137,9 @@ function GetTicketQuantities()
   $quantity_Senior = (filter_input(INPUT_POST, 'ticketQuantitySenior', FILTER_SANITIZE_STRING));
   $quantity_Family = (filter_input(INPUT_POST, 'ticketQuantityFamily', FILTER_SANITIZE_STRING));
 
-<<<<<<< HEAD
   $array = array($quantity_Adult, $quantity_Child, $quantity_Student, $quantity_Senior, $quantity_Family);
 
   return json_encode($array);
-=======
-  return json_encode(array($quantity_Adult, $quantity_Child, $quantity_Student, $quantity_Senior, $quantity_Family));
->>>>>>> eaec130b46ee53d2f84d25c120626f9716762028
 }
 
 function GetTicketTypes()
@@ -1337,13 +1150,9 @@ function GetTicketTypes()
   $showingType_Senior = (filter_input(INPUT_POST, 'showingTypeSenior', FILTER_SANITIZE_STRING));
   $showingType_Family = (filter_input(INPUT_POST, 'showingTypeFamily', FILTER_SANITIZE_STRING));
 
-<<<<<<< HEAD
   $array = array($showingType_Adult, $showingType_Child, $showingType_Student, $showingType_Senior, $showingType_Family);
 
   return json_encode($array);
-=======
-  return json_encode(array($showingType_Adult, $showingType_Child, $showingType_Student, $showingType_Senior, $showingType_Family));
->>>>>>> eaec130b46ee53d2f84d25c120626f9716762028
 }
 
 function CreateUserTicket($code, $premiumTicket, $paymentid, $showingid)
@@ -1383,7 +1192,7 @@ function CreateUserTicket($code, $premiumTicket, $paymentid, $showingid)
 
 function GetPaymentID($customerid)
 {
-  require '../Model/dbConnection.php';
+  require 'dbConnection.php';
 
   $query =
   ("
@@ -1398,8 +1207,11 @@ function GetPaymentID($customerid)
 
   if($success && $stmt->rowCount() > 0)
   {
-    $paymentid =  $stmt->fetch();
-    return json_decode($paymentid);
+    $paymentid = $stmt->fetch();
+
+    //$paymentid = $paymentid[0];
+
+    return $paymentid;
   }
 }
 ?>
