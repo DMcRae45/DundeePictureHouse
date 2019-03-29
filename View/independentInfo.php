@@ -13,7 +13,7 @@
 <title>DPH - Independent Movies Information</title>
   <body>
 
-  <div class="container">
+  <div class="container mt-4">
     <h1>#MakingMovies</h1>
     <p>As a recently established cinema, we realise it is not easy for a project to get off the ground. Knowing this, we are reaching out to budding film-makers and local talent to showcase their movies at our cinema.</p>
     <p>We are looking for imaginative and creative works that exhibit the meaning of independent cinema.</p>
