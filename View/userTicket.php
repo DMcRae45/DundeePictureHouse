@@ -13,9 +13,6 @@ include '../Controller/getUserTicket.php';
  }
  else
  {
-   // code...
-
-
 echo "<body>";
 echo "<div class='container'>"; // Open container
   echo "<div class='mt-4'>";

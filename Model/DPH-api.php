@@ -906,7 +906,7 @@ function GenerateTicketCode()
 }
 
 //Getting Tickets for a certain user
-function GetUserTickets($sessionid)
+function GetUserTickets($userid)
 {
   require 'dbConnection.php';
 
@@ -923,7 +923,7 @@ function GetUserTickets($sessionid)
 
   $success = $query->execute
   ([
-    'sessionid' => $sessionid
+    'userid' => $userid
   ]);
 
   if($success && $query->rowCount() > 0)
