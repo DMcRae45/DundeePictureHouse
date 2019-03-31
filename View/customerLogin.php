@@ -54,6 +54,7 @@
 <?php
 require '../Controller/bootstrapScript.php';
 require '../Controller/ValidateEmptyFields.js';
+include '../Controller/cookieConsent.php';
 ?>
 </body>
 </html>

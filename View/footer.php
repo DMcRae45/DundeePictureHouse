@@ -31,6 +31,8 @@
       © 2018 Copyright:<a href="https://www.abertay.ac.uk/"> Abertay University</a>
       <br>
       © 2018 Copyright:<a href="https://www.cineworld.co.uk"> Cineworld</a>
+      <br>
+      <a href="#" onclick="document.cookie='cookiebar=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/'; setupCookieBar(); return false;">Click here to revoke the Cookie consent</a>
     </div>
     <!-- Copyright -->
 </footer>

@@ -177,4 +177,5 @@
       Include 'footer.php';
 // </footer>
       Include '../Controller/bootstrapScript.php';
+      include '../Controller/cookieConsent.php';
 ?>

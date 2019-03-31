@@ -107,5 +107,6 @@ echo "<a class='btn btn-info' href='movie.php?id=".$movieArray[$i]->Movie_ID ."'
 <!-- </footer> -->
 
     <?php include '../Controller/bootstrapScript.php'; ?>
+    <?php include '../Controller/cookieConsent.php'; ?>
 </body>
 </html>
