@@ -11,7 +11,7 @@ if (!isset($_SESSION['LoggedIn']))
 }
 else
 {
-echo "<html>";
+echo "<title>DPH - Book Tickets</title>";
 
   $ticketTypeString = "";
   $comma = ",";

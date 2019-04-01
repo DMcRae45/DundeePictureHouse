@@ -11,7 +11,7 @@
         include 'header.php';
     ?>
 <!-- </head> -->
-<title>DPH - Home</title>
+<title>DPH - Search Results</title>
 <body>
   <br>
   <?php

@@ -9,6 +9,7 @@ body, .form-control, .input-group-text, .custom-select, .list-group-item
 {
   background-color: #17181c;
   color:#17a2b8;
+  -webkit-appearance:none;
 }
 
 .card
@@ -44,7 +45,8 @@ body, .form-control, .input-group-text, .custom-select, .list-group-item
 
 .showingTime
 {
-  margin-bottom: 5px;
+  margin-bottom: 19px;
+  padding: .375rem .5rem;
 }
 
 .card-body, .card-title, .card-text, .card-header

@@ -11,6 +11,7 @@ if (!isset($_SESSION['LoggedIn']))
 }
 else
 {
+  echo "<title>DPH - Checkout</title>";
   echo "<body>";
   echo "<div class='container'>"; // Open container
     echo "<div class='mt-4'>";
