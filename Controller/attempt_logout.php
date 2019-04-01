@@ -8,6 +8,5 @@
 include '../Model/DPH-api.php';
 
 session_start();
-
-    AttemptLogOut();
+AttemptLogOut();
 ?>

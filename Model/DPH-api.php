@@ -395,6 +395,8 @@ function AttemptEmployeeLogin()
         $_SESSION['userid'] = $result['Employee_ID'];
         $_SESSION['username'] = $result['Username'];
         $_SESSION['jobrole'] = $result['Job_Role'];
+
+        //header("Location:../View/employeeNavigation.php"); ADD THIS AFTER WE CREATE THE EMPLOYEE NAVIGATIUON PAGE....
       }
       else
       {
@@ -918,7 +920,7 @@ function GetUserTickets($userid)
     JOIN DPH_Payment p ON (t.Payment_ID = p.Payment_ID)
     JOIN DPH_Movie m ON (s.Movie_ID = m.Movie_ID)
     WHERE (p.Customer_ID = :userid)
-    ORDER BY s.Showing_Date asc, s.Showing_Start_Time asc
+    ORDER BY s.Showing_Date asc, s.Showing_Start_Time asc, t.Ticket_Type asc
   ");
 
   $success = $query->execute
