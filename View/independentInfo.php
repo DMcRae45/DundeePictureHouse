@@ -34,7 +34,7 @@
 
   <?php
     include 'footer.php';
-    include 'bootstrapScript.php';
+    include '../Controller/bootstrapScript.php';
    ?>
  </body>
 </html>
