@@ -69,7 +69,6 @@ echo "
       <thead class='thead-dark'>
           <tr>
             <th scope='col'>Ticket Code</th>
-            <th scope='col'>Screen</th>
             <th scope='col'>Movie</th>
             <th scope='col'>Ticket Type</th>
             <th scope='col'>Seating Type</th>

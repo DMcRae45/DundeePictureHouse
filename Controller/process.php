@@ -44,11 +44,11 @@ if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID
           echo "<br>";
           for ($j=0 ; $j < $quantityArray[$i] ; $j++)
           {
-            if($seatingTypesArray[$i] == "premium")
+            if($seatingTypesArray[$i] == "Premium")
             {
               CreateUserTicket($code, $priceArray[$i]->Ticket_Type, $seatingTypesArray[$i], $paymentid[0], $showingID);
             }
-            elseif($seatingTypesArray[$i] == "standard")
+            elseif($seatingTypesArray[$i] == "Standard")
             {
               $premiumTicket = 0;
               CreateUserTicket($code, $priceArray[$i]->Ticket_Type, $seatingTypesArray[$i], $paymentid[0], $showingID);
