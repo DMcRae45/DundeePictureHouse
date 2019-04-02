@@ -21,6 +21,8 @@
     <div class="container">
 
       <div class="page-header">
+        <br>
+        <img src="images/register.png" class="mx-auto d-block">
           <h1 class="text-center mt-4">Register for an account</h1>
       </div>
 
@@ -122,6 +124,7 @@
             <button class="form-control" type="submit" name="registerCustomerSubmit">Register</button>
         </form>
 <!-- End Form -->
+      <p>Already have an account? Sign in <a href="customerLogin.php">here!</a></p>
     </div>
 <!-- End Form Container -->
 
