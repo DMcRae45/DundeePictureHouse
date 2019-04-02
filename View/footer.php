@@ -9,9 +9,11 @@
 <div class="text-center">
   <h5 class="text-uppercase">Additional Information</h5>
 
-  <a class="nav-link" href="independentInfo.php">Independent Movie Information</a>
-
-  <a class="nav-link" href="TermsAndConditions.php">Terms And Condition</a>
+  <a href="independentInfo.php">Independent Movie Information</a>
+  </br>
+  </br>
+  <a href="TermsAndConditions.php">Terms And Condition</a>
+  </br>
 <br>
 </div>
 <!-- Footer -->
