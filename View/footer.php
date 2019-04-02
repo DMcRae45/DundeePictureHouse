@@ -12,9 +12,10 @@
   <a class="nav-link" href="independentInfo.php">Independent Movie Information</a>
 
   <a class="nav-link" href="TermsAndConditions.php">Terms And Condition</a>
+<br>
 </div>
 <!-- Footer -->
-<footer class="relative-bottom page-footer font-small blue pt-4">
+<footer class="relative-bottom page-footer font-small pt-4 text-light bg-dark">
         <!-- Grid column -->
         <div class="text-center">
           <!-- Content -->
