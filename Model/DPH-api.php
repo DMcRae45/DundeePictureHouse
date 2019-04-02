@@ -914,17 +914,13 @@ function GetUserTickets($userid)
 
   $query = $pdo->prepare
   ("
-    SELECT t.Ticket_ID, t.Code, s.Screen_ID, m.Movie_ID, t.Ticket_Type, t.Seating_Type, s.Showing_Type, s.Showing_Date, s.Showing_Start_Time
+    SELECT t.Ticket_ID, t.Code, m.Title, s.Screen_ID, m.Movie_ID, t.Ticket_Type, t.Seating_Type, s.Showing_Type, s.Showing_Date, s.Showing_Start_Time
     FROM DPH_Ticket t
     JOIN DPH_Showing s ON (t.Showing_ID = s.Showing_ID)
     JOIN DPH_Payment p ON (t.Payment_ID = p.Payment_ID)
     JOIN DPH_Movie m ON (s.Movie_ID = m.Movie_ID)
     WHERE (p.Customer_ID = :userid)
-<<<<<<< HEAD
-    ORDER BY s.Showing_Date desc, s.Showing_Start_Time desc
-=======
     ORDER BY s.Showing_Date asc, s.Showing_Start_Time asc, t.Ticket_Type asc
->>>>>>> 0d0519a2a49c622c4369864de2ede3dc176afb2f
   ");
 
   $success = $query->execute
