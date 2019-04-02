@@ -15,13 +15,14 @@
 <title>DPH - Home</title>
 <body>
 
+  <div class="page-header">
+      <img src="images/dph-header.png" class="img-fluid" style="width:100%;" alt="dundee picture house home banner">
+  </div>
+
 <div class="container">
-    <div class="page-header">
-    </br>
-        <h1>Dundee Picture House</h1>
-    </div>
 <?php
 echo "
+<br>
   <div class='row'>
         <div class='col-md-4'>
             <form method='POST' action='index.php'>

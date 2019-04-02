@@ -73,7 +73,7 @@
 
     <form action='searchResults.php' method='post' class="form-inline my-2 my-lg-0">
       <div class='input-group input-group-sm'>
-        <input type='text' class='form-control' placeholder="Search" aria-label='Small' aria-describedby='inputGroup-sizing-sm' id='searchTitle' name='searchTitle'>
+        <input type='text' class='form-control' placeholder="Movie search..." aria-label='Small' aria-describedby='inputGroup-sizing-sm' id='searchTitle' name='searchTitle'>
         <div class='input-group-append'>
           <button id='search-by-title-button' name='search-by-title-button' type='submit' class='btn btn-outline-info'>Search</button>
         </div>
