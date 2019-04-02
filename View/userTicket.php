@@ -7,13 +7,12 @@
 include 'header.php';
 include '../Controller/getUserTicket.php';
 
-if (isset($_SESSION['LoggedIn']))
+if (!isset($_SESSION['LoggedIn']))
 {
   header("Location: index.php");
 }
 else
 {
-
   $latestCode = $userTicketArray[0]->Code;
   $index = 0;
   if($latestCode != NULL)

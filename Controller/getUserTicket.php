@@ -11,6 +11,7 @@ $userid = $_SESSION['userid'];
 $Tickets = GetUserTickets($userid);
 $userTicketArray = json_decode($Tickets);
 
+/*
 $datePassed = False;
 if (isset($userTicketArray))
 {
@@ -55,5 +56,7 @@ else
   $ticketMovie->Language = NULL;
   $ticketMovie->Genre = NULL;
   $nextTicket->Showing_Start_Time = NULL;
-}
+}*/
+
+
 ?>
