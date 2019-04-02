@@ -16,7 +16,7 @@ include 'header.php';
 ?>
 <html>
 <head>
-
+<title>DPH - Insert Movie</title>
 </head>
 
 <body>

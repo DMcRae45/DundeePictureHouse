@@ -13,12 +13,12 @@ function CalculateTotalCost()
     var movieType = document.getElementById(ticketTypeArray[i] + "MovieType").value;// gets value standard or premuim
     var quantity = document.getElementById(ticketTypeArray[i] + "Quantity").value; // gets value from 0 to 10
 
-    if (movieType == "standard")
+    if (movieType == "Standard")
     {
       var movieTypeDiv = document.getElementById(ticketTypeArray[i] + "MovieType");
       var price = movieTypeDiv.getAttribute('standardPrice');
     }
-    else if (movieType == "premium")
+    else if (movieType == "Premium")
     {
       var movieTypeDiv = document.getElementById(ticketTypeArray[i] + "MovieType");
       var price = movieTypeDiv.getAttribute('premiumPrice');

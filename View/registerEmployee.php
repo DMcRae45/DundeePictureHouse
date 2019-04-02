@@ -15,7 +15,7 @@
     include 'header.php';
 ?>
 <!-- </head> -->
-
+<title>DPH - Registration</title>
 <body>
 
 <!-- contains the visible web page-->

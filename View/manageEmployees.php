@@ -16,7 +16,7 @@ include '../Controller/getAllEmployees.php';
 echo "
 <html>
 <head>
-
+<title>DPH - Employee Managment</title>
 </head>
 
 <body>

@@ -11,6 +11,7 @@ if (!isset($_SESSION['LoggedIn']))
 }
 else
 {
+  echo "<title>DPH - Checkout</title>";
   echo "<body>";
   echo "<div class='container'>"; // Open container
     echo "<div class='mt-4'>";
@@ -63,7 +64,7 @@ else
         {
           $ticketCost[$i] = $quantityArray[$i]*$priceArray[$i]->Premium_Price;
           echo "<tr>
-                <td>".$quantityArray[$i]."x ".ucfirst($seatingTypesArray[$i])." ".$priceArray[$i]->Ticket_Type."</td>
+                <td>".$quantityArray[$i]."x ".$seatingTypesArray[$i]." ".$priceArray[$i]->Ticket_Type."</td>
                 <td></td>
                 <td> £".$ticketCost[$i]."</td>
                 </tr>";
@@ -72,7 +73,7 @@ else
         {
           $ticketCost[$i] = $quantityArray[$i] * $priceArray[$i]->Standard_Price;
           echo "<tr>
-                <td>".$quantityArray[$i]."x ".ucfirst($seatingTypesArray[$i])." ".$priceArray[$i]->Ticket_Type."</td>
+                <td>".$quantityArray[$i]."x ".$seatingTypesArray[$i]." ".$priceArray[$i]->Ticket_Type."</td>
                 <td></td>
                 <td> £".$ticketCost[$i]."</td>
                 </tr>";

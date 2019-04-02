@@ -11,6 +11,7 @@
         include 'header.php';
         include '../Controller/getReturnURL.php';
     ?>
+<title>DPH - Login</title>
 </head>
 <body>
 

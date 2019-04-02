@@ -21,7 +21,6 @@
         <h1>Dundee Picture House</h1>
     </div>
 <?php
-
 echo "
   <div class='row'>
         <div class='col-md-4'>

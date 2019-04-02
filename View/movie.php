@@ -10,6 +10,7 @@
      include '../Controller/getMovieAndTimes.php';
 // </head>
 
+      echo "<title>DPH - ".$movieArray->Title."</title>";
       echo "<div class='container'>"; // Open container
         echo "<div class='mt-4'>";
           echo "<h1 class='d-inline'>".$movieArray->Title."</h1>"; // Display movie title
@@ -101,7 +102,7 @@
                                   }
                                   else
                                   {
-                                    echo"<p class='text-info' style='margin-bottom:19px;'>No Showings on this day</p>";
+                                    echo"<p class='text-info' style='margin-bottom:33px;'>No Showings on this day</p>";
                                   }
                       echo "</div>";
                     echo "</div>";

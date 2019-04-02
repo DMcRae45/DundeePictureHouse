@@ -11,7 +11,7 @@ include 'header.php';
 echo "
 <html>
 <head>
-
+<title>DPH - Remove Movies</title>
 </head>
 
 <body>

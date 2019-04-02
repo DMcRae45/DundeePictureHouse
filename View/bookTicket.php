@@ -11,7 +11,7 @@ if (!isset($_SESSION['LoggedIn']))
 }
 else
 {
-echo "<html>";
+echo "<title>DPH - Book Tickets</title>";
 
   $ticketTypeString = "";
   $comma = ",";
@@ -77,8 +77,8 @@ echo "
                 <span class='input-group-text' id='inputGroupPrepend'>Showing Type: </span>
               </div>
               <select class='custom-select text' name='seatingType".$priceArray[$i]->Ticket_Type."' standardPrice='".$priceArray[$i]->Standard_Price."' premiumPrice='".$priceArray[$i]->Premium_Price."' id='".strtolower($priceArray[$i]->Ticket_Type)."MovieType' onchange='CalculateTotalCost(".$ticketTypeString.")'>
-                <option value='standard'>Standard</option>
-                <option value='premium'>Premium</option>
+                <option value='Standard'>Standard</option>
+                <option value='Premium'>Premium</option>
               </select>
             </div>
           </td>

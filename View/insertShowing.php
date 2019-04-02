@@ -17,7 +17,7 @@ include 'header.php';
 ?>
 <html>
 <head>
-
+<title>DPH - Insert Showing</title>
 </head>
 
 <body>
