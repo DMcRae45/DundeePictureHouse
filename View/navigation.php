@@ -21,10 +21,6 @@
             <a class="nav-link" href="index.php">Movies <span class="sr-only">(current)</span></a>
         </li>
 
-        <li class="nav-item active">
-          <a class="nav-link" href="independentInfo.php">Independent Info</a>
-        </li>
-
         <li class="nav-item dropdown active">
 
             <?php
