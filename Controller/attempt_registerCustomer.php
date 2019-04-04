@@ -10,5 +10,5 @@ include '../Model/DPH-api.php';
 session_start();
 
 CreateNewCustomer();
-//header('location: ../View/index.php');
+header('location: ../View/index.php');
 ?>

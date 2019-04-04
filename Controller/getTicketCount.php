@@ -1,6 +1,6 @@
 <?php
 /*
-    Description: Controller to get the number of tickets that already exsist per shoiwng.
+    Description: Controller to get the number of tickets that already exsist per showing.
 
     Author: Brad Mair
 */

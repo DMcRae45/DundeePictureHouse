@@ -9,5 +9,5 @@ include '../Model/DPH-api.php';
 session_start();
 
 CreateNewEmployee();
-//header('location: ../View/index.php');
+header('location: ../View/index.php');
 ?>
