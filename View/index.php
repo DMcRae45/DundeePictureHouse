@@ -99,7 +99,7 @@ echo "<a class='btn btn-info' href='movie.php?id=".$movieArray[$i]->Movie_ID ."'
         }
     }
 
-    echo '</div><br>';
+    echo '</div></div><br>';
 ?>
 
 <!-- <footer> -->
