@@ -220,7 +220,6 @@ function CreateNewEmployee()
     $password = (filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING));
     $passwordConfirm = (filter_input(INPUT_POST, 'passwordConfirm', FILTER_SANITIZE_STRING));
 
-
     // Error checking variables
     $Error = false;
     $nameError = "";

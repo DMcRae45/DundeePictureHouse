@@ -280,7 +280,7 @@ else
     }
     echo "</table>";
 }
-echo "</div>";
+echo "</div></div>";
 // <footer>
   include 'footer.php';
 // </footer>

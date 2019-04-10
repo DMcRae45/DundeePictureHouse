@@ -9,7 +9,6 @@ body, .form-control, .input-group-text, .custom-select, .list-group-item
 {
   background-color: #17181c;
   color:#17a2b8;
-  -webkit-appearance:none;
 }
 
 .card

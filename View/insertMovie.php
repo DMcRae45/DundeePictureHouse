@@ -166,5 +166,3 @@ require '../Controller/ValidateEmptyFields.js';
 
 </body>
 </html>
-}
-?>

@@ -18,10 +18,7 @@
 <title>DPH - Registration</title>
 <body>
 
-<!-- contains the visible web page-->
-<div class="container">
-
-  <div class="page-header">
+  <div class="page-header text-center mt-4">
       <h1> Register Employee page </h1>
   </div>
 
@@ -106,7 +103,6 @@
 <!-- </footer> -->
     <?php include 'footer.php'; ?>
 <!-- </footer> -->
-</div>
 
 <!-- javascript -->
 <?php
