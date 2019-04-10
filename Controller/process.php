@@ -50,7 +50,7 @@ if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID
             }
             elseif($seatingTypesArray[$i] == "Standard")
             {
-              $premiumTicket = 0;
+              //$premiumTicket = 0;
               CreateUserTicket($code, $priceArray[$i]->Ticket_Type, $seatingTypesArray[$i], $paymentid[0], $showingID);
             }
             else

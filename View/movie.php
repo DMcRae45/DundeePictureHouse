@@ -51,17 +51,17 @@
 
                   for ($day=0 ; $day < 7 ; $day++)
                   {
-                    $showingDateString = date_format($showingDate,"Y-m-d");
-                    $showingTabDate = date_format($showingDate,"l")." the ".date_format($showingDate,"jS");
-                    $showingVar = date_format($showingDate,"l");
+                    $showingDayString = date_format($showingDay,"Y-m-d");
+                    $showingTabDay = date_format($showingDay,"l")." the ".date_format($showingDay,"jS");
+                    $showingVar = date_format($showingDay,"l");
 
-                    $twoDMovie = GetTwoDShowings($movieid, $showingDateString);
+                    $twoDMovie = GetTwoDShowings($movieid, $showingDayString);
                     $twoDMovieArray = json_decode($twoDMovie);
 
-                    $threeDMovie = GetThreeDShowings($movieid, $showingDateString);
+                    $threeDMovie = GetThreeDShowings($movieid, $showingDayString);
                     $threeDMovieArray = json_decode($threeDMovie);
 
-                    $showingDate = date_modify($showingDate,'+1 day');
+                    $showingDay = date_modify($showingDay,'+1 day');
                       if ($day == 0)
                       {
                         echo "<div class='carousel-item active'>";
@@ -70,7 +70,7 @@
                       else
                       {
                         echo "<div class='carousel-item'>";
-                        echo "<button class='card-header btn btn-outine-info font-weight-bold disabled' id='headingDay".$showingVar."' data-toggle='collapse' data-target='#collapseDay".$showingVar."' aria-expanded='true' aria-controls='collapseDay".$showingVar."'>".$showingTabDate."</button>";
+                        echo "<button class='card-header btn btn-outine-info font-weight-bold disabled' id='headingDay".$showingVar."' data-toggle='collapse' data-target='#collapseDay".$showingVar."' aria-expanded='true' aria-controls='collapseDay".$showingVar."'>".$showingTabDay."</button>";
                       }
                         echo "<div class='card-body carousel-card'>";
                             echo "<h6>2D</h6>";
@@ -79,16 +79,26 @@
                                 for ($i=0 ; $i < sizeof($twoDMovieArray) ; $i++)
                                 {
                                   echo "<div class='d-inline mr-2 mb-2'>";
-                                    $time = date("H:i", strtotime($twoDMovieArray[$i]->Showing_Start_Time)); // Format the time to Hours and Minutes
+                                    $showingDate = date('Y-m-d', strtotime($twoDMovieArray[$i]->Showing_Date));
+                                    $showingTime = date('H:i', strtotime($twoDMovieArray[$i]->Showing_Start_Time)); // Format the time to Hours and Minutes
                                     $showingIndex = $twoDMovieArray[$i]->Showing_ID;
                                     include '../Controller/getTicketCount.php';
-                                    if ($ticketCount >= $ticketsAvailable)
+
+                                    // if($date > date('Y-m-d') && $ticketCount < $ticketsAvailable)
+                                    // {
+                                    //   echo "<a class='btn btn-outline-warning showingTime' href='bookTicket.php?showingid=".$twoDMovieArray[$i]->Showing_ID."'>".$time."</a>";
+                                    // }
+                                    if (date('Y-m-d') == $showingDate && date('H:i') > $showingTime)
                                     {
-                                      echo "<a class='btn btn-outline-warning showingTime disabled' href='bookTicket.php?showingid=".$twoDMovieArray[$i]->Showing_ID."'>".$time."</a>";
+                                      echo "<a class='btn btn-outline-primary showingTime disabled' href='bookTicket.php?showingid=".$twoDMovieArray[$i]->Showing_ID."'>".$showingTime."</a>";
+                                    }
+                                    elseif($ticketCount >= $ticketsAvailable)
+                                    {
+                                      echo "<a class='btn btn-outline-warning showingTime disabled' href='bookTicket.php?showingid=".$twoDMovieArray[$i]->Showing_ID."'>".$showingTime."</a>";
                                     }
                                     else
                                     {
-                                      echo "<a class='btn btn-outline-info showingTime' href='bookTicket.php?showingid=".$twoDMovieArray[$i]->Showing_ID."'>".$time."</a>";
+                                      echo "<a class='btn btn-outline-info showingTime' href='bookTicket.php?showingid=".$twoDMovieArray[$i]->Showing_ID."'>".$showingTime."</a>";
                                     }
                                   echo "</div>";
                                 }
@@ -104,16 +114,22 @@
                                     for ($i=0 ; $i < sizeof($threeDMovieArray) ; $i++)
                                     {
                                       echo "<div class='d-inline mr-2 mb-2'>";
-                                        $time = date("H:i", strtotime($threeDMovieArray[$i]->Showing_Start_Time)); // Format the time to Hours and Minutes.
+                                        $showingDate = date('Y-m-d', strtotime($threeDMovieArray[$i]->Showing_Date));
+                                        $showingTime = date('H:i', strtotime($threeDMovieArray[$i]->Showing_Start_Time)); // Format the time to Hours and Minutes.
                                         $showingIndex = $threeDMovieArray[$i]->Showing_ID;
                                         include '../Controller/getTicketCount.php';
-                                        if ($ticketCount >= $ticketsAvailable)
+
+                                        if(date('Y-m-d') == $showingDate && date('H:i') > $showingTime)
                                         {
-                                          echo "<a class='btn btn-outline-warning showingTime disabled' href='bookTicket.php?showingid=".$threeDMovieArray[$i]->Showing_ID."'>".$time."</a>";
+                                          echo "<a class='btn btn-outline-primary showingTime disabled mb-1' href='bookTicket.php?showingid=".$threeDMovieArray[$i]->Showing_ID."'>".$showingTime."</a>";
+                                        }
+                                        elseif($ticketCount >= $ticketsAvailable)
+                                        {
+                                          echo "<a class='btn btn-outline-warning showingTime disabled' href='bookTicket.php?showingid=".$threeDMovieArray[$i]->Showing_ID."'>".$showingTime."</a>";
                                         }
                                         else
                                         {
-                                          echo "<a class='btn btn-outline-info showingTime' href='bookTicket.php?showingid=".$threeDMovieArray[$i]->Showing_ID."'>".$time."</a>";
+                                          echo "<a class='btn btn-outline-info showingTime' href='bookTicket.php?showingid=".$threeDMovieArray[$i]->Showing_ID."'>".$showingTime."</a>";
                                         }
                                       echo "</div>";
                                     }
@@ -157,40 +173,6 @@
             echo "</div>";
           echo "</div>";
     echo "</div>"; // Close container
-
-
-
-
-// Comments Section
-//nl2br is used to read "nl" inside php database as a new line or a line break "reference 'mmtuts' Youtube"
-//   for($row = 0; $row < sizeof($commentArray); $row++)
-//   {
-//     echo "<div class='border border-success'>";
-//       echo $commentArray[$row]->Username."<br>";
-//       echo $commentArray[$row]->Post_Date."<br>";
-//       echo "<br>";
-//       echo nl2br($commentArray[$row]->Comment_Text);
-//     echo "</div>";
-//     echo "<br>";
-//   }
-//
-// if(isset($_SESSION['LoggedIn']))
-// {
-// echo "
-//   <form method='POST' action='".setComments()."'>
-//     <input type='hidden' name='postdate' value='".date('Y-m-d H:i:s')."'>
-//     <input type='hidden' name='articleid' value='".$movieid."'>
-//     <input type='hidden' name='userid' value='".$_SESSION['User_ID']."'>
-//     <textarea class='form-control z-depth-1' rows='3' placeholder='Write a Comment...' name='comment'></textarea>
-//   <button class='btn btn-success' type='submit' name='commentSubmit'>Comment</button>
-//   </form>
-// ";
-// }
-// else
-// {
-//   echo "Login or register an account to Comment on this article.";
-// }
-
 
 // <footer>
       Include 'footer.php';

@@ -4,6 +4,14 @@
 include '../Controller/getCheckoutInfo.php';
 include 'header.php';
 
+if(isset($_SESSION['jobrole']))
+{
+$_SESSION['seatingTypeBasket'] = $seatingTypesArray;
+$_SESSION['quantityBasket'] = $quantityArray;
+$_SESSION['priceArray'] = $priceArray;
+}
+
+
 $paypal = new PaypalExpress;
 if (!isset($_SESSION['LoggedIn']))
 {
@@ -60,24 +68,24 @@ else
      {
         if($quantityArray[$i] >= 1)
         {
-        if($seatingTypesArray[$i] == "premium")
-        {
-          $ticketCost[$i] = $quantityArray[$i]*$priceArray[$i]->Premium_Price;
-          echo "<tr>
-                <td>".$quantityArray[$i]."x ".$seatingTypesArray[$i]." ".$priceArray[$i]->Ticket_Type."</td>
-                <td></td>
-                <td> £".$ticketCost[$i]."</td>
-                </tr>";
-        }
-        else
-        {
-          $ticketCost[$i] = $quantityArray[$i] * $priceArray[$i]->Standard_Price;
-          echo "<tr>
-                <td>".$quantityArray[$i]."x ".$seatingTypesArray[$i]." ".$priceArray[$i]->Ticket_Type."</td>
-                <td></td>
-                <td> £".$ticketCost[$i]."</td>
-                </tr>";
-       }
+          if($seatingTypesArray[$i] == "premium")
+          {
+            $ticketCost[$i] = $quantityArray[$i]*$priceArray[$i]->Premium_Price;
+            echo "<tr>
+                  <td>".$quantityArray[$i]."x ".$seatingTypesArray[$i]." ".$priceArray[$i]->Ticket_Type."</td>
+                  <td></td>
+                  <td> £".$ticketCost[$i]."</td>
+                  </tr>";
+          }
+          else
+          {
+            $ticketCost[$i] = $quantityArray[$i] * $priceArray[$i]->Standard_Price;
+            echo "<tr>
+                  <td>".$quantityArray[$i]."x ".$seatingTypesArray[$i]." ".$priceArray[$i]->Ticket_Type."</td>
+                  <td></td>
+                  <td> £".$ticketCost[$i]."</td>
+                  </tr>";
+         }
       }
      }
       $totalCost = array_sum($ticketCost);
@@ -89,7 +97,14 @@ else
         </tbody>
       </table>";
 
-      echo "<div class='float-right' id='paypal-button'></div>";
+      if(isset($_SESSION['firstname']))
+      {
+        echo "<div class='float-right' id='paypal-button'></div>";
+      }
+      elseif(isset($_SESSION['jobrole']))
+      {
+        echo "<a class='btn btn-outline-info btn-block' href='../Controller/createCustomerTicket.php' >CUSTOMER HAS NOW PAID</a>";
+      }
     echo "
   </div>
 </div>

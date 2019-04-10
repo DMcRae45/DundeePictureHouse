@@ -6,7 +6,7 @@
 Include '../Model/DPH-api.php';
 
 $movieid = $_GET['id'];
-$showingDate = date_create(date('y')."-".date('m')."-".date('d'));
+$showingDay = date_create(date('y')."-".date('m')."-".date('d'));
 //$showingDate = date_format($showingDate,"Y-m-d");
 
 $movie = getMovieByID($movieid);

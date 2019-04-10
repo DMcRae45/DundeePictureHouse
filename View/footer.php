@@ -6,7 +6,7 @@
  */
 ?>
 
-<div class="text-center">
+<div class="text-center mt-5">
   <h5 class="text-uppercase">Additional Information</h5>
 
   <a href="independentInfo.php">Independent Movie Information</a>
@@ -26,6 +26,7 @@
             David McRae - Student No. 1403163</br>
             Aaron Hay - Student No. 1800855</br>
             Brad Mair - Student No. 1803815</br>
+            ** INSERT YOUR DETEAILS HERE MARK ** </br>
             </br>
             Pixel Density</br>
           </p>

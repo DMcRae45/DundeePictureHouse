@@ -5,23 +5,10 @@
 
     Author: David McRae, Aaron Hay, Brad Mair
 */
-//Get All Movies
+//Read All Movies
 function GetAllMovies()
 {
     require 'dbConnection.php';
-    // $dateFilter = '';
-    // if (filter_input(INPUT_POST, "month", FILTER_SANITIZE_STRING))
-    // {
-    //     $month = filter_input (INPUT_POST, "month", FILTER_SANITIZE_STRING);
-    //     if ($month == "0")
-    //     {
-    //         $dateFilter = '';
-    //     }
-    //     else
-    //     {
-    //         $dateFilter = "WHERE MONTH(Release_Date) = '$month'";
-    //     }
-    // }
 
     $sortOrder = 'ORDER BY Release_Ordering desc';
     if (filter_input(INPUT_POST, "ordering", FILTER_SANITIZE_STRING))
@@ -87,6 +74,7 @@ function GetAllMovies()
     }
 }
 
+//Insert new Customer to database
 function CreateNewCustomer()
 {
   Require 'dbConnection.php';
@@ -207,6 +195,7 @@ function CreateNewCustomer()
   }
 }
 
+//Insert new Employee to database
 function CreateNewEmployee()
 {
   Require 'dbConnection.php';
@@ -326,6 +315,7 @@ function CreateNewEmployee()
   }
 }
 
+//Login Customer
 function AttemptCustomerLogin()
 {
   Require 'dbConnection.php';
@@ -363,6 +353,7 @@ function AttemptCustomerLogin()
   }
 }
 
+//Logout Customer
 function AttemptLogOut()
 {
     session_start(); // Start Session / Resume Current Session
@@ -370,6 +361,7 @@ function AttemptLogOut()
     header("Location: ../View/index.php"); // Redirect to index page
 }
 
+//Login Employee
 function AttemptEmployeeLogin()
 {
   Require 'dbConnection.php';
@@ -409,6 +401,7 @@ function AttemptEmployeeLogin()
   }
 }
 
+//Insert new Movie to database
 function AttemptInsertMovie()
 {
     Require 'dbConnection.php';
@@ -587,30 +580,10 @@ function AttemptInsertMovie()
     }
 }
 
+//Delete Movie from database
 function RemoveMovieByID($movieid)
 {
   require 'dbConnection.php';
-
-  /*
-  // IFWE IMPLEMENT COMMENTS WILL NEED TO DELETE THIS BEFORE THE MOVIE.
-  $stmtComments = $pdo->prepare
-  (
-    "DELETE FROM DPH_Comments WHERE Movie_ID = :movieid"
-  );
-
-  $success = $stmtComments->execute
-  ([
-    'movieid' => $movieid
-  ]);
-
-  if($success && $stmtComments->rowCount() > 0)
-  {
-    echo 'Successful';
-  }
-  else
-  {
-    echo 'Failed';
-  }*/
 
     $stmt = $pdo->prepare
     (
@@ -632,6 +605,7 @@ function RemoveMovieByID($movieid)
     }
 }
 
+//Read Movie by ID index
 function getMovieByID($movieid)
 {
   require 'dbConnection.php';
@@ -653,10 +627,11 @@ function getMovieByID($movieid)
   }
   else
   {
-    echo "Nope";
+    echo "Unable to find Movie";
   }
 }
 
+//Read Showing by ID index
 function getShowingByID($showingid)
 {
   require 'dbConnection.php';
@@ -674,41 +649,15 @@ function getShowingByID($showingid)
   if($success && $query->rowCount() > 0)
   {
     $row = $query->fetch();
+    return json_encode($row);
   }
   else
   {
-    echo "Nope";
-  }return json_encode($row);
+    echo "Unable to find Showing";
+  }
 }
 
-// function getShowingInfo($movieid, $showingType, $showingTime, $showingDate)
-// {
-//   require 'dbConnection.php';
-//
-//   $query = $pdo->prepare
-//   ("
-//   SELECT * FROM DPH_Showing WHERE Movie_ID = :movieid && Showing_Type = :showingType && Showing_Start_Time = :showingTime && Showing_Date = :showingDate LIMIT 1
-//   ");
-//
-//   $success = $query->execute
-//   ([
-//     'movieid' => $movieid,
-//     'showingType' => $showingType,
-//     'showingTime' => $showingTime,
-//     'showingDate' => $showingDate
-//   ]);
-//
-//   if($success && $query->rowCount() > 0)
-//   {
-//     $row = $query->fetch();
-//     return json_encode($row);
-//   }
-//   else
-//   {
-//     echo "ACCESS DENIED - stop typing in the url please";
-//   }
-// }
-
+//Alter Employees Promote
 function AttemptPromoteEmployeeByID($employeeid)
 {
   require 'dbConnection.php';
@@ -724,7 +673,7 @@ function AttemptPromoteEmployeeByID($employeeid)
   }
   else
   {
-    echo 'Check Failed';
+    echo 'No Employee found to Promote';
   }
 
   $embededURLJobRole = $oldJobRole['Job_Role'];
@@ -744,6 +693,10 @@ function AttemptPromoteEmployeeByID($employeeid)
   {
     echo 'Cannot Promote manager any higher than a manager';
   }
+  else
+  {
+    echo 'Current Job Role is Unknown';
+  }
 
   if($canPromote = true)
   {
@@ -764,12 +717,17 @@ function AttemptPromoteEmployeeByID($employeeid)
     }
     else
     {
-      echo "Nope";
+      echo "System Error, Job role was not updated";
       echo $query -> errorInfo()[2];
     }
   }
+  else
+  {
+    echo 'Unable to Promote';
+  }
 }
 
+//Alter Employees Demote
 function AttemptDemoteEmployeeByID($employeeid)
 {
   require 'dbConnection.php';
@@ -785,7 +743,7 @@ function AttemptDemoteEmployeeByID($employeeid)
   }
   else
   {
-    echo 'Check Failed';
+    echo 'No Employee found to Demote';
   }
 
   $embededURLJobRole = $oldJobRole['Job_Role'];
@@ -805,6 +763,10 @@ function AttemptDemoteEmployeeByID($employeeid)
     $canDemote = true;
     $embededURLJobRole = "supervisor";
   }
+  else
+  {
+    echo 'Current Job Role is Unknown';
+  }
 
   if($canPromote = true)
   {
@@ -825,12 +787,17 @@ function AttemptDemoteEmployeeByID($employeeid)
     }
     else
     {
-      echo "Nope";
+      echo "System Error, Job role was not updated";
       echo $query -> errorInfo()[2];
     }
   }
+  else
+  {
+    echo 'Unable to Demote';
+  }
 }
 
+//Delete Employee from database
 function AttemptDeleteEmployee($employeeid)
 {
   require 'dbConnection.php';
@@ -847,14 +814,15 @@ function AttemptDeleteEmployee($employeeid)
 
   if($success && $stmt->rowCount() > 0)
   {
-    echo 'Successful';
+    echo 'Delete Successful';
   }
   else
   {
-    echo 'Failed';
+    echo 'Delete Failed';
   }
 }
 
+//Read All Employee records from database
 function GetAllEmployees()
 {
   require 'dbConnection.php';
@@ -877,7 +845,7 @@ function GetAllEmployees()
   }
 }
 
-//REST API SEARCHING
+//Rest API Searching
 function OMDBSearch()
 {
   if(isset($_POST['search-by-title-button']))
@@ -889,7 +857,7 @@ function OMDBSearch()
   }
 }
 
-//Ticket Booking
+//Generate Movie ticket
 function GenerateTicketCode()
 {
   $day = dechex(date('d'));
@@ -906,7 +874,7 @@ function GenerateTicketCode()
   return $code;
 }
 
-//Getting Tickets for a certain user
+//Read Ticket(s) by User ID index
 function GetUserTickets($userid)
 {
   require 'dbConnection.php';
@@ -937,8 +905,10 @@ function GetUserTickets($userid)
     }
     return json_encode($rows);
   }
+
 }
 
+//Read number of tickets available for showing, by ID index
 function GetTicketCount($showingID)
 {
   require 'dbConnection.php';
@@ -963,6 +933,7 @@ function GetTicketCount($showingID)
   return json_encode($row);
 }
 
+//Read ticket prices from database
 function GetTicketInfo()
 {
   require 'dbConnection.php';
@@ -985,6 +956,7 @@ function GetTicketInfo()
   }
 }
 
+//Read all screens from database
 function GetAllScreens()
 {
   require 'dbConnection.php';
@@ -1007,14 +979,20 @@ function GetAllScreens()
   }
 }
 
+//Insert new Showing
 function AttemptInsertShowing()
 {
   if (isset($_POST['insertShowingSubmit']))
   {
     require 'dbConnection.php';
+    $canInsert = ture;
 
-    $showingTime = (filter_input(INPUT_POST, 'showingTime', FILTER_SANITIZE_STRING));
     $showingDate = (filter_input(INPUT_POST, 'showingDate', FILTER_SANITIZE_STRING));
+    $showingTime = (filter_input(INPUT_POST, 'showingTime', FILTER_SANITIZE_STRING));
+    if (date("H:i") > date("H:i", $showingTime))
+    {
+      $canInsert = False;
+    }
     $showingType = (filter_input(INPUT_POST, 'showingType', FILTER_SANITIZE_STRING));
     $movieid = (filter_input(INPUT_POST, 'movieid', FILTER_SANITIZE_STRING));
     $screenid = (filter_input(INPUT_POST, 'screenid', FILTER_SANITIZE_STRING));
@@ -1058,6 +1036,7 @@ function AttemptInsertShowing()
   }
 }
 
+//Read all 2D showings for movie, by ID index
 function GetTwoDShowings($movieid, $showingDate)
 {
   require 'dbConnection.php';
@@ -1086,6 +1065,7 @@ function GetTwoDShowings($movieid, $showingDate)
   }
 }
 
+//Read all 3D showings for movie, by ID index
 function GetThreeDShowings($movieid, $showingDate)
 {
   require 'dbConnection.php';
@@ -1115,7 +1095,7 @@ function GetThreeDShowings($movieid, $showingDate)
   }
 }
 
-
+//Insert a new PayPal Payment to database
 function insertPayments($customerid, $transactionid, $paymentStatus, $buyerName, $buyerEmail, $buyerID, $grossAmount, $currencyCode)
 {
   require 'dbConnection.php';
@@ -1155,6 +1135,7 @@ function insertPayments($customerid, $transactionid, $paymentStatus, $buyerName,
   }
 }
 
+//Read number of customer tickets from bookTickets.php
 function GetTicketQuantities()
 {
   $quantity_Adult = (filter_input(INPUT_POST, 'ticketQuantityAdult', FILTER_SANITIZE_STRING));
@@ -1168,6 +1149,7 @@ function GetTicketQuantities()
   return json_encode($array);
 }
 
+//Read type of customer tickets from bookTickets.php
 function GetSeatingTypes()
 {
   $seatingType_Adult = (filter_input(INPUT_POST, 'seatingTypeAdult', FILTER_SANITIZE_STRING));
@@ -1181,6 +1163,7 @@ function GetSeatingTypes()
   return json_encode($array);
 }
 
+//Insert new Ticket to database
 function CreateUserTicket($code, $ticketType, $seatingType, $paymentid, $showingid)
 {
   require 'dbConnection.php';
@@ -1217,6 +1200,7 @@ function CreateUserTicket($code, $ticketType, $seatingType, $paymentid, $showing
     }
 }
 
+//Read Payment by ID index
 function GetPaymentID($customerid)
 {
   require 'dbConnection.php';
@@ -1240,5 +1224,45 @@ function GetPaymentID($customerid)
 
     return $paymentid;
   }
+}
+
+//Read ticket(s) by ticket code index
+function GetCustomerTicket()
+{
+  require 'dbConnection.php';
+
+    $code = (filter_input(INPUT_POST, 'code', FILTER_SANITIZE_STRING));
+
+    $query = $pdo->prepare
+    ("
+      SELECT t.Ticket_ID, t.Code, m.Title, s.Screen_ID, m.Movie_ID, t.Ticket_Type, t.Seating_Type, s.Showing_Type, s.Showing_Date, s.Showing_Start_Time
+      FROM DPH_Ticket t
+      JOIN DPH_Showing s ON (t.Showing_ID = s.Showing_ID)
+      JOIN DPH_Payment p ON (t.Payment_ID = p.Payment_ID)
+      JOIN DPH_Movie m ON (s.Movie_ID = m.Movie_ID)
+      WHERE (t.Code = :code)
+      ORDER BY s.Showing_Date asc, s.Showing_Start_Time asc, t.Ticket_Type asc
+    ");
+
+    $success = $query->execute
+    ([
+      'code' => $code
+    ]);
+
+    if($success && $query->rowCount() > 0)
+    {
+      //  convert to JSON
+      $rows = array();
+      while($r = $query->fetch())
+      {
+        $rows[] = $r;
+      }
+      return json_encode($rows);
+    }
+    else
+    {
+      echo "Sorry, No Tickets with This code.";
+    }
+
 }
 ?>

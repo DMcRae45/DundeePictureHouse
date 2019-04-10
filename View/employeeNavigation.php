@@ -1,10 +1,10 @@
 <?php
 /*
-    Description: form used to insert a showing into the database.
+    Description: Employee navigation to maintain the Cinema booking system
 
     Author: David McRae
 */
-include '../Controller/getShowingFormData.php';
+
 include 'header.php';
 
 //if (!isset($_SESSION['LoggedIn']) || $_SESSION['Admin_Status'] != 1)
@@ -27,36 +27,54 @@ include 'header.php';
   </div>
 
 <div class='container mt-5 mb-5'>
-  <!-- Top Row for Movies -->
+  <!-- Manager Access Required -->
   <div class='row mt-5'>
     <div class='col-md-6'>
       <a class='btn btn-outline-info btn-block' href='insertMovie.php'>Add Movie</a>
     </div>
 
+    <!-- Supervisor Access Required -->
     <div class='col-md-6'>
       <a class='btn btn-outline-info btn-block' href='alterMovies.php'>Alter Movie</a>
     </div>
   </div>
 
   <div class='row mt-5'>
+    <!-- Manager Access Required -->
     <div class='col-md-6'>
       <a class='btn btn-outline-info btn-block'href='insertShowing.php'>Add Showing</a>
     </div>
 
+    <!-- Supervisor Access Required -->
     <div class='col-md-6'>
       <a class='btn btn-outline-info btn-block' href=''>Remove Showings</a>
     </div>
   </div>
 
   <div class='row mt-5'>
+    <!-- Manager Access Required -->
     <div class='col-md-6'>
       <a class='btn btn-outline-info btn-block' href='registerEmployee.php'>Register Employee</a>
     </div>
 
+    <!-- Manager Access Required -->
     <div class='col-md-6'>
       <a class='btn btn-outline-info btn-block' href='manageEmployees.php'>Manage Employees</a>
     </div>
   </div>
+
+  <div class='row mt-5'>
+    <!-- Employee Access Required -->
+    <div class='col-md-6'>
+      <a class='btn btn-outline-info btn-block' href='findCustomerTicket.php'>Find Customer Tickets</a>
+    </div>
+
+    <!-- Employee Access Required -->
+    <div class='col-md-6'>
+      <a class='btn btn-outline-info btn-block' href='bookCustomerTicket.php'>Book Customer Tickets</a>
+    </div>
+  </div>
+
 </div>
 
 
@@ -66,7 +84,6 @@ include 'header.php';
 <!-- <Script> -->
 <?php
 include '../Controller/bootstrapScript.php';
-require '../Controller/ValidateEmptyFields.js';
 ?>
 <!-- </Script> -->
 
