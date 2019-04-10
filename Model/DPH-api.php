@@ -939,6 +939,30 @@ function GetUserTickets($userid)
   }
 }
 
+function GetTicketCount($showingID)
+{
+  require 'dbConnection.php';
+
+  $query = $pdo->prepare
+  ("
+    SELECT COUNT(Ti.Ticket_ID) as Numb_Of_Tickets, Sc.Available_Tickets, Sc.Available_Premium_Tickets
+    FROM DPH_Ticket Ti
+    JOIN DPH_Showing Sh ON (Ti.Showing_ID = Sh.Showing_ID)
+    JOIN DPH_Screen Sc ON (Sh.Screen_ID = Sc.Screen_ID)
+    WHERE (Ti.Showing_ID = :showid)
+  ");
+
+  $success = $query->execute
+  ([
+    'showid' => $showingID
+  ]);
+  if($success && $query->rowCount() > 0)
+  {
+    $row = $query->fetch();
+  }
+  return json_encode($row);
+}
+
 function GetTicketInfo()
 {
   require 'dbConnection.php';

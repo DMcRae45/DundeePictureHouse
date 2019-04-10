@@ -85,3 +85,15 @@ input[readonly], input[value], textarea, select[value]
     background-color: #17181c !important;
     color: #ffffff !important;
 }
+
+.custom-file-label
+{
+  background-color: #17181c;
+  -webkit-appearance: none;
+  overflow: hidden;
+}
+
+.custom-file-label::after
+{
+  display: none;
+}

@@ -21,7 +21,7 @@ echo "
 <title>DPH - Alter Movies</title>
 </head>
 <body>
-
+<br>
 <div class='container'>
   <div class='page-header'>
     <h3>Alter Movie Records</h3>
@@ -233,7 +233,6 @@ if (isset($_GET['movieID']))
 else
 {
   echo "
-    <div class='container'>
       <div class='row'>
             <div class='col-md-4'>
                 <form method='POST' action='alterMovies.php'>

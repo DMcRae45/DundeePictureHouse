@@ -47,7 +47,10 @@ include 'header.php';
               <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroupPrepend">Poster Image</span>
               </div>
-                <input class='btn btn-outline-light' type='file' name='image_link' placeholder='Image_link' required>
+              <div class="custom-file">
+                <input class='custom-file-input' type='file' name='image_link' placeholder='Image_link' required>
+                <label class="bg-outline-dark custom-file-label" for="inputGroupFile01">Choose file</label>
+              </div>
             </div>
 
             <div class='form-group input-group'>
@@ -119,19 +122,23 @@ include 'header.php';
                 <input class='form-control' type='text' name='language' placeholder='Language' required>
             </div>
 
-            <div class="form-group form-check input-group">
+            <div class="form-group input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroupPrepend">3D</span>
               </div>
-            <input class="form-check-input" type="checkbox" name="threeD" value="" id="invalidCheck">
-          </div>
-
-          <div class="form-group form-check input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroupPrepend">Audio Described</span>
+              <div class="input-group-text">
+                <input type="checkbox" name="threeD" value="" id="invalidCheck" required>
+              </div>
             </div>
-          <input class="form-check-input" type="checkbox" name="audioDescribed" value="" id="invalidCheck">
-        </div>
+
+            <div class="form-group input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupPrepend">Audio Described</span>
+              </div>
+              <div class="input-group-text">
+                <input type="checkbox" name="audioDescribed" value="" id="invalidCheck" required>
+              </div>
+            </div>
 
         <div class="form-group input-group">
           <div class="input-group-prepend">

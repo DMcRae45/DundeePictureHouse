@@ -22,20 +22,23 @@ echo "
     <div class='container'>
     <div class='row'>
           <div class='col-md-4'>
-              <form method='POST' action='removeMovie.php'>
-                  <select class='form-control' name='ordering' onchange='this.form.submit()'>
-                      <option value='placeholder'>Sort By ...</option>
-                      <option value='0'>Release Date (Newest to Oldest)</option>
-                      <option value='1'>Release Date (Oldest to Newest)</option>
-                      <option value='2'>Age Rating (Highest to Lowest)</option>
-                      <option value='3'>Age Rating (Lowest to Highest)</option>
-                      <option value='4'>Title (A-Z)</option>
-                      <option value='5'>Title (Z-A)</option>
-                      <option value='6'>RunTime (Longest to Shortest)</option>
-                      <option value='7'>RunTime (Shortest to Longest)</option>
-                  </select>
-                  <noscript><input type='submit' value ='Sort By'></noscript>
-              </form>
+                <form class='d-inline' method='POST' action='removeMovie.php'>
+                    <select class='form-control' name='ordering' onchange='this.form.submit()'>
+                        <option value='placeholder'>Sort By ...</option>
+                        <option value='0'>Release Date (Newest to Oldest)</option>
+                        <option value='1'>Release Date (Oldest to Newest)</option>
+                        <option value='2'>Age Rating (Highest to Lowest)</option>
+                        <option value='3'>Age Rating (Lowest to Highest)</option>
+                        <option value='4'>Title (A-Z)</option>
+                        <option value='5'>Title (Z-A)</option>
+                        <option value='6'>RunTime (Longest to Shortest)</option>
+                        <option value='7'>RunTime (Shortest to Longest)</option>
+                    </select>
+                    <noscript><input type='submit' value ='Sort By'></noscript>
+                </form>
+          </div>
+          <div class='col-md-8'>
+          <a class='btn btn-outline-success d-inline float-right' href='removeMovie.php'>Refresh</a>
           </div>
       </div>
   ";
@@ -58,8 +61,25 @@ echo "
           echo "<td>".$movieArray[$i]->Movie_ID."</td>";
           echo "<td>".$movieArray[$i]->Title."</td>";
           echo '<td><img src='.$movieArray[$i]->Star_Rating.' class="img-fluid" style="height: 2rem"></td>';
-          echo "<td> <a class='btn btn-danger' href='../Controller/attempt_removeMovie.php?id=". $movieArray[$i]->Movie_ID ."'>DELETE</a> </td>";
+          echo "<td> <a class='btn btn-danger text-light' data-toggle='modal' data-target='#delete".$movieArray[$i]->Movie_ID."Modal'>DELETE</a> </td>";
           echo "</tr>";
+          echo "<div class='modal fade' id='delete".$movieArray[$i]->Movie_ID."Modal' tabindex='-1' role='dialog' aria-labelledby='deleteModalLabel' aria-hidden='true'>
+                  <div class='modal-dialog' role='document'>
+                    <div class='modal-content bg-dark'>
+                      <div class='modal-header'>
+                        <h5 class='modal-title' id='deleteModalLabel'>Are You Sure?</h5>
+                        <button type='button' class='close btn btn-dark' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+                      </div>
+                      <div class='modal-body'>
+                        <p>Are you sure you want to delete ".$movieArray[$i]->Title."?<p>
+                      </div>
+                      <div class='modal-footer'>
+                        <button type='button' class='btn btn-outline-warning' data-dismiss='modal'>No!</button>
+                        <a class='btn btn-outline-danger' role='button' href='../Controller/attempt_removeMovie.php?id=".$movieArray[$i]->Movie_ID."'>DELETE</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>";
       }
       echo "</table>";
 echo "

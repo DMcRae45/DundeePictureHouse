@@ -17,6 +17,8 @@
 
 <div class="container">
   <div class="page-header">
+    <br>
+    <img src="images/login.png" class="mx-auto d-block">
       <h1 class="text-center mt-4">Login to your account</h1>
   </div>
 
@@ -46,6 +48,8 @@
       <button class="form-control" type="submit" name="customerLoginSubmit" value="Login">Login</button>
 
     </form>
+
+    <p>Don't have an account? Sign up <a href="registerCustomer.php">here!</a></p>
 
 </div>
 <!-- <footer> -->

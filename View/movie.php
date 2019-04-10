@@ -80,7 +80,16 @@
                                 {
                                   echo "<div class='d-inline mr-2 mb-2'>";
                                     $time = date("H:i", strtotime($twoDMovieArray[$i]->Showing_Start_Time)); // Format the time to Hours and Minutes
-                                    echo "<a class='btn btn-outline-info showingTime' href='bookTicket.php?showingid=".$twoDMovieArray[$i]->Showing_ID."'>".$time."</a>";
+                                    $showingIndex = $twoDMovieArray[$i]->Showing_ID;
+                                    include '../Controller/getTicketCount.php';
+                                    if ($ticketCount >= $ticketsAvailable)
+                                    {
+                                      echo "<a class='btn btn-outline-warning showingTime disabled' href='bookTicket.php?showingid=".$twoDMovieArray[$i]->Showing_ID."'>".$time."</a>";
+                                    }
+                                    else
+                                    {
+                                      echo "<a class='btn btn-outline-info showingTime' href='bookTicket.php?showingid=".$twoDMovieArray[$i]->Showing_ID."'>".$time."</a>";
+                                    }
                                   echo "</div>";
                                 }
                               }
@@ -96,7 +105,16 @@
                                     {
                                       echo "<div class='d-inline mr-2 mb-2'>";
                                         $time = date("H:i", strtotime($threeDMovieArray[$i]->Showing_Start_Time)); // Format the time to Hours and Minutes.
-                                        echo "<a class='btn btn-outline-info showingTime' href='bookTicket.php?showingid=".$threeDMovieArray[$i]->Showing_ID."'>".$time."</a>";
+                                        $showingIndex = $threeDMovieArray[$i]->Showing_ID;
+                                        include '../Controller/getTicketCount.php';
+                                        if ($ticketCount >= $ticketsAvailable)
+                                        {
+                                          echo "<a class='btn btn-outline-warning showingTime disabled' href='bookTicket.php?showingid=".$threeDMovieArray[$i]->Showing_ID."'>".$time."</a>";
+                                        }
+                                        else
+                                        {
+                                          echo "<a class='btn btn-outline-info showingTime' href='bookTicket.php?showingid=".$threeDMovieArray[$i]->Showing_ID."'>".$time."</a>";
+                                        }
                                       echo "</div>";
                                     }
                                   }

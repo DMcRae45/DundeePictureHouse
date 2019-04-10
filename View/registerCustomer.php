@@ -21,6 +21,8 @@
     <div class="container">
 
       <div class="page-header">
+        <br>
+        <img src="images/register.png" class="mx-auto d-block">
           <h1 class="text-center mt-4">Register for an account</h1>
       </div>
 
@@ -37,9 +39,6 @@
                       <div class="invalid-feedback">
                         You cannot Leave This field Empty.
                       </div>
-                  <div class="input-group-append">
-                      <span class="input-group-text mt-4" id="inputGroupAppend" name="appendFirstName"></span>
-                  </div>
                 </div>
 
                 <div class="col-md-6 form-group input-group">
@@ -50,9 +49,6 @@
                       <div class="invalid-feedback">
                         You cannot Leave This field Empty.
                       </div>
-                  <div class="input-group-append">
-                      <span class="input-group-text mt-4" id="inputGroupAppend" name="appendSurname"></span>
-                  </div>
                   </div>
             </div>
             <!-- END TOP ROW -->
@@ -65,9 +61,6 @@
                   <div class="invalid-feedback">
                     You cannot Leave This field Empty.
                   </div>
-              <div class="input-group-append">
-                  <span class="input-group-text" id="inputGroupAppend" name="appendEmail"></span>
-              </div>
               </div>
             <div class="form-group input-group">
               <div class="input-group-prepend">
@@ -77,9 +70,6 @@
                   <div class="invalid-feedback">
                     You cannot Leave This field Empty.
                   </div>
-              <div class="input-group-append">
-                  <span class="input-group-text" id="inputGroupAppend" name="appendUsername"></span>
-              </div>
               </div>
 
             <div class="form-group input-group">
@@ -90,38 +80,33 @@
                   <div class="invalid-feedback">
                     You cannot Leave This field Empty.
                   </div>
-              <div class="input-group-append">
-                  <span class="input-group-text" id="inputGroupAppend" name="appendPassword"></span>
-              </div>
               </div>
 
             <div class="form-group input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroupPrepend">Password Confirmation</span>
               </div>
-                <input class="form-control" type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Password Confirmation" required>
-                  <div class="invalid-feedback">
-                    You cannot Leave This field Empty.
-                  </div>
-              <div class="input-group-append">
-                  <span class="input-group-text" id="inputGroupAppend" name="appendPasswordConfirm"></span>
+              <input class="form-control" type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Password Confirmation" required>
+              <div class="invalid-feedback">
+                You cannot Leave This field Empty.
               </div>
-              </div>
+            </div>
 
-              <div class="form-group form-check input-group">
-              <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-
+            <div class="form-group input-group">
               <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroupPrepend"><a href="TermsAndConditions.php" class="badge badge-info">Terms & Conditions</a></span>
+              <a href="TermsAndConditions.php" class="btn input-group-text btn-outline-info">Terms & Conditions</a>
+              </div>
+              <div class="input-group-text">
+                <input type="checkbox" value="" id="invalidCheck" required>
               </div>
               <div class="invalid-feedback">
                 You Must accept the terms and condition to register for an account.
               </div>
             </div>
-
             <button class="form-control" type="submit" name="registerCustomerSubmit">Register</button>
         </form>
 <!-- End Form -->
+      <p>Already have an account? Sign in <a href="customerLogin.php">here!</a></p>
     </div>
 <!-- End Form Container -->
 
