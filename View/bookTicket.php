@@ -107,9 +107,9 @@ echo "
       }
       echo "
           <tr>
-            <td><h6>Total Cost: </h6></td>
+            <td><h3><text>Total Cost: </text></h3></td>
             <td></td>
-            <td><h6 id='totalCost'>£0</h6></td>
+            <td><text><h2 id='totalCost'>£0</h2></text></td>
           </tr>
           <tr>
             <td colspan='3'><button class='btn btn-info btn-block'>Checkout</button></td>

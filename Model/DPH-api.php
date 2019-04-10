@@ -886,7 +886,7 @@ function GetUserTickets($userid)
     JOIN DPH_Showing s ON (t.Showing_ID = s.Showing_ID)
     JOIN DPH_Payment p ON (t.Payment_ID = p.Payment_ID)
     JOIN DPH_Movie m ON (s.Movie_ID = m.Movie_ID)
-    WHERE (p.Customer_ID = :userid)
+    WHERE (p.Customer_ID = :userid && s.Showing_Date >= CURDATE())
     ORDER BY s.Showing_Date asc, s.Showing_Start_Time asc, t.Ticket_Type asc
   ");
 

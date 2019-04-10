@@ -13,8 +13,32 @@ if (!isset($_SESSION['LoggedIn']))
 }
 else
 {
+
+  //$latestCodeIndex = 0;
+
+    // for($i = 0; $i < sizeof($userTicketArray) ; $i++)
+    // {
+    //   if(date('Y-m-d') > $userTicketArray[$latestCodeIndex]->Showing_Date)
+    //   {
+    //     $latestCodeIndex++;
+    //   }
+    // }
+
   $latestCode = $userTicketArray[0]->Code;
   $index = 0;
+  //
+  //
+  // $showingDate = date('Y-m-d', strtotime($userTicketArray[$index]->Showing_Date));
+  // $showingTime = date('H:i', strtotime($userTicketArray[$index]->Showing_Start_Time));
+  // for($i = 0; $i < sizeof($userTicketArray) ; $i++)
+  // {
+  //   if($currentDayTime >= $showingDate." ".$showingTime)
+  //   {
+  //     var_dump($userTicketArray[$index]->Showing_Date);
+  //     $index++;
+  //   }
+  // }
+
   if($latestCode != NULL)
   {
 
@@ -111,6 +135,8 @@ else
     }
     echo "</table></div>";
 
+if(index > 0)
+{
     echo "
     <div class='container table-responsive'>
       <div class='container'>
@@ -128,6 +154,7 @@ else
           </tr>
         </thead>
     ";
+
     for($index = $index; $index < sizeof($userTicketArray) ; $index++)
     {
       echo "
@@ -161,6 +188,7 @@ else
       ";
     }
     echo "</table></div>";
+  }
   }
   else
   {

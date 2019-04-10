@@ -156,7 +156,7 @@
             }
             else
             {
-              echo "<div class= 'pt-3 pb-3 text-center border border-info'>
+              echo "<div class= 'pt-3 pb-3 text-center border border-info mb-3'>
               You must login to be able to see showing times and book tickets.
               </br>
               </br>

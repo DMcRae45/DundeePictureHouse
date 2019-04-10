@@ -7,7 +7,7 @@
 include '../Model/DPH-api.php';
 
 $userid = $_SESSION['userid'];
-
+//$currentDayTime = date('Y-m-d H:i:s');
 $Tickets = GetUserTickets($userid);
 $userTicketArray = json_decode($Tickets);
 
