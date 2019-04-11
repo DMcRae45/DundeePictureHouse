@@ -98,19 +98,19 @@ function CreateNewCustomer()
     if (!preg_match("/^[a-zA-Z ]*$/",$firstName) || !preg_match("/^[a-zA-Z ]*$/",$surname)) // First & Surname must be Letters
     {
       $Error = true;
-      $nameError = "Your name can only contain letters";
+      $nameError = ":Your name can only contain letters";
     }
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) // Email Must be Valid
     {
       $Error = true;
-      $emailError = "Invalid email format";
+      $emailError = ":Invalid email format";
     }
 
     if(!preg_match("/^[a-zA-Z0-9]*$/", $username))//Username Must be letters & Numbers
     {
       $Error = true;
-      $usernameError = "Username Must Contain only letters and numbers";
+      $usernameError = ":Username Must Contain only letters and numbers";
     }
 
     if(!empty($password) && $password == $passwordConfirm) // Password & PasswordConfirm Must Match
@@ -118,43 +118,44 @@ function CreateNewCustomer()
       if(strlen($password) <= '8')// Passowrd must be Atleast 8 characters
       {
         $Error = true;
-        $passwordError = "Password Must be Atleast 8 characters Long";
+        $passwordError = ":Password Must be Atleast 8 characters Long";
       }
       elseif(!preg_match("#[0-9]+#",$password)) // Password must contain a number
       {
         $Error = true;
-        $passwordError = "Your Password Must Contain At Least 1 Number!";
+        $passwordError = ":Your Password Must Contain At Least 1 Number!";
       }
       elseif(!preg_match("#[A-Z]+#",$password)) // Password Must contain an Uppercase letter
       {
         $Error = true;
-        $passwordError = "Your Password Must Contain At Least 1 Capital Letter!";
+        $passwordError = ":Your Password Must Contain At Least 1 Capital Letter!";
       }
       elseif(!preg_match("#[a-z]+#",$password))// Password Must Conatain a Lowercase letter
       {
         $Error = true;
-        $passwordError = "Your Password Must Contain At Least 1 Lowercase Letter!";
+        $passwordError = ":Your Password Must Contain At Least 1 Lowercase Letter!";
       }
       else// No password errors have Occured
       {
-        $PasswordError = "Password Is Acceptable";
+        $PasswordError = ":Password Is Acceptable";
       }
     }
   }
   if(!empty($password) && $password != $passwordConfirm) // Password and PasswordConfirm do NOT Match
   {
     $Error = true;
-    $passwordConfirmError = "Please Check You've Confirmed Your Password!";
+    $passwordConfirmError = ":Please Check You've Confirmed Your Password!";
   }
   if(empty($password)) // Password Is Empty
   {
     $Error = true;
-    $passwordError = "Please enter a password";
+    $passwordError = ":Please enter a password";
   }
 
   if($Error == true) // An Error Has Occured
   {
-    echo"'$nameError' </br> '$emailError' </br> '$usernameError' </br> '$passwordError' </br> '$passwordConfirmError'";
+    $errorString = $nameError.$emailError.$usernameError.$passwordError.$passwordConfirmError;
+    header('Location: ../View/registerCustomer.php?error='.$errorString);
   }
   else // Continue with the Registration
   {
@@ -212,28 +213,28 @@ function CreateNewEmployee()
 
     // Error checking variables
     $Error = false;
-    $nameError = "";
-    $jobRoleError = "";
-    $usernameError = "";
-    $passwordError = "";
-    $passwordConfirmError = "";
+    $nameError;
+    $jobRoleError;
+    $usernameError;
+    $passwordError;
+    $passwordConfirmError;
 
     if (!preg_match("/^[a-zA-Z ]*$/",$firstName) || !preg_match("/^[a-zA-Z ]*$/",$surname)) // First & Surname must be Letters
     {
       $Error = true;
-      $nameError = "Your name can only contain letters";
+      $nameError = ":Your name can only contain letters";
     }
 
-    if ($jobrole != "employee" && $jobrole != "supervisor" && $jobrole != "manager" ) // Job role must match a specific type from the list
+    if ($jobrole != "employee" || $jobrole != "supervisor" || $jobrole != "manager" ) // Job role must match a specific type from the list
     {
       $Error = true;
-      $jobRoleError = "Job role is not a valid type, please select one from the dropdown list";
+      $jobRoleError = ":Job role is not a valid type, please select one from the dropdown list";
     }
 
     if(!preg_match("/^[a-zA-Z0-9]*$/", $username))//Username Must be letters & Numbers
     {
       $Error = true;
-      $usernameError = "Username Must Contain only letters and numbers";
+      $usernameError = ":Username Must Contain only letters and numbers";
     }
 
     if(!empty($password) && $password == $passwordConfirm) // Password & PasswordConfirm Must Match
@@ -241,43 +242,44 @@ function CreateNewEmployee()
       if(strlen($password) <= '8')// Passowrd must be Atleast 8 characters
       {
         $Error = true;
-        $passwordError = "Password Must be Atleast 8 characters Long";
+        $passwordError = ":Password Must be Atleast 8 characters Long";
       }
       elseif(!preg_match("#[0-9]+#",$password)) // Password must contain a number
       {
         $Error = true;
-        $passwordError = "Your Password Must Contain At Least 1 Number!";
+        $passwordError = ":Your Password Must Contain At Least 1 Number!";
       }
       elseif(!preg_match("#[A-Z]+#",$password)) // Password Must contain an Uppercase letter
       {
         $Error = true;
-        $passwordError = "Your Password Must Contain At Least 1 Capital Letter!";
+        $passwordError = ":Your Password Must Contain At Least 1 Capital Letter!";
       }
       elseif(!preg_match("#[a-z]+#",$password))// Password Must Conatain a Lowercase letter
       {
         $Error = true;
-        $passwordError = "Your Password Must Contain At Least 1 Lowercase Letter!";
+        $passwordError = ":Your Password Must Contain At Least 1 Lowercase Letter!";
       }
       else// No password errors have Occured
       {
-        $PasswordError = "Password Is Acceptable";
+        $PasswordError = ":Password Is Acceptable";
       }
     }
-
+  }
   if(!empty($password) && $password != $passwordConfirm) // Password and PasswordConfirm do NOT Match
   {
     $Error = true;
-    $passwordConfirmError = "Please Check You've Confirmed Your Password!";
+    $passwordConfirmError = ":Please Check You've Confirmed Your Password!";
   }
   if(empty($password)) // Password Is Empty
   {
     $Error = true;
-    $passwordError = "Please enter a password";
+    $passwordError = ":Please enter a password";
   }
 
   if($Error == true) // An Error Has Occured
   {
-    echo $nameError."</br>". $jobRoleError."</br>".$usernameError."</br>".$passwordError."</br>".$passwordConfirmError;
+    $errorString = $nameError.$jobRoleError.$usernameError.$passwordError.$passwordConfirmError;
+    header('Location: ../View/registerEmployee.php?error='.$errorString);
   }
   else // Continue with the Registration
   {
@@ -313,7 +315,7 @@ function CreateNewEmployee()
       echo $query -> errorInfo()[2];
     }
   }
-  }
+
 }
 
 //Login Customer
@@ -341,15 +343,20 @@ function AttemptCustomerLogin()
         $_SESSION['userid'] = $result['Customer_ID'];
         $_SESSION['username'] = $result['Username'];
         $_SESSION['firstname'] = $result['First_Name'];
+        header('location: ../View/index.php');
       }
       else
       {
-          echo "Password is invalid";
+        // invalid password
+          $invalidError = "Invalid Credentials";
+          header('location: ../View/customerLogin.php?error='.$invalidError);
       }
     }
     else
     {
-      echo" Record not found";
+      // no records found
+      $invalidError = "Invalid Credentials";
+      header('location: ../View/customerLogin.php?error='.$invalidError);
     }
   }
 }
@@ -387,17 +394,21 @@ function AttemptEmployeeLogin()
         $_SESSION['userid'] = $result['Employee_ID'];
         $_SESSION['username'] = $result['Username'];
         $_SESSION['jobrole'] = $result['Job_Role'];
-
+        header('location: ../View/index.php');
         //header("Location:../View/employeeNavigation.php"); ADD THIS AFTER WE CREATE THE EMPLOYEE NAVIGATIUON PAGE....
       }
       else
       {
-          echo "Password is invalid";
+        // Password is incorrect
+        $invalidError = "Invalid Credentials";
+        header('location: ../View/employeeLogin.php?error='.$invalidError);
       }
     }
     else
     {
-      echo" Record not found";
+      // no records found
+      $invalidError = "Invalid Credentials";
+      header('location: ../View/employeeLogin.php?error='.$invalidError);
     }
   }
 }
@@ -556,6 +567,210 @@ function AttemptInsertMovie()
                     $count = $query->rowCount();
                     if($count > 0)
                     {
+                      $validError = "Success";
+                      header('location: ../View/insertMovie.php?error='.$validError);
+                    }
+                    else
+                    {
+                      $invalidError = "Insert Failed";
+                      header('location: ../View/insertMovie.php?error='.$invalidError);
+                    }
+                }
+                else
+                {
+                    $invalidError = "Your file is too big!";
+                    header('location: ../View/insertMovie.php?error='.$invalidError);
+                }
+            }
+            else
+            {
+                $invalidError = "There was an error uploading your file!";
+                header('location: ../View/insertMovie.php?error='.$invalidError);
+            }
+        }
+        else
+        {
+            $invalidError = "You cannot upload files of this type!";
+            header('location: ../View/insertMovie.php?error='.$invalidError);
+        }
+    }
+}
+
+function AttemptUpdateMovie()
+{
+    Require 'dbConnection.php';
+    // Checks if submit button has been pressed
+    if (isset($_POST['updateMovieSubmit']))
+    {
+      $index = (filter_input(INPUT_POST, 'index', FILTER_SANITIZE_STRING));
+      $movieEncode = getMovieByID($index);
+      $movie_details = json_decode($movieEncode);
+      $file = $_FILES['image_link'];
+      // Checks there are no errors
+      if ($_FILES['image_link']['error'] === 0)
+      {
+        $fileName = $_FILES['image_link']['name'];
+        $fileTmpName = $_FILES['image_link']['tmp_name'];
+        $fileError = $_FILES['image_link']['error'];
+        $fileType = $_FILES['image_link']['type'];
+        $fileExt = explode('.', $fileName);
+        $fileActualExt = strtolower(end($fileExt));
+        $allowed = array('jpg', 'jpeg', 'png');
+        if (in_array($fileActualExt, $allowed))
+        {
+          $newImage = True;
+        }
+      }
+      else
+      {
+        $oldImage = $movie_details->Image_Link;
+      }
+        // Checks if file is an allowed type
+        if (isset($newImage) || isset($oldImage))
+        {
+                // Checks file size is below stated value
+                if ($_FILES['image_link']['size'] < 1000000 || isset($oldImage))
+                {
+                  if (!isset($oldImage))
+                  {
+                    try
+                    {
+                      unlink($movie_details->Image_Link);
+                    }
+                    catch (Exception $e) {}
+                    // Gives file a unique id to stop overwriting of files with same name
+                    $fileNameNew = uniqid('', true) . "." . $fileActualExt;
+                    // Determines file location
+                    $fileDestination = '../View/images/' . $fileNameNew;
+                    // Sends file to specified location
+                    move_uploaded_file($fileTmpName, $fileDestination);
+                  }
+                  else
+                  {
+                    $fileDestination = $oldImage;
+                  }
+                    // Once complete carry out the INSERT statement to database
+                    $title = (filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING));
+                    $video = (filter_input(INPUT_POST, 'video', FILTER_SANITIZE_STRING));
+                    $image = $fileDestination;
+                    $description = (filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING));
+                    $releaseDate = (filter_input(INPUT_POST, 'releaseDate', FILTER_SANITIZE_STRING));
+                    $ageRating = (filter_input(INPUT_POST, 'ageRating', FILTER_SANITIZE_STRING));
+                    $runTime = (filter_input(INPUT_POST, 'runTime', FILTER_SANITIZE_NUMBER_INT));
+                    $genre = (filter_input(INPUT_POST, 'genre', FILTER_SANITIZE_STRING));
+                    $director = (filter_input(INPUT_POST, 'director', FILTER_SANITIZE_STRING));
+                    $actors = (filter_input(INPUT_POST, 'actors', FILTER_SANITIZE_STRING));
+                    $language = (filter_input(INPUT_POST, 'language', FILTER_SANITIZE_STRING));
+                    $starRating = (filter_input(INPUT_POST, 'starRating', FILTER_SANITIZE_STRING));
+                    $YoutubeURL = "watch?v=";
+                    $embededURL = "embed/";
+                    $video = str_replace($YoutubeURL, $embededURL, $video); // replace part of the Youtube URL to make it an embeded video for easy use by users.
+                    $releaseOrder = date("Y-m-d", strtotime($releaseDate));
+                    $releaseDate = date("d-m-Y", strtotime($releaseDate)); // Force date format DD/MM/YYYY
+                    switch($starRating)
+                    {
+                      case "0":
+                        $starRating = "../View/images/0_star.png";
+                        break;
+                      case "1":
+                        $starRating = "../View/images/1_star.png";
+                        break;
+                      case "2":
+                        $starRating = "../View/images/2_star.png";
+                        break;
+                      case "3":
+                        $starRating = "../View/images/3_star.png";
+                        break;
+                      case "4":
+                        $starRating = "../View/images/4_star.png";
+                        break;
+                      case "5":
+                        $starRating = "../View/images/5_star.png";
+                        break;
+                    }
+                    switch($ageRating)
+                    {
+                      case "U":
+                        $ageRating = "../View/images/U.png";
+                        $ageOrdering = "0";
+                        break;
+                      case "PG":
+                        $ageRating = "../View/images/PG.png";
+                        $ageOrdering = "1";
+                        break;
+                      case "12A":
+                        $ageRating = "../View/images/12A.png";
+                        $ageOrdering = "2";
+                        break;
+                      case "15":
+                        $ageRating = "../View/images/15.png";
+                        $ageOrdering = "3";
+                        break;
+                      case "18":
+                        $ageRating = "../View/images/18.png";
+                        $ageOrdering = "4";
+                        break;
+                    }
+                    if(isset($_POST['threeD']))
+                    {
+                      $threeD = 1;
+                    }
+                    else
+                    {
+                      $threeD = 0;
+                    }
+                    if(isset($_POST['audioDescribed']))
+                    {
+                      $audioDescribed = 1;
+                    }
+                    else
+                    {
+                      $audioDescribed = 0;
+                    }
+                    $query = $pdo->prepare
+                    ("
+                    UPDATE DPH_Movie
+                    SET
+                    Title = :title,
+                    Video_Link = :video,
+                    Image_Link = :image,
+                    Description = :description,
+                    Release_Ordering = :releaseOrder,
+                    Release_Date = :releaseDate,
+                    Age_Ordering = :ageOrdering,
+                    Age_Rating = :ageRating,
+                    RunTime = :runTime,
+                    Genre = :genre,
+                    Director = :director,
+                    Actors = :actors,
+                    Language = :language,
+                    3D = :threeD,
+                    Audio_Described = :audioDescribed,
+                    Star_Rating = :starRating
+                    WHERE Movie_ID = ".$index."
+                    ");
+                    $success = $query->execute
+                    ([
+                      'title' => $title,
+                      'video' => $video,
+                      'image' => $image,
+                      'description' => $description,
+                      'releaseOrder' => $releaseOrder,
+                      'releaseDate' => $releaseDate,
+                      'ageOrdering' => $ageOrdering,
+                      'ageRating' => $ageRating,
+                      'runTime' => $runTime,
+                      'genre' => $genre,
+                      'director' => $director,
+                      'actors' => $actors,
+                      'language' => $language,
+                      'threeD' => $threeD,
+                      'audioDescribed' => $audioDescribed,
+                      'starRating' => $starRating
+                    ]);
+                    $count = $query->rowCount();
+                    if($count > 0)
+                    {
                       echo "Insert Successful";
                     }
                     else
@@ -568,11 +783,6 @@ function AttemptInsertMovie()
                 {
                     echo "Your file is too big!";
                 }
-            }
-            else
-            {
-                echo "There was an error uploading your file!";
-            }
         }
         else
         {

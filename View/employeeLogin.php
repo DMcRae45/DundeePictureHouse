@@ -6,20 +6,30 @@
  */
 ?>
 <html>
-<head>
     <?php
         include 'header.php';
     ?>
 <title>DPH - Login</title>
-</head>
+
 <body>
 
 <div class="container">
 
-  <div class="page-header">
-      <h1> Employee Login page </h1>
-  </div>
+  <div class="container">
+    <div class="page-header">
+      <br>
+      <img src="images/login.png" class="mx-auto d-block">
+        <h1 class="text-center mt-4">Employee Login</h1>
+    </div>
 
+    <?php
+    //Error Reporting for the users
+    if(isset($_GET['error']))
+    {
+      $error = $_GET['error'];
+      echo $error;
+    }
+    ?>
     <?php echo '<form class="form-group needs-validation" action="../Controller/attempt_employeeLogin.php" method="POST" novalidate>'?>
 
       <div class="form-group">
@@ -41,10 +51,11 @@
     </form>
 
 </div>
+</div><!-- end of container-->
 <!-- <footer> -->
       <?php include 'footer.php'; ?>
 <!-- </footer> -->
-</div><!-- end of container-->
+
 <?php
 require '../Controller/bootstrapScript.php';
 require '../Controller/ValidateEmptyFields.js';

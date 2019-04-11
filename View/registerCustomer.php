@@ -4,6 +4,7 @@
 
     Author: David McRae
  */
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -26,6 +27,15 @@
           <h1 class="text-center mt-4">Register for an account</h1>
       </div>
 
+
+<?php
+if(isset($_GET['error']))
+{
+  $error = $_GET['error'];
+  $error = str_replace(":","</br>", $error);
+  echo $error;
+}
+?>
 <!-- Form -->
         <form class="form-group needs-validation" action="../Controller/attempt_registerCustomer.php" method="POST" novalidate>
 
@@ -59,7 +69,7 @@
               </div>
                 <input class="form-control" type="email" id="email" name="email" placeholder="Email" required>
                   <div class="invalid-feedback">
-                    You cannot Leave This field Empty.
+                    You cannot Leave This field Empty and it must be a valid Email.
                   </div>
               </div>
             <div class="form-group input-group">

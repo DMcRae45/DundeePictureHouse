@@ -9,7 +9,6 @@
 <head>
     <?php
         include 'header.php';
-        include '../Controller/getReturnURL.php';
     ?>
 <title>DPH - Login</title>
 </head>
@@ -21,6 +20,15 @@
     <img src="images/login.png" class="mx-auto d-block">
       <h1 class="text-center mt-4">Login to your account</h1>
   </div>
+
+  <?php
+  //Error Reporting for the users
+  if(isset($_GET['error']))
+  {
+    $error = $_GET['error'];
+    echo $error;
+  }
+  ?>
 
     <?php echo '<form class="form-group needs-validation" action="../Controller/attempt_customerLogin.php?returnURL='.$returnURL.'" method="POST" novalidate>' ?>
 

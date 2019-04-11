@@ -18,13 +18,24 @@
 <title>DPH - Registration</title>
 <body>
 
-  <div class="page-header text-center mt-4">
-      <h1> Register Employee page </h1>
-  </div>
-
 <!-- Container for the Form -->
     <div class="container">
 
+      <div class="page-header">
+        <br>
+        <img src="images/register.png" class="mx-auto d-block">
+          <h1 class="text-center mt-4">Register Employee page</h1>
+      </div>
+
+      <?php
+      //Error Reporting for the users
+      if(isset($_GET['error']))
+      {
+        $error = $_GET['error'];
+        $error = str_replace(":","</br>", $error);
+        echo $error;
+      }
+      ?>
 <!-- Form -->
         <form class="form-group needs-validation" action="../Controller/attempt_registerEmployee.php" method="POST" novalidate>
 

@@ -6,13 +6,13 @@
 */
 include 'header.php';
 
-//if (!isset($_SESSION['LoggedIn']) || $_SESSION['Admin_Status'] != 1)
-//{
-//  header("Location: index.php");
-//}
-//else
-//{
-//echo "
+if (!isset($_SESSION['jobrole']) && $_SESSION['jobrole'] !== "Manager")
+{
+ header("Location: index.php?error=ACCESS DENIED MANAGER REQUIRED");
+}
+else
+{
+
 ?>
 <html>
 <head>
@@ -26,6 +26,14 @@ include 'header.php';
     </div>
 
     <div class='container'>
+
+      <?php
+      if(isset($_GET['error']))
+      {
+        $error = $_GET['error'];
+        echo $error;
+      }
+      ?>
 
         <form class='form-group needs-validation' method='POST' action='../Controller/attempt_insertMovie.php' enctype='multipart/form-data' novalidate>
 
@@ -47,10 +55,7 @@ include 'header.php';
               <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroupPrepend">Poster Image</span>
               </div>
-              <div class="custom-file">
-                <input class='custom-file-input' type='file' name='image_link' placeholder='Image_link' required>
-                <label class="bg-outline-dark custom-file-label" for="inputGroupFile01">Choose file</label>
-              </div>
+              <input class="btn btn-outline-light" type="file" name="image_link" placeholder="Image_link" required>
             </div>
 
             <div class='form-group input-group'>
@@ -91,7 +96,7 @@ include 'header.php';
               <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroupPrepend">RunTime</span>
               </div>
-                <input class='form-control' type='text' name='runTime' placeholder='RunTime' required>
+                <input class='form-control' type='number' name='runTime' placeholder='RunTime' required>
             </div>
 
             <div class='form-group input-group' form-group-lg>
@@ -122,22 +127,18 @@ include 'header.php';
                 <input class='form-control' type='text' name='language' placeholder='Language' required>
             </div>
 
-            <div class="form-group input-group">
+            <div class="form-group form-check input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroupPrepend">3D</span>
               </div>
-              <div class="input-group-text">
-                <input type="checkbox" name="threeD" value="" id="invalidCheck" required>
-              </div>
-            </div>
+            <input class="form-check-input" type="checkbox" name="threeD" value="" id="invalidCheck">
+          </div>
 
-            <div class="form-group input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroupPrepend">Audio Described</span>
-              </div>
-              <div class="input-group-text">
-                <input type="checkbox" name="audioDescribed" value="" id="invalidCheck" required>
-              </div>
+          <div class="form-group form-check input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroupPrepend">Audio Described</span>
+            </div>
+          <input class="form-check-input" type="checkbox" name="audioDescribed" value="" id="invalidCheck">
             </div>
 
         <div class="form-group input-group">
@@ -173,3 +174,6 @@ require '../Controller/ValidateEmptyFields.js';
 
 </body>
 </html>
+<?php
+}
+?>
