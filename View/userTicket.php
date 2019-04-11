@@ -16,20 +16,9 @@ else
 
   //$latestCodeIndex = 0;
 
-    // for($i = 0; $i < sizeof($userTicketArray) ; $i++)
-    // {
-    //   if(date('Y-m-d') > $userTicketArray[$latestCodeIndex]->Showing_Date)
-    //   {
-    //     $latestCodeIndex++;
-    //   }
-    // }
 
-  $latestCode = $userTicketArray[0]->Code;
-  $index = 0;
-  //
-  //
-  // $showingDate = date('Y-m-d', strtotime($userTicketArray[$index]->Showing_Date));
-  // $showingTime = date('H:i', strtotime($userTicketArray[$index]->Showing_Start_Time));
+
+
   // for($i = 0; $i < sizeof($userTicketArray) ; $i++)
   // {
   //   if($currentDayTime >= $showingDate." ".$showingTime)
@@ -39,6 +28,45 @@ else
   //   }
   // }
 
+  // gets current date and time.
+  $dateNow = date('Y-m-d');
+  $timeNow = date('H:i:s');
+  $dateTimeNow = date('Y-m-d H:i:s');
+
+  // index to keep track of which entry in th json string is closest to current time.
+  $index = 0;
+  $seperatedTime = $userTicketArray[$index]->Showing_Start_Time;
+  $seperatedDate = $userTicketArray[$index]->Showing_Date;
+  $combinedDateTime = date('Y-m-d H:i:s', strtotime("$seperatedDate $seperatedTime"));
+
+
+  // for($i = 0; $i < sizeof($userTicketArray) ; $i++)
+  // {
+if($combinedDateTime < $dateTimeNow)
+{
+  while($combinedDateTime < $dateTimeNow)
+  {
+    if($seperatedDate == $dateNow && $seperatedTime < $timeNow)
+    {
+      $index++;
+      $seperatedTime = $userTicketArray[$index]->Showing_Start_Time;
+      $seperatedDate = $userTicketArray[$index]->Showing_Date;
+      $combinedDateTime = date('Y-m-d H:i:s', strtotime("$seperatedDate $seperatedTime"));
+    }
+    elseif($seperatedDate == $dateNow && $seperatedTime > $timeNow)
+    {
+      break;
+    }
+    elseif($combinedDateTime > $dateTimeNow)
+    {
+      break;
+    }
+  }
+}
+
+
+  $latestCode = $userTicketArray[$index]->Code;
+  $firstCode = $latestCode;
   if($latestCode != NULL)
   {
 
@@ -49,26 +77,26 @@ else
       echo "</div>";
 
     echo "<div class='row mt-4 mx-auto'>";
-      echo "<h3>Title: <text>".$userTicketArray[0]->Title."</text></h3>"; // Display movie title
+      echo "<h3>Title: <text>".$userTicketArray[$index]->Title."</text></h3>"; // Display movie title
       echo "<hr>";
     echo "</div>";
 
         echo "<div class='row mt-4 mx-auto'>";
           echo "<div class='col-md-3'>";
 
-            echo "<p>Starting At: <text>".$userTicketArray[0]->Showing_Start_Time."</text></p>";
+            echo "<p>Starting At: <text>".$userTicketArray[$index]->Showing_Start_Time."</text></p>";
             echo "<hr>";
 
-            echo "<p>Showing In: <text>".$userTicketArray[0]->Showing_Type."</text></p>";
+            echo "<p>Showing In: <text>".$userTicketArray[$index]->Showing_Type."</text></p>";
             echo "<hr>";
 
           echo "</div>";
           echo "<div class='col-md-3'>";
 
-            echo "<p>Date: <text>".$userTicketArray[0]->Showing_Date."</text></p>";
+            echo "<p>Date: <text>".$userTicketArray[$index]->Showing_Date."</text></p>";
             echo "<hr>";
 
-            echo "<p>Screen: <text>".$userTicketArray[0]->Screen_ID."</text></p>";
+            echo "<p>Screen: <text>".$userTicketArray[$index]->Screen_ID."</text></p>";
             echo "<hr>";
 
           echo "</div>";
@@ -95,7 +123,7 @@ else
             </thead>
             ";
 
-    while($latestCode == $userTicketArray[0]->Code)
+    while($latestCode == $firstCode)
     {
       echo "
         <tr>
@@ -135,7 +163,7 @@ else
     }
     echo "</table></div>";
 
-if(index > 0)
+if($index > 0)
 {
     echo "
     <div class='container table-responsive'>
@@ -198,10 +226,6 @@ if(index > 0)
     </div>
     ";
   }
-
-
-
-
 
 include '../View/footer.php';
 include '../Controller/bootstrapScript.php';
