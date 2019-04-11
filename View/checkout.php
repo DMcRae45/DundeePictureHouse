@@ -68,7 +68,7 @@ else
      {
         if($quantityArray[$i] >= 1)
         {
-          if($seatingTypesArray[$i] == "premium")
+          if($seatingTypesArray[$i] == "Premium")
           {
             $ticketCost[$i] = $quantityArray[$i]*$priceArray[$i]->Premium_Price;
             echo "<tr>

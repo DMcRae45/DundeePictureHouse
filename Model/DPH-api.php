@@ -186,11 +186,12 @@ function CreateNewCustomer()
     if($count > 0)
     {
       echo "Insert Successful";
+      header('location: ../View/index.php');
     }
     else
     {
       echo "Insert Failed";
-      echo $query -> errorInfo()[2];
+      //echo $query -> errorInfo()[2];
     }
   }
 }

@@ -13,21 +13,6 @@ if (!isset($_SESSION['LoggedIn']))
 }
 else
 {
-
-  //$latestCodeIndex = 0;
-
-
-
-
-  // for($i = 0; $i < sizeof($userTicketArray) ; $i++)
-  // {
-  //   if($currentDayTime >= $showingDate." ".$showingTime)
-  //   {
-  //     var_dump($userTicketArray[$index]->Showing_Date);
-  //     $index++;
-  //   }
-  // }
-
   // gets current date and time.
   $dateNow = date('Y-m-d');
   $timeNow = date('H:i:s');
