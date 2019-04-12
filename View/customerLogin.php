@@ -30,8 +30,7 @@
   }
   ?>
 
-    <?php echo '<form class="form-group needs-validation" action="../Controller/attempt_customerLogin.php?returnURL='.$returnURL.'" method="POST" novalidate>' ?>
-
+    <form class="form-group needs-validation" action="../Controller/attempt_customerLogin.php" method="POST" novalidate>
       <div class="form-group input-group">
         <div class="input-group-prepend">
           <span class="input-group-text mt-4" id="inputGroupPrepend">Username</span>

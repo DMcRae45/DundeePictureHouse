@@ -15,8 +15,33 @@
 <title>DPH - Home</title>
 <body>
 
-  <div class="page-header">
-      <img src="images/dph-header.png" class="img-fluid" style="width:100%;" alt="dundee picture house home banner">
+  <div class="page-header" data-pause="hover">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="images/dph-header.png" class="img-fluid" alt="dundee picture house home banner" onerror=this.src="images/ad.placeholder.banner.png">
+        </div>
+        <div class="carousel-item">
+          <img src="..." class="img-fluid" alt="dundee picture house ad banner" onerror=this.src="images/ad_placeholder_banner.png">
+        </div>
+        <div class="carousel-item">
+          <img src="..." class="img-fluid" alt="dundee picture house ad banner" onerror=this.src="images/ad_placeholder_banner2.png">
+        </div>
+        <div class="carousel-item">
+          <img src="..." class="img-fluid" alt="dundee picture house ad banner" onerror=this.src="images/ad_placeholder_banner.png">
+        </div>
+        <div class="carousel-item">
+          <img src="..." class="img-fluid" alt="dundee picture house ad banner" onerror=this.src="images/ad_placeholder_banner2.png">
+        </div>
+      </div>
+    </div>
   </div>
 
 <div class="container">
