@@ -1649,4 +1649,76 @@ function AttemptDeleteCustomer($customerid)
     echo 'Delete Failed';
   }
 }
+
+//Read Showing by ID index
+function GetShowingsByMovieID($movieid)
+{
+  require 'dbConnection.php';
+
+  $stmt = $pdo->prepare
+  ("
+  SELECT * FROM DPH_Showing WHERE Movie_ID = :movieid
+  ");
+
+  $result = $stmt->fetch();
+  $success = $stmt->execute
+  ([
+    'movieid' => $movieid
+  ]);
+
+  if($success && $stmt->rowCount() > 0)
+  {
+    //  convert to JSON
+    $rows = array();
+    while($r = $stmt->fetch())
+    {
+      $rows[] = $r;
+    }
+    return json_encode($rows);
+  }
+}
+
+function AttemptDeleteShowing($showid, $movieID)
+{
+  require 'dbConnection.php';
+
+  $stmtTicket = $pdo->prepare
+  (
+    "DELETE FROM DPH_Ticket WHERE Showing_ID = :showingid"
+  );
+
+  $success = $stmtTicket->execute
+  ([
+    'showingid' => $showid
+  ]);
+
+  if($success && $stmtTicket->rowCount() > 0)
+  {
+    echo 'Ticket Removed';
+  }
+  else
+  {
+    echo 'No Tickets to Remove';
+  }
+
+  $stmtShowing = $pdo->prepare
+  (
+    "DELETE FROM DPH_Showing WHERE Showing_ID = :showid"
+  );
+
+  $success = $stmtShowing->execute
+  ([
+    'showid' => $showid
+  ]);
+
+  if($success && $stmtShowing->rowCount() > 0)
+  {
+    echo 'Showing Removed';
+  }
+  else
+  {
+    echo 'Failed';
+  }
+  header('location: ../View/removeShowings.php?movieID='.$movieID);
+}
 ?>

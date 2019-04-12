@@ -58,7 +58,7 @@ echo "
           echo "<td>".$movieArray[$i]->Movie_ID."</td>";
           echo "<td>".$movieArray[$i]->Title."</td>";
           echo '<td><img src='.$movieArray[$i]->Star_Rating.' class="img-fluid" style="height: 2rem"></td>';
-          echo "<td> <a class='btn btn-danger text-light' data-toggle='modal' data-target='#delete".$movieArray[$i]->Movie_ID."Modal'>DELETE</a> </td>";
+          echo "<td><a class='btn btn-danger text-light' data-toggle='modal' data-target='#delete".$movieArray[$i]->Movie_ID."Modal'>DELETE</a></td>";
           echo "</tr>";
           echo "<div class='modal fade' id='delete".$movieArray[$i]->Movie_ID."Modal' tabindex='-1' role='dialog' aria-labelledby='deleteModalLabel' aria-hidden='true'>
                   <div class='modal-dialog' role='document'>

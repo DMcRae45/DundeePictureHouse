@@ -274,7 +274,7 @@ else
         echo '<td><img src='.$movieArray[$i]->Age_Rating.' class="img-fluid" style="height: 2rem"></td>';
         echo "<td>".$movieArray[$i]->Release_Date."</td>";
         echo '<td><img src='.$movieArray[$i]->Star_Rating.' class="img-fluid" style="height: 2rem"></td>';
-        echo "<td> <a class='btn btn-warning' href='?movieID=".$movieArray[$i]->Movie_ID."'>Alter</a> </td>";
+        echo "<td><a class='btn btn-warning' href='?movieID=".$movieArray[$i]->Movie_ID."'>Alter</a></td>";
         echo "</tr>";
     }
     echo "</table>";
