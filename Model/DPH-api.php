@@ -476,19 +476,19 @@ function AttemptInsertMovie()
                     $languageError;
                     // $starRatingError;
 
-                    $httpsSubString = 'https://www.youtube.com';
-                    if(!strpos($str, $httpsSubString) === 0 )
-                    {
-                        $Error = true;
-                        $videoError = ":This is not a Youtube link.";
-                    }
-
-                    $watchSubString = 'watch?v=';
-                    if(!strpos($str, $watchSubString) !== false)
-                    {
-                      $Error = true;
-                      $videoError = ":PLease check that the youtube link is correct";
-                    }
+                    // IMPLEMENT LATER
+                    // $httpsSubString = 'https://www.youtube.com';
+                    // $watchSubString = 'watch?v=';
+                    // if(strpos($video, $httpsSubString) !== 0)
+                    // {
+                    //     $Error = true;
+                    //     $videoError = ":This is not a Youtube link.";
+                    // }
+                    // elseif(strpos($video, $watchSubString) == false)
+                    // {
+                    //   $Error = true;
+                    //   $videoError = ":Please check that the youtube link is correct";
+                    // }
 
                     if(preg_match('#[^0-9]#',$runTime) || strlen($runTime) > 3)
                     {
@@ -499,18 +499,24 @@ function AttemptInsertMovie()
                     if(!preg_match("/^[a-zA-Z ]*$/",$genre))
                     {
                       $Error = true;
-                      $genreError = ":Genre can only caontain letters.";
+                      $genreError = ":Genre can only contain letters.";
+                    }
+
+                    if(!preg_match("/^[a-zA-Z ]*$/",$director))
+                    {
+                      $Error = true;
+                      $directorError = ":Director can only caontain letters.";
                     }
 
                     if(!preg_match("/^[a-zA-Z ]*$/",$language))
                     {
                       $Error = true;
-                      $languageError = ":Language can only caontain letters.";
+                      $languageError = ":Language can only contain letters.";
                     }
 
                     if($Error == true) // An Error Has Occured
                     {
-                      $errorString = $videoError.$descriptionError.$runTimeError.$genreError.$directorError.$languageError;
+                      $errorString = $videoError.$runTimeError.$genreError.$directorError.$languageError;
                       header('Location: ../View/insertMovie.php?error='.$errorString);
                     }
                     else
@@ -719,6 +725,7 @@ function AttemptUpdateMovie()
                     $video = str_replace($YoutubeURL, $embededURL, $video); // replace part of the Youtube URL to make it an embeded video for easy use by users.
                     $releaseOrder = date("Y-m-d", strtotime($releaseDate));
                     $releaseDate = date("d-m-Y", strtotime($releaseDate)); // Force date format DD/MM/YYYY
+
                     switch($starRating)
                     {
                       case "0":
@@ -1598,6 +1605,5 @@ function GetCustomerTicket()
     {
       echo "Sorry, No Tickets with This code.";
     }
-
 }
 ?>

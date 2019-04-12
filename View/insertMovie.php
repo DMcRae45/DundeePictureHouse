@@ -31,6 +31,7 @@ else
       if(isset($_GET['error']))
       {
         $error = $_GET['error'];
+        $error = str_replace(":","</br>", $error);
         echo $error;
       }
       ?>
