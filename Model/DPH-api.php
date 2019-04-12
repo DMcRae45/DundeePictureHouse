@@ -1247,7 +1247,6 @@ function GetUserTickets($userid)
     }
     return json_encode($rows);
   }
-
 }
 
 //Read number of tickets available for showing, by ID index

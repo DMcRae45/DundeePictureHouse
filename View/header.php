@@ -6,9 +6,9 @@
 */
 
 // FORCE ERRORS TO SHOW
-ini_set ('display errors',1);
-ini_set('display_startup_errors',1);
-error_reporting(E_ALL);
+// ini_set ('display errors',1);
+// ini_set('display_startup_errors',1);
+// error_reporting(E_ALL);
 
 date_default_timezone_set("Europe/London");
 if(session_status() == PHP_SESSION_NONE)

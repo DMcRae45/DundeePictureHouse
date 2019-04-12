@@ -9,12 +9,12 @@
 include '../Controller/getAllMovies.php';
 include 'header.php';
 
-//if (!isset($_SESSION['LoggedIn']) || $_SESSION['Admin_Status'] != 1)
-//{
-//  header("Location: index.php");
-//}
-//else
-//{
+if(!isset($_SESSION['LoggedIn']) && $_SESSION['jobrole'] == "Supervisor" || $_SESSION['jobrole'] == "Manager")
+{
+ header("Location: index.php");
+}
+else
+{
 echo "
 <html>
 <head>
@@ -290,5 +290,5 @@ echo "
 </body>
 </html>
 ";
-//}
+}
 ?>
