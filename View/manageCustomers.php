@@ -60,7 +60,7 @@ echo "
                       </div>
                       <div class='modal-footer'>
                         <button type='button' class='btn btn-outline-warning' data-dismiss='modal'>No!</button>
-                        <a class='btn btn-outline-danger' role='button' href='../Controller/attempt_deleteEmployee.php?id=".$customerArray[$i]->Customer_ID."'>DELETE</a>
+                        <a class='btn btn-outline-danger' role='button' href='../Controller/attempt_deleteCustomer.php?id=".$customerArray[$i]->Customer_ID."'>DELETE</a>
                       </div>
                     </div>
                   </div>
