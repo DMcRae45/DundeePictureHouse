@@ -1,6 +1,6 @@
 <?php
 /*
-    Description: Action to get movie deatails for by be maniputated on the desired page page
+    Description: Action to get movie deatails to be maniputated on the desired page
 
     Author: Brad Mair
  */

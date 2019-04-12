@@ -17,7 +17,7 @@ $movieTitle = "'".$movieArray->Title."'";
 $body = "
 <html>
   <head>
-  <title>Registration Confirmation</title>
+  <title>Booking Confirmation</title>
   </head>
   <body>
   <p>Thank you for using Dundee Picture House.</p>
@@ -49,7 +49,7 @@ for ($i=0 ; $i < sizeof($quantityArray) ; $i++)
 $body .= "
 <hr>
 <p>To view your ticket(s), click on the link below:</p>
-<a href='https://mayar.abertay.ac.uk/~1403163/DPH/View/userTicket.php'>Click Here</a>
+<a href='https://mayar.abertay.ac.uk/~cmp311gc1805/DPH/View/userTicket.php'>Click Here</a>
 </body>
 </html>
 ";
@@ -63,5 +63,5 @@ $headers .= 'From: <noreply@dph.ac.uk>' . "\r\n";
 
 echo $body;
 
-mail($buyerEmail, 'Registration Confirmation', $body, $headers);
+mail($buyerEmail, 'Booking Confirmation', $body, $headers);
 ?>

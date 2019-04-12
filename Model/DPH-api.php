@@ -1606,4 +1606,52 @@ function GetCustomerTicket()
       echo "Sorry, No Tickets with This code.";
     }
 }
+
+//Read all Customers
+function GetAllCustomers()
+{
+  require 'dbConnection.php';
+
+  $sql = "SELECT * FROM DPH_Customer";
+
+  $stmt = $pdo->prepare($sql);
+  $result = $stmt->fetch();
+  $success = $stmt->execute();
+
+  if($success && $stmt->rowCount() > 0)
+  {
+    //  convert to JSON
+    $rows = array();
+    while($r = $stmt->fetch())
+    {
+      $rows[] = $r;
+    }
+    return json_encode($rows);
+  }
+}
+
+//Delete Customer from database by ID index
+function AttemptDeleteCustomer($customerid)
+{
+  require 'dbConnection.php';
+
+  $query = $pdo->prepare
+  ("
+  DELETE FROM DPH_Customer WHERE Customer_ID = :customerid
+  ");
+
+  $success = $query->execute
+  ([
+    'customerid' => $customerid
+  ]);
+
+  if($success && $stmt->rowCount() > 0)
+  {
+    echo 'Delete Successful';
+  }
+  else
+  {
+    echo 'Delete Failed';
+  }
+}
 ?>

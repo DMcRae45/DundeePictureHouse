@@ -28,49 +28,56 @@ include 'header.php';
 
 <div class='container mt-5 mb-5'>
   <!-- Manager Access Required -->
-  <div class='row mt-5'>
-    <div class='col-md-6'>
+  <div class='row'>
+    <div class='col-md-6 mt-5'>
       <a class='btn btn-outline-info btn-block' href='insertMovie.php'>Add Movie</a>
     </div>
 
     <!-- Supervisor Access Required -->
-    <div class='col-md-6'>
+    <div class='col-md-6 mt-5'>
       <a class='btn btn-outline-info btn-block' href='alterMovies.php'>Alter Movie</a>
     </div>
   </div>
 
-  <div class='row mt-5'>
+  <div class='row'>
     <!-- Manager Access Required -->
-    <div class='col-md-6'>
+    <div class='col-md-6 mt-5'>
       <a class='btn btn-outline-info btn-block'href='insertShowing.php'>Add Showing</a>
     </div>
 
     <!-- Supervisor Access Required -->
-    <div class='col-md-6'>
-      <a class='btn btn-outline-info btn-block' href=''>Remove Showings</a>
+    <div class='col-md-6 mt-5'>
+      <a class='btn btn-outline-info btn-block' href='removeShowings.php'>Remove Showings</a>
     </div>
   </div>
 
-  <div class='row mt-5'>
+  <div class='row'>
     <!-- Manager Access Required -->
-    <div class='col-md-6'>
+    <div class='col-md-6 mt-5'>
       <a class='btn btn-outline-info btn-block' href='registerEmployee.php'>Register Employee</a>
     </div>
 
     <!-- Manager Access Required -->
-    <div class='col-md-6'>
+    <div class='col-md-6 mt-5'>
       <a class='btn btn-outline-info btn-block' href='manageEmployees.php'>Manage Employees</a>
     </div>
   </div>
 
-  <div class='row mt-5'>
+  <div class='row'>
     <!-- Employee Access Required -->
-    <div class='col-md-6'>
+    <div class='col-md-6 mt-5'>
+      <a class='btn btn-outline-info btn-block' href='manageCustomers.php'>Manage Customers</a>
+    </div>
+  </div>
+
+  <div class='row'>
+    <!-- Employee Access Required -->
+    <div class='col-md-6 mt-5'>
       <a class='btn btn-outline-info btn-block' href='findCustomerTicket.php'>Find Customer Tickets</a>
     </div>
 
     <!-- Employee Access Required -->
-    <div class='col-md-6'>
+    <div class='col-md-6 mt-5'>
       <a class='btn btn-outline-info btn-block' href='bookCustomerTicket.php'>Book Customer Tickets</a>
     </div>
   </div>
