@@ -7,8 +7,9 @@
 <html>
 <!--<head>-->
     <?php
-        include '../Model/DPH-api.php' ;
         include 'header.php';
+        include '../Controller/getAllMovies.php' ;
+        include '../Controller/getOMDBResults.php' ;
     ?>
 <!-- </head> -->
 <title>DPH - Search Results</title>
@@ -16,9 +17,7 @@
   <br>
   <?php
 
-  $searchResults = OMDBSearch();
-  $movieArray = json_decode($searchResults);
-  if ($movieArray->Response == 'True')
+  if ($resultsArray->Response == 'True')
   {
     echo "<div class='container'>
             <form action='' method='post'>
@@ -37,7 +36,7 @@
 
     echo '<div class="container">';
 
-    for ($i=0 ; $i < sizeof($movieArray->Search) ; $i++)
+    for ($i=0 ; $i < sizeof($resultsArray->Search) ; $i++)
     {
       if(($counter % $cols) == 1)
       {
@@ -45,15 +44,24 @@
       }
         echo "<div class='col-md-4'>";
         echo '<div class="card" style="width: 20rem;">'; // Open card div
-        echo '<img src="'.$movieArray->Search[$i]->Poster.'" class="card-img-top" alt="..." style="height: 30rem">'; // card image
+        echo '<img src="'.$resultsArray->Search[$i]->Poster.'" class="card-img-top" alt="..." style="height: 30rem">'; // card image
         echo '<div class="card-body">';// open card body
-        echo '<h5 class="card-title">'.$movieArray->Search[$i]->Title.'</h5>'; // card title
+        echo '<h5 class="card-title">'.$resultsArray->Search[$i]->Title.'</h5>'; // card title
         echo '</div>';// close card body
-        echo '<ul class="list-group list-group-flush">'; // start list inside the card
-        echo '<li class="list-group-item">Release Date: '.$movieArray->Search[$i]->Year.'</li>';
-        echo '</ul>';
-        //echo "<a class='btn btn-info' href='movie.php?id=".$movieArray[$i]->Movie_ID ."'>More</a>";
-// more info button
+        for ($j = 0; $j < sizeof($movieArray); $j++)
+        {
+        $matching = false;
+          if ($movieArray[$j]->Title == $resultsArray->Search[$i]->Title)
+          {
+            echo "<a class='btn btn-info' href='movie.php?id=".$movieArray[$j]->Movie_ID ."'>More Info</a>";
+            $matching = true;
+            break;
+          }
+        }
+        if ($matching != ture)
+        {
+          echo "<a class='btn btn-primary disabled' href='#'>Unavailable</a>";
+        }
         echo ' </div>';// close card body
         echo ' </div>';// close card
 

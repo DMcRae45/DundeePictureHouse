@@ -65,12 +65,12 @@
                       if ($day == 0)
                       {
                         echo "<div class='carousel-item active'>";
-                        echo "<button class='card-header btn btn-outine-info font-weight-bold disabled' id='headingDay".$showingVar."' data-toggle='collapse' data-target='#collapseDay".$showingVar."' aria-expanded='true' aria-controls='collapseDay".$showingVar."'>Today</button>";
+                        echo "<button class='card-header btn font-weight-bold disabled' id='headingDay".$showingVar."' data-toggle='collapse' data-target='#collapseDay".$showingVar."' aria-expanded='true' aria-controls='collapseDay".$showingVar."'>Today</button>";
                       }
                       else
                       {
                         echo "<div class='carousel-item'>";
-                        echo "<button class='card-header btn btn-outine-info font-weight-bold disabled' id='headingDay".$showingVar."' data-toggle='collapse' data-target='#collapseDay".$showingVar."' aria-expanded='true' aria-controls='collapseDay".$showingVar."'>".$showingTabDay."</button>";
+                        echo "<button class='card-header btn font-weight-bold disabled' id='headingDay".$showingVar."' data-toggle='collapse' data-target='#collapseDay".$showingVar."' aria-expanded='true' aria-controls='collapseDay".$showingVar."'>".$showingTabDay."</button>";
                       }
                         echo "<div class='card-body carousel-card'>";
                             echo "<h6>2D</h6>";
