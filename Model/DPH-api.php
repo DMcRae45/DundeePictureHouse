@@ -361,7 +361,7 @@ function AttemptCustomerLogin()
   }
 }
 
-//Logout Customer
+//Logout Users
 function AttemptLogOut()
 {
     session_start(); // Start Session / Resume Current Session
@@ -394,8 +394,7 @@ function AttemptEmployeeLogin()
         $_SESSION['userid'] = $result['Employee_ID'];
         $_SESSION['username'] = $result['Username'];
         $_SESSION['jobrole'] = $result['Job_Role'];
-        header('location: ../View/index.php');
-        //header("Location:../View/employeeNavigation.php"); ADD THIS AFTER WE CREATE THE EMPLOYEE NAVIGATIUON PAGE....
+        header("Location:../View/employeeNavigation.php");
       }
       else
       {
@@ -464,6 +463,58 @@ function AttemptInsertMovie()
                     $actors = (filter_input(INPUT_POST, 'actors', FILTER_SANITIZE_STRING));
                     $language = (filter_input(INPUT_POST, 'language', FILTER_SANITIZE_STRING));
                     $starRating = (filter_input(INPUT_POST, 'starRating', FILTER_SANITIZE_STRING));
+
+
+                    $Error = false;
+                    $videoError;
+                    $descriptionError;
+                    // release Date
+                    // Age Rating
+                    $runTimeError;
+                    $genreError;
+                    $directorError;
+                    $languageError;
+                    // $starRatingError;
+
+                    $httpsSubString = 'https://www.youtube.com';
+                    if(!strpos($str, $httpsSubString) === 0 )
+                    {
+                        $Error = true;
+                        $videoError = ":This is not a Youtube link.";
+                    }
+
+                    $watchSubString = 'watch?v=';
+                    if(!strpos($str, $watchSubString) !== false)
+                    {
+                      $Error = true;
+                      $videoError = ":PLease check that the youtube link is correct";
+                    }
+
+                    if(preg_match('#[^0-9]#',$runTime) || strlen($runTime) > 3)
+                    {
+                      $Error = true;
+                      $runTimeError = ":Runtime must be the amount of minutes in whole numbers.";
+                    }
+
+                    if(!preg_match("/^[a-zA-Z ]*$/",$genre))
+                    {
+                      $Error = true;
+                      $genreError = ":Genre can only caontain letters.";
+                    }
+
+                    if(!preg_match("/^[a-zA-Z ]*$/",$language))
+                    {
+                      $Error = true;
+                      $languageError = ":Language can only caontain letters.";
+                    }
+
+                    if($Error == true) // An Error Has Occured
+                    {
+                      $errorString = $videoError.$descriptionError.$runTimeError.$genreError.$directorError.$languageError;
+                      header('Location: ../View/insertMovie.php?error='.$errorString);
+                    }
+                    else
+                    {
 
                     $YoutubeURL = "watch?v=";
                     $embededURL = "embed/";
@@ -575,6 +626,7 @@ function AttemptInsertMovie()
                       $invalidError = "Insert Failed";
                       header('location: ../View/insertMovie.php?error='.$invalidError);
                     }
+                  }
                 }
                 else
                 {
@@ -796,19 +848,91 @@ function RemoveMovieByID($movieid)
 {
   require 'dbConnection.php';
 
-    $stmt = $pdo->prepare
+  $stmt = $pdo->prepare
+  (
+    "SELECT Showing_ID FROM DPH_Showing WHERE Movie_ID = :movieid"
+  );
+
+  $success = $stmt->execute
+  ([
+    'movieid' => $movieid
+  ]);
+
+  if($success && $stmt->rowCount() > 0)
+  {
+    //  convert to JSON
+    $rows = array();
+    while($r = $stmt->fetch())
+    {
+      $rows[] = $r;
+    }
+    $result = json_encode($rows);
+
+    $showings = json_decode($result);
+    $index = 0;
+
+    for($i = 0 ; $i < sizeof($showings) ; $i++)
+    {
+      $showingid = $showings[$index]->Showing_ID;
+
+      $stmtTicket = $pdo->prepare
+      (
+        "DELETE FROM DPH_Ticket WHERE Showing_ID = :showingid"
+      );
+
+      $success = $stmtTicket->execute
+      ([
+        'showingid' => $showingid
+      ]);
+
+      if($success && $stmtTicket->rowCount() > 0)
+      {
+        echo 'Ticket Removed';
+      }
+      else
+      {
+        echo 'Failed';
+      }
+      $index++;
+    }
+  }
+  else
+  {
+    echo 'No Tickets';
+  }
+
+    $stmtShowing = $pdo->prepare
     (
-      "DELETE FROM DPH_Movie WHERE Movie_ID = :movieid"
+      "DELETE FROM DPH_Showing WHERE Movie_ID = :movieid"
     );
 
-    $success = $stmt->execute
+    $success = $stmtShowing->execute
     ([
       'movieid' => $movieid
     ]);
 
-    if($success && $stmt->rowCount() > 0)
+    if($success && $stmtShowing->rowCount() > 0)
     {
-      echo 'Successful';
+      echo 'Showings Removed';
+    }
+    else
+    {
+      echo 'No Showings';
+    }
+
+    $stmtMovie = $pdo->prepare
+    (
+      "DELETE FROM DPH_Movie WHERE Movie_ID = :movieid"
+    );
+
+    $success = $stmtMovie->execute
+    ([
+      'movieid' => $movieid
+    ]);
+
+    if($success && $stmtMovie->rowCount() > 0)
+    {
+      echo 'Movie Removed';
     }
     else
     {
@@ -823,7 +947,7 @@ function getMovieByID($movieid)
 
   $query = $pdo->prepare
   ("
-  SELECT *, 3D as DDD FROM DPH_Movie WHERE Movie_ID = :movieid LIMIT 1
+  SELECT * FROM DPH_Movie WHERE Movie_ID = :movieid LIMIT 1
   ");
 
   $success = $query->execute

@@ -37,9 +37,6 @@ echo "
                     <noscript><input type='submit' value ='Sort By'></noscript>
                 </form>
           </div>
-          <div class='col-md-8'>
-          <a class='btn btn-outline-success d-inline float-right' href='removeMovie.php'>Refresh</a>
-          </div>
       </div>
   ";
 
