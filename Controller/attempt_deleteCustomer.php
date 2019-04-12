@@ -9,5 +9,4 @@ session_start();
 
 $customerid = $_GET['id'];
 AttemptDeleteCustomer($customerid);
-header('location: ../View/manageCustomers.php');
 ?>

@@ -1147,7 +1147,7 @@ function AttemptDeleteEmployee($employeeid)
     'employeeid' => $employeeid
   ]);
 
-  if($success && $stmt->rowCount() > 0)
+  if($success && $query->rowCount() > 0)
   {
     echo 'Delete Successful';
   }
@@ -1630,18 +1630,19 @@ function AttemptDeleteCustomer($customerid)
   require 'dbConnection.php';
 
   $query = $pdo->prepare
-  ("
-  DELETE FROM DPH_Customer WHERE Customer_ID = :customerid
-  ");
+  (
+    "DELETE FROM DPH_Customer WHERE Customer_ID = :customerid"
+  );
 
   $success = $query->execute
   ([
     'customerid' => $customerid
   ]);
 
-  if($success && $stmt->rowCount() > 0)
+  if($success && $query->rowCount() > 0)
   {
     echo 'Delete Successful';
+    header('location: ../View/manageCustomers.php');
   }
   else
   {
