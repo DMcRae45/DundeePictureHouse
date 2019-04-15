@@ -4,6 +4,7 @@
 
     Author: David McRae
  */
+session_start();
 
 if(!isset($_POST["customerLoginSubmit"]))
 {
@@ -12,8 +13,6 @@ if(!isset($_POST["customerLoginSubmit"]))
 else
 {
  include '../Model/DPH-api.php';
-
- session_start();
 
  AttemptCustomerLogIn();
 }

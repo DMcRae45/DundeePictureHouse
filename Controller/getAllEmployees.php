@@ -4,8 +4,16 @@
 
     Author: David McRae
  */
-include '../Model/DPH-api.php';
+if(isset($_SESSION['jobrole']))
+{
+ include '../Model/DPH-api.php';
 
-$employees = GetAllEmployees();
-$employeeArray = json_decode($employees) ;
+ $employees = GetAllEmployees();
+ $employeeArray = json_decode($employees) ;
+}
+else
+{
+  header('location: ../View/index.php?error=ACCESS DENIED');
+}
+
 ?>

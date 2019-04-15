@@ -1,12 +1,19 @@
 <?php
 /*
     Description: Action for the button located in the manage customers file.
-    Author: Brad Mair
+    Author: Brad Mair, Daid McRae
  */
-include '../Model/DPH-api.php';
-
 session_start();
 
 $customerid = $_GET['id'];
-AttemptDeleteCustomer($customerid);
+if(isset($customerid) && $_SESSION['jobrole'] = "Manager")
+{
+  include '../Model/DPH-api.php';
+
+  AttemptDeleteCustomer($customerid);
+}
+else
+{
+  header('location: ../View/index.php?error=ACCESS DENIED');
+}
 ?>

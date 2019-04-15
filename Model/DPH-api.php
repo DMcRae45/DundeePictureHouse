@@ -348,8 +348,8 @@ function AttemptCustomerLogin()
       else
       {
         // invalid password
-          $invalidError = "Invalid Credentials";
-          header('location: ../View/customerLogin.php?error='.$invalidError);
+        $invalidError = "Invalid Credentials";
+        header('location: ../View/customerLogin.php?error='.$invalidError);
       }
     }
     else
@@ -1246,11 +1246,13 @@ function AttemptDeleteEmployee($employeeid)
 
   if($success && $query->rowCount() > 0)
   {
-    echo 'Delete Successful';
+    $deleteError = 'Delete Successful';
+    header('location: ../View/manageEmployees.php?error='.$deleteError);
   }
   else
   {
-    echo 'Delete Failed';
+    $deleteError = 'Delete Failed';
+    header('location: ../View/manageEmployees.php?error='.$deleteError);
   }
 }
 
@@ -1416,14 +1418,17 @@ function AttemptInsertShowing()
   if (isset($_POST['insertShowingSubmit']))
   {
     require 'dbConnection.php';
-    $canInsert = ture;
+
+    //$canInsert = true;
 
     $showingDate = (filter_input(INPUT_POST, 'showingDate', FILTER_SANITIZE_STRING));
     $showingTime = (filter_input(INPUT_POST, 'showingTime', FILTER_SANITIZE_STRING));
-    if (date("H:i") > date("H:i", $showingTime))
-    {
-      $canInsert = False;
-    }
+
+    // if (date("H:i") > date("H:i", $showingTime))
+    // {
+    //   $canInsert = False;
+    // }
+
     $showingType = (filter_input(INPUT_POST, 'showingType', FILTER_SANITIZE_STRING));
     $movieid = (filter_input(INPUT_POST, 'movieid', FILTER_SANITIZE_STRING));
     $screenid = (filter_input(INPUT_POST, 'screenid', FILTER_SANITIZE_STRING));
@@ -1455,14 +1460,17 @@ function AttemptInsertShowing()
     ]);
 
     $count = $query->rowCount();
+
     if($count > 0)
     {
-      echo "Insert Successful";
+      $insertError = "Insert Successful";
+      header('location: ../View/insertShowing.php?error='.$insertError);
     }
     else
     {
-      echo "Insert Failed";
-      echo $query -> errorInfo()[2];
+      $insertError = "Insert Failed";
+      header('location: ../View/insertShowing.php?error='.$insertError);
+      //echo $query -> errorInfo()[2];
     }
   }
 }
@@ -1531,7 +1539,6 @@ function insertPayments($customerid, $transactionid, $paymentStatus, $buyerName,
 {
   require 'dbConnection.php';
 
-  // may need to add date here
   $query =
   ("
 
@@ -1599,7 +1606,6 @@ function CreateUserTicket($code, $ticketType, $seatingType, $paymentid, $showing
 {
   require 'dbConnection.php';
 
-  // may need to add date here
     $query =
     ("
 
@@ -1651,8 +1657,6 @@ function GetPaymentID($customerid)
   {
     $paymentid = $stmt->fetch();
 
-    //$paymentid = $paymentid[0];
-
     return $paymentid;
   }
 }
@@ -1692,7 +1696,8 @@ function GetCustomerTicket()
     }
     else
     {
-      echo "Sorry, No Tickets with This code.";
+      $searchError = "Sorry, No Tickets with This code.";
+      header("Location:../View/findCustomerTicket.php?error=".$searchError);
     }
 }
 
@@ -1736,12 +1741,13 @@ function AttemptDeleteCustomer($customerid)
 
   if($success && $query->rowCount() > 0)
   {
-    echo 'Delete Successful';
-    header('location: ../View/manageCustomers.php');
+    $deleteError = 'Delete Successful';
+    header('location: ../View/manageCustomers.php'.$deleteError);
   }
   else
   {
-    echo 'Delete Failed';
+    $deleteError = 'Delete Failed';
+    header('location: ../View/manageCustomers.php'.$deleteError);
   }
 }
 
@@ -1789,11 +1795,13 @@ function AttemptDeleteShowing($showid, $movieID)
 
   if($success && $stmtTicket->rowCount() > 0)
   {
+    // Tickets Removed. No redirect as cod emust continue to delete showing.
     echo 'Ticket Removed';
   }
   else
   {
-    echo 'No Tickets to Remove';
+    $deleteError = 'No Tickets to Remove';
+    header('location: ../View/removeShowings.php?movieID='.$deleteError);
   }
 
   $stmtShowing = $pdo->prepare
@@ -1808,12 +1816,13 @@ function AttemptDeleteShowing($showid, $movieID)
 
   if($success && $stmtShowing->rowCount() > 0)
   {
-    echo 'Showing Removed';
+    $deleteError = 'Showing Removed';
+    header('location: ../View/removeShowings.php?movieID='.$deleteError);
   }
   else
   {
-    echo 'Failed';
+    $deleteError = 'Showing NOT Removed';
+    header('location: ../View/removeShowings.php?movieID='.$deleteError);
   }
-  header('location: ../View/removeShowings.php?movieID='.$movieID);
 }
 ?>

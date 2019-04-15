@@ -6,13 +6,14 @@
  */
 session_start();
 $movieid = $_GET['id'];
-if(!isset($movieid) && $_SESSION['jobrole'] = "Manager")
+if(isset($movieid) && $_SESSION['jobrole'] = "Manager")
 {
-  header("Location: ../View/index.php");
+
+  include '../Model/DPH-api.php';
+  RemoveMovieByID($movieid);
 }
 else
 {
-  include '../Model/DPH-api.php';
-  RemoveMovieByID($movieid);
+  header("Location: ../View/index.php?error=ACCESS DENIED");
 }
 ?>

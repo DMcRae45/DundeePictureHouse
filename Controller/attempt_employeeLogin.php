@@ -4,6 +4,8 @@
 
     Author: David McRae
  */
+session_start();
+
 if(!isset($_POST["employeeLoginSubmit"]))
 {
   header('Location: ../View/index.php?error=ACCESS DENIED');
@@ -11,8 +13,6 @@ if(!isset($_POST["employeeLoginSubmit"]))
 else
 {
 include '../Model/DPH-api.php';
-
-session_start();
 
 AttemptEmployeeLogIn();
 }

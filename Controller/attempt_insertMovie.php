@@ -4,6 +4,7 @@
 
     Author: David McRae
  */
+session_start();
 if(!isset($_POST['insertMovieSubmit']))
 {
  header('Location: ../View/index.php?error=ACCESS DENIED');
@@ -11,8 +12,6 @@ if(!isset($_POST['insertMovieSubmit']))
 else
 {
  include '../Model/DPH-api.php';
-
- session_start();
 
  AttemptInsertMovie();
 }

@@ -10,12 +10,12 @@ session_start();
 
 $employeeid = $_GET['id'];
 
-if (!isset($employeeid) && $_SESSION['Admin_Status'] = "Manager")
+if (isset($employeeid) && $_SESSION['Admin_Status'] = "Manager")
 {
- header("Location: ../View/index.php");
+  AttemptPromoteEmployeeByID($employeeid);
 }
 else
 {
-  AttemptPromoteEmployeeByID($employeeid);
+  header("Location: ../View/index.php");
 }
 ?>

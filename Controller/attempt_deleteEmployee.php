@@ -3,11 +3,16 @@
     Description: Action for the button located in the manage employees file.
     Author: David McRae
  */
-include '../Model/DPH-api.php';
-
 session_start();
-
 $employeeid = $_GET['id'];
-AttemptDeleteEmployee($employeeid);
-header('location: ../View/manageEmployees.php');
+if(isset($employeeid) && $_SESSION['jobrole'] = "Manager")
+{
+  include '../Model/DPH-api.php';
+
+  AttemptDeleteEmployee($employeeid);
+}
+else
+{
+  header('location: ../View/index.php?error=ACCESS DENIED');
+}
 ?>

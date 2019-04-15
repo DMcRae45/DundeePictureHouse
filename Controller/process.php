@@ -59,10 +59,8 @@ if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID
             }
           }
         }
-        // Destroy session variable no longer needed to create a ticket.
+        //Destroy session variable no longer needed to create a ticket.
         //Destroy($_SESSION['seatingTypeBasket']);
-
-
         include 'emailConfirmation.php';
       }
     // Redirect to payment status page
@@ -71,7 +69,7 @@ if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID
 else
 {
     // Redirect to the home page
-    header("Location:../View/index.php");
+    header("Location:../View/index.php?error=ACCESS DENIED");
 }
 
 ?>
