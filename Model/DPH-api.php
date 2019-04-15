@@ -671,9 +671,12 @@ function AttemptUpdateMovie()
         $fileTmpName = $_FILES['image_link']['tmp_name'];
         $fileError = $_FILES['image_link']['error'];
         $fileType = $_FILES['image_link']['type'];
+
         $fileExt = explode('.', $fileName);
         $fileActualExt = strtolower(end($fileExt));
+
         $allowed = array('jpg', 'jpeg', 'png');
+
         if (in_array($fileActualExt, $allowed))
         {
           $newImage = True;
@@ -686,166 +689,246 @@ function AttemptUpdateMovie()
         // Checks if file is an allowed type
         if (isset($newImage) || isset($oldImage))
         {
-                // Checks file size is below stated value
-                if ($_FILES['image_link']['size'] < 1000000 || isset($oldImage))
-                {
-                  if (!isset($oldImage))
-                  {
-                    try
-                    {
-                      unlink($movie_details->Image_Link);
-                    }
-                    catch (Exception $e) {}
-                    // Gives file a unique id to stop overwriting of files with same name
-                    $fileNameNew = uniqid('', true) . "." . $fileActualExt;
-                    // Determines file location
-                    $fileDestination = '../View/images/' . $fileNameNew;
-                    // Sends file to specified location
-                    move_uploaded_file($fileTmpName, $fileDestination);
-                  }
-                  else
-                  {
-                    $fileDestination = $oldImage;
-                  }
-                    // Once complete carry out the INSERT statement to database
-                    $title = (filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING));
-                    $video = (filter_input(INPUT_POST, 'video', FILTER_SANITIZE_STRING));
-                    $image = $fileDestination;
-                    $description = (filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING));
-                    $releaseDate = (filter_input(INPUT_POST, 'releaseDate', FILTER_SANITIZE_STRING));
-                    $ageRating = (filter_input(INPUT_POST, 'ageRating', FILTER_SANITIZE_STRING));
-                    $runTime = (filter_input(INPUT_POST, 'runTime', FILTER_SANITIZE_NUMBER_INT));
-                    $genre = (filter_input(INPUT_POST, 'genre', FILTER_SANITIZE_STRING));
-                    $director = (filter_input(INPUT_POST, 'director', FILTER_SANITIZE_STRING));
-                    $actors = (filter_input(INPUT_POST, 'actors', FILTER_SANITIZE_STRING));
-                    $language = (filter_input(INPUT_POST, 'language', FILTER_SANITIZE_STRING));
-                    $starRating = (filter_input(INPUT_POST, 'starRating', FILTER_SANITIZE_STRING));
-                    $YoutubeURL = "watch?v=";
-                    $embededURL = "embed/";
-                    $video = str_replace($YoutubeURL, $embededURL, $video); // replace part of the Youtube URL to make it an embeded video for easy use by users.
-                    $releaseOrder = date("Y-m-d", strtotime($releaseDate));
-                    $releaseDate = date("d-m-Y", strtotime($releaseDate)); // Force date format DD/MM/YYYY
+          // Checks there are no errors
+          if ($fileError === 0)
+          {
+          // Checks file size is below stated value
+          if ($_FILES['image_link']['size'] < 1000000 || isset($oldImage))
+          {
+            if (!isset($oldImage))
+            {
+              try
+              {
+                unlink($movie_details->Image_Link);
+              }
+              catch (Exception $e)
+              {
+                $validError = ":FATAL ERROR REMOVING OLD IMAGE";
+                header('location: ../View/alterMovies.php?error='.$invalidError);
+              }
+              // Gives file a unique id to stop overwriting of files with same name
+              $fileNameNew = uniqid('', true) . "." . $fileActualExt;
+              // Determines file location
+              $fileDestination = '../View/images/' . $fileNameNew;
+              // Sends file to specified location
+              move_uploaded_file($fileTmpName, $fileDestination);
+            }
+            else
+            {
+              $fileDestination = $oldImage;
+            }
+              // Once complete carry out the INSERT statement to database
+              $title = (filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING));
+              $video = (filter_input(INPUT_POST, 'video', FILTER_SANITIZE_STRING));
+              $image = $fileDestination;
+              $description = (filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING));
+              $releaseDate = (filter_input(INPUT_POST, 'releaseDate', FILTER_SANITIZE_STRING));
+              $ageRating = (filter_input(INPUT_POST, 'ageRating', FILTER_SANITIZE_STRING));
+              $runTime = (filter_input(INPUT_POST, 'runTime', FILTER_SANITIZE_NUMBER_INT));
+              $genre = (filter_input(INPUT_POST, 'genre', FILTER_SANITIZE_STRING));
+              $director = (filter_input(INPUT_POST, 'director', FILTER_SANITIZE_STRING));
+              $actors = (filter_input(INPUT_POST, 'actors', FILTER_SANITIZE_STRING));
+              $language = (filter_input(INPUT_POST, 'language', FILTER_SANITIZE_STRING));
+              $starRating = (filter_input(INPUT_POST, 'starRating', FILTER_SANITIZE_STRING));
 
-                    switch($starRating)
-                    {
-                      case "0":
-                        $starRating = "../View/images/0_star.png";
-                        break;
-                      case "1":
-                        $starRating = "../View/images/1_star.png";
-                        break;
-                      case "2":
-                        $starRating = "../View/images/2_star.png";
-                        break;
-                      case "3":
-                        $starRating = "../View/images/3_star.png";
-                        break;
-                      case "4":
-                        $starRating = "../View/images/4_star.png";
-                        break;
-                      case "5":
-                        $starRating = "../View/images/5_star.png";
-                        break;
-                    }
-                    switch($ageRating)
-                    {
-                      case "U":
-                        $ageRating = "../View/images/U.png";
-                        $ageOrdering = "0";
-                        break;
-                      case "PG":
-                        $ageRating = "../View/images/PG.png";
-                        $ageOrdering = "1";
-                        break;
-                      case "12A":
-                        $ageRating = "../View/images/12A.png";
-                        $ageOrdering = "2";
-                        break;
-                      case "15":
-                        $ageRating = "../View/images/15.png";
-                        $ageOrdering = "3";
-                        break;
-                      case "18":
-                        $ageRating = "../View/images/18.png";
-                        $ageOrdering = "4";
-                        break;
-                    }
-                    if(isset($_POST['threeD']))
-                    {
-                      $threeD = 1;
-                    }
-                    else
-                    {
-                      $threeD = 0;
-                    }
-                    if(isset($_POST['audioDescribed']))
-                    {
-                      $audioDescribed = 1;
-                    }
-                    else
-                    {
-                      $audioDescribed = 0;
-                    }
-                    $query = $pdo->prepare
-                    ("
-                    UPDATE DPH_Movie
-                    SET
-                    Title = :title,
-                    Video_Link = :video,
-                    Image_Link = :image,
-                    Description = :description,
-                    Release_Ordering = :releaseOrder,
-                    Release_Date = :releaseDate,
-                    Age_Ordering = :ageOrdering,
-                    Age_Rating = :ageRating,
-                    RunTime = :runTime,
-                    Genre = :genre,
-                    Director = :director,
-                    Actors = :actors,
-                    Language = :language,
-                    3D = :threeD,
-                    Audio_Described = :audioDescribed,
-                    Star_Rating = :starRating
-                    WHERE Movie_ID = ".$index."
-                    ");
-                    $success = $query->execute
-                    ([
-                      'title' => $title,
-                      'video' => $video,
-                      'image' => $image,
-                      'description' => $description,
-                      'releaseOrder' => $releaseOrder,
-                      'releaseDate' => $releaseDate,
-                      'ageOrdering' => $ageOrdering,
-                      'ageRating' => $ageRating,
-                      'runTime' => $runTime,
-                      'genre' => $genre,
-                      'director' => $director,
-                      'actors' => $actors,
-                      'language' => $language,
-                      'threeD' => $threeD,
-                      'audioDescribed' => $audioDescribed,
-                      'starRating' => $starRating
-                    ]);
-                    $count = $query->rowCount();
-                    if($count > 0)
-                    {
-                      echo "Insert Successful";
-                    }
-                    else
-                    {
-                      echo "Insert Failed";
-                      echo $query -> errorInfo()[2];
-                    }
-                }
-                else
-                {
-                    echo "Your file is too big!";
-                }
+              $Error = false;
+              $videoError;
+              $descriptionError;
+              // release Date
+              // Age Rating
+              $runTimeError;
+              $genreError;
+              $directorError;
+              $languageError;
+              // $starRatingError;
+
+              // IMPLEMENT LATER
+              // $httpsSubString = 'https://www.youtube.com';
+              // $watchSubString = 'watch?v=';
+              // if(strpos($video, $httpsSubString) !== 0)
+              // {
+              //     $Error = true;
+              //     $videoError = ":This is not a Youtube link.";
+              // }
+              // elseif(strpos($video, $watchSubString) == false)
+              // {
+              //   $Error = true;
+              //   $videoError = ":Please check that the youtube link is correct";
+              // }
+
+              if(preg_match('#[^0-9]#',$runTime) || strlen($runTime) > 3)
+              {
+                $Error = true;
+                $runTimeError = ":Runtime must be the amount of minutes in whole numbers.";
+              }
+
+              if(!preg_match("/^[a-zA-Z ]*$/",$genre))
+              {
+                $Error = true;
+                $genreError = ":Genre can only contain letters.";
+              }
+
+              if(!preg_match("/^[a-zA-Z ]*$/",$director))
+              {
+                $Error = true;
+                $directorError = ":Director can only caontain letters.";
+              }
+
+              if(!preg_match("/^[a-zA-Z ]*$/",$language))
+              {
+                $Error = true;
+                $languageError = ":Language can only contain letters.";
+              }
+
+              if($Error == true) // An Error Has Occured
+              {
+                $errorString = $videoError.$runTimeError.$genreError.$directorError.$languageError;
+                header('Location: ../View/insertMovie.php?error='.$errorString);
+              }
+              else
+              {
+
+              $YoutubeURL = "watch?v=";
+              $embededURL = "embed/";
+              $video = str_replace($YoutubeURL, $embededURL, $video); // replace part of the Youtube URL to make it an embeded video for easy use by users.
+              $releaseOrder = date("Y-m-d", strtotime($releaseDate));
+              $releaseDate = date("d-m-Y", strtotime($releaseDate)); // Force date format DD/MM/YYYY
+
+              switch($starRating)
+              {
+                case "0":
+                  $starRating = "../View/images/0_star.png";
+                  break;
+                case "1":
+                  $starRating = "../View/images/1_star.png";
+                  break;
+                case "2":
+                  $starRating = "../View/images/2_star.png";
+                  break;
+                case "3":
+                  $starRating = "../View/images/3_star.png";
+                  break;
+                case "4":
+                  $starRating = "../View/images/4_star.png";
+                  break;
+                case "5":
+                  $starRating = "../View/images/5_star.png";
+                  break;
+              }
+
+              switch($ageRating)
+              {
+                case "U":
+                  $ageRating = "../View/images/U.png";
+                  $ageOrdering = "0";
+                  break;
+                case "PG":
+                  $ageRating = "../View/images/PG.png";
+                  $ageOrdering = "1";
+                  break;
+                case "12A":
+                  $ageRating = "../View/images/12A.png";
+                  $ageOrdering = "2";
+                  break;
+                case "15":
+                  $ageRating = "../View/images/15.png";
+                  $ageOrdering = "3";
+                  break;
+                case "18":
+                  $ageRating = "../View/images/18.png";
+                  $ageOrdering = "4";
+                  break;
+              }
+
+              if(isset($_POST['threeD']))
+              {
+                $threeD = 1;
+              }
+              else
+              {
+                $threeD = 0;
+              }
+
+              if(isset($_POST['audioDescribed']))
+              {
+                $audioDescribed = 1;
+              }
+              else
+              {
+                $audioDescribed = 0;
+              }
+
+              $query = $pdo->prepare
+              ("
+              UPDATE DPH_Movie
+              SET
+              Title = :title,
+              Video_Link = :video,
+              Image_Link = :image,
+              Description = :description,
+              Release_Ordering = :releaseOrder,
+              Release_Date = :releaseDate,
+              Age_Ordering = :ageOrdering,
+              Age_Rating = :ageRating,
+              RunTime = :runTime,
+              Genre = :genre,
+              Director = :director,
+              Actors = :actors,
+              Language = :language,
+              3D = :threeD,
+              Audio_Described = :audioDescribed,
+              Star_Rating = :starRating
+              WHERE Movie_ID = ".$index."
+              ");
+              $success = $query->execute
+              ([
+                'title' => $title,
+                'video' => $video,
+                'image' => $image,
+                'description' => $description,
+                'releaseOrder' => $releaseOrder,
+                'releaseDate' => $releaseDate,
+                'ageOrdering' => $ageOrdering,
+                'ageRating' => $ageRating,
+                'runTime' => $runTime,
+                'genre' => $genre,
+                'director' => $director,
+                'actors' => $actors,
+                'language' => $language,
+                'threeD' => $threeD,
+                'audioDescribed' => $audioDescribed,
+                'starRating' => $starRating
+              ]);
+              $count = $query->rowCount();
+              if($count > 0)
+              {
+                $validError = "Success";
+                header('location: ../View/alterMovies.php?error='.$validError);
+              }
+              else
+              {
+                $invalidError = "Insert Failed";
+                header('location: ../View/alterMovies.php?error='.$invalidError);
+                //echo $query -> errorInfo()[2];
+              }
+            }
+          }
+          else
+          {
+            $invalidError = "Your file is too big!";
+            header('location: ../View/alterMovies.php?error='.$invalidError);
+          }
         }
         else
         {
-            echo "You cannot upload files of this type!";
+            $invalidError = "There was an error uploading your file!";
+            header('location: ../View/alterMovies.php?error='.$invalidError);
+        }
+      }
+        else
+        {
+          $invalidError = "You cannot upload files of this type!";
+          header('location: ../View/alterMovies.php?error='.$invalidError);
         }
     }
 }
@@ -939,11 +1022,11 @@ function RemoveMovieByID($movieid)
 
     if($success && $stmtMovie->rowCount() > 0)
     {
-      echo 'Movie Removed';
+      header('location: ../View/removeMovie.php');
     }
     else
     {
-      echo 'Failed';
+      header('location: ../View/removeMovie.php?error=FAILED');
     }
 }
 
@@ -1055,17 +1138,19 @@ function AttemptPromoteEmployeeByID($employeeid)
 
     if($success && $query->rowCount() > 0)
     {
-      echo 'Done';
+      header('location: ../View/manageEmployees.php');
     }
     else
     {
-      echo "System Error, Job role was not updated";
-      echo $query -> errorInfo()[2];
+      $promoteError = ":System Error, Job role was not updated";
+      header('location: ../View/manageEmployees.php?error='.$promoteError);
+      //echo $query -> errorInfo()[2];
     }
   }
   else
   {
-    echo 'Unable to Promote';
+    $promoteError = ":You cannot promote this employee.";
+    header('location: ../View/manageEmployees.php?error='.$promoteError);
   }
 }
 
@@ -1093,7 +1178,8 @@ function AttemptDemoteEmployeeByID($employeeid)
   $canDemote = false;
   if($embededURLJobRole == "employee")
   {
-    echo 'Cannot Demote employee any lower than an employee';
+    $demoteError = 'Cannot Demote employee any lower than an employee';
+    header('location: ../View/manageEmployees.php?error='.$demoteError);
   }
   elseif($embededURLJobRole == "supervisor")
   {
@@ -1107,7 +1193,8 @@ function AttemptDemoteEmployeeByID($employeeid)
   }
   else
   {
-    echo 'Current Job Role is Unknown';
+    $demoteError = 'Current Job Role is Unknown';
+    header('location: ../View/manageEmployees.php?error='.$demoteError);
   }
 
   if($canPromote = true)
@@ -1125,17 +1212,20 @@ function AttemptDemoteEmployeeByID($employeeid)
 
     if($success && $query->rowCount() > 0)
     {
-      echo 'Done';
+      $demoteError = 'Employee Demoted';
+      header('location: ../View/manageEmployees.php?error='.$demoteError);
     }
     else
     {
-      echo "System Error, Job role was not updated";
-      echo $query -> errorInfo()[2];
+      $demoteError = 'System Error, Job role was not updated';
+      header('location: ../View/manageEmployees.php?error='.$demoteError);
+      //echo $query -> errorInfo()[2];
     }
   }
   else
   {
-    echo 'Unable to Demote';
+    $demoteError = 'Unable to Demote';
+    header('location: ../View/manageEmployees.php?error='.$demoteError);
   }
 }
 

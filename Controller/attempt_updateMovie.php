@@ -4,11 +4,17 @@
 
     Author: Brad Mair
  */
-include '../Model/DPH-api.php';
 
-session_start();
+if(!isset($_POST['updateMovieSubmit']))
+{
+  header('Location: ../View/index.php?error=ACCESS DENIED');
+}
+else
+{
+  include '../Model/DPH-api.php';
 
-AttemptUpdateMovie();
+  session_start();
 
-header('location: ../View/alterMovies.php');
+  AttemptUpdateMovie();
+}
 ?>

@@ -4,9 +4,16 @@
 
     Author: David McRae
  */
-include '../Model/DPH-api.php';
+if(!isset($_POST["registerEmployeeSubmit"]))
+{
+  header('Location: ../View/index.php?error=ACCESS DENIED');
+}
+else
+{
+  include '../Model/DPH-api.php';
 
-session_start();
+  session_start();
 
-CreateNewEmployee();
+  CreateNewEmployee();
+}
 ?>

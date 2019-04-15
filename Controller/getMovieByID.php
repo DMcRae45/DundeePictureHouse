@@ -4,10 +4,17 @@
 
     Author: David McRae
  */
-Include '../Model/DPH-api.php';
-
+session_start();
 $movieid = $_GET['id'];
-$movie = getMovieByID($movieid);
-$movieArray = json_decode($movie);
+if(!isset($movieid))
+{
+  header('location: ../View/index.php?error=ACCESS DENIED');
+}
+else
+{
+  Include '../Model/DPH-api.php';
 
+  $movie = getMovieByID($movieid);
+  $movieArray = json_decode($movie);
+}
 ?>
