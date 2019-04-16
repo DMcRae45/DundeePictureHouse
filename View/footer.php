@@ -26,7 +26,6 @@
             David McRae - Student No. 1403163</br>
             Aaron Hay - Student No. 1800855</br>
             Brad Mair - Student No. 1803815</br>
-            ** INSERT YOUR DETEAILS HERE MARK ** </br>
             </br>
             Pixel Density</br>
           </p>
@@ -44,6 +43,8 @@
       </br>
       © 2018 Copyright:<a href="https://www.cineworld.co.uk"> Cineworld</a>
       </br>
+      </br>
+      Contact: <a href=""> CustomerServices@DPHEnquireies.com</a>
       </br>
       <a href="#" onclick="document.cookie='cookiebar=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/'; setupCookieBar(); return false;">Click here to revoke the Cookie consent</a>
     </div>

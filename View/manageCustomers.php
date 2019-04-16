@@ -2,12 +2,12 @@
 /*
     Description: User interface used to manage customer accounts.
 
-    Author: Brad Mair
+    Author: Brad Mair, David McRae
 */
 include 'header.php';
 include '../Controller/getAllCustomers.php';
 
-if (isset($_SESSION['jobrole']) && $_SESSION['jobrole'] = "Manager")
+if(isset($_SESSION['jobrole']) && $_SESSION['jobrole'] = "Manager")
 {
 echo "
 <html>
@@ -76,10 +76,6 @@ echo "
 </body>
 </html>
 ";
-}
-elseif(isset($_SESSION['jobrole']))
-{
-  header("Location: index.php?error=ACCESS DENIED MANAGER REQUIRED");
 }
 else
 {

@@ -225,11 +225,11 @@ function CreateNewEmployee()
       $nameError = ":Your name can only contain letters";
     }
 
-    if ($jobrole != "employee" || $jobrole != "supervisor" || $jobrole != "manager" ) // Job role must match a specific type from the list
-    {
-      $Error = true;
-      $jobRoleError = ":Job role is not a valid type, please select one from the dropdown list";
-    }
+    // if ($jobrole != "employee" || $jobrole != "supervisor" || $jobrole != "manager" ) // Job role must match a specific type from the list
+    // {
+    //   $Error = true;
+    //   $jobRoleError = ":Job role is not a valid type, please select one from the dropdown list";
+    // }
 
     if(!preg_match("/^[a-zA-Z0-9]*$/", $username))//Username Must be letters & Numbers
     {
@@ -308,6 +308,7 @@ function CreateNewEmployee()
     if($count > 0)
     {
       echo "Insert Successful";
+      header('Location: ../View/registerEmployee.php?error=Employee may now login.');
     }
     else
     {
