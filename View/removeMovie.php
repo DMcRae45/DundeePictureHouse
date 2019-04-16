@@ -1,6 +1,6 @@
 <?php
 include 'session.php';
-if(isset($_SESSION['jobrole']) && $_SESSION['jobrole'] == "Manager")
+if(isset($_SESSION['jobrole']) && $_SESSION['jobrole'] == "manager")
 {
   include '../Controller/getAllMovies.php';
   include 'header.php';

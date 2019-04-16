@@ -38,7 +38,7 @@ include 'header.php';
       <a class='btn btn-outline-info btn-block'href='insertShowing.php'>Add Showing</a>
     </div>
 
-    <!-- Supervisor Access Required -->
+    <!-- Manager Access Required -->
     <div class='col-md-6 mt-5'>
       <a class='btn btn-outline-info btn-block' href='removeShowings.php'>Remove Showings</a>
     </div>
@@ -57,6 +57,11 @@ include 'header.php';
   </div>
 
   <div class='row'>
+    <!-- Employee Access Required -->
+    <div class='col-md-6 mt-5'>
+      <a class='btn btn-outline-info btn-block' href='registerCustomer.php'>Register Customers</a>
+    </div>
+
     <!-- Employee Access Required -->
     <div class='col-md-6 mt-5'>
       <a class='btn btn-outline-info btn-block' href='manageCustomers.php'>Manage Customers</a>

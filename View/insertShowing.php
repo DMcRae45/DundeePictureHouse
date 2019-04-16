@@ -6,7 +6,7 @@
 */
 
 include 'session.php';
-if (isset($_SESSION['jobrole']) && $_SESSION['jobrole'] == "Manager")
+if (isset($_SESSION['jobrole']) && $_SESSION['jobrole'] == "manager")
 {
   include '../Controller/getShowingFormData.php';
   include 'header.php';
