@@ -26,7 +26,7 @@
             David McRae - Student No. 1403163</br>
             Aaron Hay - Student No. 1800855</br>
             Brad Mair - Student No. 1803815</br>
-            </br>
+            Mark Warren - Student No. 1605460</br>
             Pixel Density</br>
           </p>
           <p>
