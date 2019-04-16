@@ -5,7 +5,7 @@
 
 include 'session.php';
 
-$paypal = new PaypalExpress;
+
 if(!isset($_SESSION['LoggedIn']))
 {
   header("Location: index.php");
@@ -21,6 +21,7 @@ else
     $_SESSION['quantityBasket'] = $quantityArray;
     $_SESSION['priceArray'] = $priceArray;
   }
+  $paypal = new PaypalExpress;
 
   echo "<title>DPH - Checkout</title>";
   echo "<body>";
