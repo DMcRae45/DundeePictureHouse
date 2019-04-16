@@ -5,7 +5,7 @@
 
     Author: David McRae
 */
-include 'header.php';
+include 'session.php';
 
 //Error Reporting for the users
 if(isset($_GET['error']))
@@ -21,6 +21,7 @@ if(!isset($_SESSION['jobrole']))
 }
 elseif(isset($_SESSION['jobrole']))
 {
+  include 'header.php';
 echo "
 <html>
 <head>

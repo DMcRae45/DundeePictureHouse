@@ -7,6 +7,7 @@
 <html>
 <!--<head>-->
     <?php
+        include 'session.php';
         include 'header.php';
         include '../Controller/getAllMovies.php' ;
         include '../Controller/getOMDBResults.php' ;

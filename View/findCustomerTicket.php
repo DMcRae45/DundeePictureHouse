@@ -4,10 +4,11 @@
 
     Author: David McRae
 */
+
+include 'session.php';
 if(isset($_SESSION['jobrole']))
 {
   include 'header.php';
-
   ?>
   <body>
 

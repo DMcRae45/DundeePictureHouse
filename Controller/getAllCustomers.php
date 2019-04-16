@@ -4,7 +4,7 @@
 
     Author: Brad Mair, David McRae
 */
-if($_SESSION['jobrole'] = "Manager")
+if(isset($_SESSION['jobrole']) && $_SESSION['jobrole'] == "manager")
 {
 include '../Model/DPH-api.php';
 

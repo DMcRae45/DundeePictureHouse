@@ -5,7 +5,7 @@
  */
 session_start();
 $employeeid = $_GET['id'];
-if(isset($employeeid) && $_SESSION['jobrole'] = "Manager")
+if(isset($employeeid) && $_SESSION['jobrole'] == "manager")
 {
   include '../Model/DPH-api.php';
 

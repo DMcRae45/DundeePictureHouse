@@ -1,9 +1,11 @@
 <?php
-include '../Controller/getAllMovies.php';
-include 'header.php';
+include 'session.php';
 
-if(isset($_SESSION['jobrole']) && $_SESSION['jobrole'] = "Manager")
+
+if(isset($_SESSION['jobrole']) && $_SESSION['jobrole'] == "Manager")
 {
+  include '../Controller/getAllMovies.php';
+  include 'header.php';
 echo "
 <html>
 <head>

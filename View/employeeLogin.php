@@ -4,6 +4,7 @@
 
     Author: David McRae, Aaron Hay
  */
+ include 'session.php';
 ?>
 <html>
     <?php

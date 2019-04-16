@@ -6,7 +6,7 @@
  */
 session_start();
 $movieid = $_GET['id'];
-if(isset($movieid) && $_SESSION['jobrole'] = "Manager")
+if(isset($movieid) && $_SESSION['jobrole'] == "manager")
 {
 
   include '../Model/DPH-api.php';

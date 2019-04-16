@@ -6,6 +6,7 @@
 */
 
 // <head>
+include 'session.php';
      Include 'header.php';
      include '../Controller/getMovieAndTimes.php';
 // </head>

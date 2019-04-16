@@ -3,11 +3,9 @@
 /*
     Description: User interface used to manage and alter movies listed on the site.
 
-    Author: Brad Mair
+    Author: Brad Mair, David McRae
 */
-
-include '../Controller/getAllMovies.php';
-include 'header.php';
+include 'session.php';
 
 //Error Reporting for the users
 if(isset($_GET['error']))
@@ -21,8 +19,11 @@ if(!isset($_SESSION['jobrole']))
   // Customer has tried to access this page
   header("Location: index.php?error=ACCESS DENIED");
 }
-elseif($_SESSION['jobrole'] = "Supervisor" || $_SESSION['jobrole'] = "Manager")
+elseif($_SESSION['jobrole'] == "supervisor" || $_SESSION['jobrole'] == "manager")
 {
+  include '../Controller/getAllMovies.php';
+  include 'header.php';
+
 echo "
 <html>
 <head>

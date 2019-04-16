@@ -8,6 +8,7 @@
 <html>
 <head>
     <?php
+      include 'session.php';
         include 'header.php';
     ?>
 <title>DPH - Login</title>

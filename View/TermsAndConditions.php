@@ -3,6 +3,7 @@
     Description: Dundee Picture House Home Page used to display movies and navigation.
     Author: David McRae, Aaron Hay
 */
+include 'session.php';
 ?>
 <html>
 <!--<head>-->

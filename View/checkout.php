@@ -1,16 +1,9 @@
 <?php
 
 // Include and initialize database class
-include '../Controller/getCheckoutInfo.php';
-include 'header.php';
 
-if(isset($_SESSION['jobrole']))
-{
-$_SESSION['seatingTypeBasket'] = $seatingTypesArray;
-$_SESSION['quantityBasket'] = $quantityArray;
-$_SESSION['priceArray'] = $priceArray;
-}
 
+include 'session.php';
 
 $paypal = new PaypalExpress;
 if(!isset($_SESSION['LoggedIn']))
@@ -19,6 +12,16 @@ if(!isset($_SESSION['LoggedIn']))
 }
 else
 {
+  include '../Controller/getCheckoutInfo.php';
+  include 'header.php';
+
+  if(isset($_SESSION['jobrole']))
+  {
+    $_SESSION['seatingTypeBasket'] = $seatingTypesArray;
+    $_SESSION['quantityBasket'] = $quantityArray;
+    $_SESSION['priceArray'] = $priceArray;
+  }
+
   echo "<title>DPH - Checkout</title>";
   echo "<body>";
   echo "<div class='container'>"; // Open container

@@ -7,6 +7,15 @@
     Date: 01-Oct-2018
 
 */
+include 'session.php';
+
+if(!isset($_SESSION['jobrole']))
+{
+  // Customer has tried to access this page
+  header("Location: index.php?error=ACCESS DENIED");
+}
+elseif($_SESSION['jobrole'] == "manager")
+{
 ?>
 <!DOCTYPE html>
 <html>
@@ -120,6 +129,14 @@
 <?php
 require '../Controller/bootstrapScript.php';
 require '../Controller/ValidateEmptyFields.js';
-?>
+echo "
 </body>
 </html>
+";
+}
+else
+{
+  // Employee is not manager
+  header("Location: index.php?error=ACCESS DENIED");
+}
+?>

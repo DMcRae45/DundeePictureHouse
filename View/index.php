@@ -7,6 +7,7 @@
 <html>
 <!--<head>-->
     <?php
+    include 'session.php';
         include '../Controller/getAllMovies.php';
         //include '../Model/DPH-api.php';
         include 'header.php';

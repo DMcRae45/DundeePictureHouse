@@ -10,6 +10,7 @@
 <html>
 <!-- <head> -->
 <?php
+include 'session.php';
     include 'header.php';
 ?>
 <!-- </head> -->

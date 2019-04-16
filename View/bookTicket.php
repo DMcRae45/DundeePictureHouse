@@ -3,14 +3,15 @@
     Description: Dundee Picture House Booking page for users to purchase tickets.
     Author: David McRae, Brad Mair
 */
-include 'header.php';
-include '../Controller/getTicketInfo.php';
+include 'session.php';
 if (!isset($_SESSION['LoggedIn']))
 {
   header("Location: index.php");
 }
 else
 {
+  include 'header.php';
+  include '../Controller/getTicketInfo.php';
 echo "<title>DPH - Book Tickets</title>";
 
   $ticketTypeString = "";

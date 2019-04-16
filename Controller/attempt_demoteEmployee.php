@@ -10,7 +10,7 @@ session_start();
 
 $employeeid = $_GET['id'];
 
-if(isset($employeeid) && $_SESSION['Admin_Status'] = "Manager")
+if(isset($employeeid) && $_SESSION['Admin_Status'] == "manager")
 {
   AttemptDemoteEmployeeByID($employeeid);
 }

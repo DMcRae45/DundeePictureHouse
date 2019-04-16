@@ -4,15 +4,15 @@
 
     Author: Brad Mair, David McRae
 */
-include 'header.php';
-include '../Controller/getUserTicket.php';
-
+include 'session.php';
 if (!isset($_SESSION['LoggedIn']))
 {
   header("Location: index.php?error=ACCESS DENIED LOGIN REQUIRED");
 }
 else
 {
+  include 'header.php';
+  include '../Controller/getUserTicket.php';
   // gets current date and time.
   $dateNow = date('Y-m-d');
   $timeNow = date('H:i:s');

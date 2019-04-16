@@ -9,7 +9,7 @@ include '../Model/DPH-api.php';
 session_start();
 $showID = $_GET['showingid'];
 $movieID = $_GET['movieid'];
-if (isset($showID) && isset($movieID) && $_SESSION['jobrole'] = "Manager")
+if (isset($showID) && isset($movieID) && $_SESSION['jobrole'] == "manager")
 {
   AttemptDeleteShowing($showID, $movieID);
 }

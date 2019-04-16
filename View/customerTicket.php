@@ -4,10 +4,13 @@
 
     Author: David McRae
 */
+include 'session.php';
 
 include 'header.php';
 include '../Controller/getCustomerTicket.php';
 
+if(isset($_SESSION['LoggedIn']))
+{
   $latestCode = $userTicketArray[0]->Code;
   $index = 0;
   if($latestCode != NULL)
@@ -133,4 +136,9 @@ require '../Controller/ValidateEmptyFields.js';
 echo "
 </body>
 </html>";
+}
+else
+{
+  header('Location: ../View/index.php');
+}
 ?>

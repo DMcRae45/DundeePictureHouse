@@ -4,16 +4,9 @@
 
     Author: David McRae
 */
-
+include 'session.php';
 include 'header.php';
 
-//if (!isset($_SESSION['LoggedIn']) || $_SESSION['Admin_Status'] != 1)
-//{
-//  header("Location: index.php");
-//}
-//else
-//{
-//echo "
 ?>
 <html>
 <head>

@@ -49,7 +49,7 @@
                   echo '<div class="dropdown-divider"></div>';
                   echo '<a class="dropdown-item" href="../Controller/attempt_logout.php">LogOut</a>';
                 }
-                if(isset($_SESSION['jobrole']) && $_SESSION['jobrole'] == "manager")
+                if(isset($_SESSION['jobrole']))
                 {
                   echo "<a class='dropdown-item' href='insertMovie.php'>Insert Movie</a>";
                   echo "<a class='dropdown-item' href='alterMovies.php'>Update Movie</a>";

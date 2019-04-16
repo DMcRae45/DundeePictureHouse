@@ -4,11 +4,12 @@
 
     Author: David McRae
 */
-include 'header.php';
-include '../Controller/getAllEmployees.php';
 
-if(isset($_SESSION['jobrole']) && $_SESSION['jobrole'] = "Manager")
+include 'session.php';
+if(isset($_SESSION['jobrole']) && $_SESSION['jobrole'] == "Manager")
 {
+  include 'header.php';
+  include '../Controller/getAllEmployees.php';
 echo "
 <html>
 <head>
