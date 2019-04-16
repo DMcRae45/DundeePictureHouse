@@ -1565,7 +1565,7 @@ function insertPayments($customerid, $transactionid, $paymentStatus, $buyerName,
 
   if($success  && $stmt->rowCount() > 0)
   {
-    echo "Insert Successful";
+    // "Insert Successful";
   }
   else
   {
@@ -1629,7 +1629,7 @@ function CreateUserTicket($code, $ticketType, $seatingType, $paymentid, $showing
 
     if($success  && $stmt->rowCount() > 0)
     {
-      echo "Insert Successful";
+      // "Insert Successful";
     }
     else
     {

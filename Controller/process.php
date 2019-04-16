@@ -1,4 +1,5 @@
 <?php
+// Author: David McRae, Bradley Mair, Mark Warren, Aaron Hay
 session_start();
 if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID']) ){
     // Include database and API
@@ -41,7 +42,6 @@ if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID
 
         for ($i=0 ; $i < sizeof($quantityArray) ; $i++)
         {
-          echo "<br>";
           for ($j=0 ; $j < $quantityArray[$i] ; $j++)
           {
             if($seatingTypesArray[$i] == "Premium")
@@ -61,10 +61,12 @@ if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID
         }
         //Destroy session variable no longer needed to create a ticket.
         //Destroy($_SESSION['seatingTypeBasket']);
-        include 'emailConfirmation.php';
+
+        //include 'emailConfirmation.php'; 
+
+        // Redirect to payment status page
+        header("Location: ../View/userTicket.php");
       }
-    // Redirect to payment status page
-    header("Location:../View/userTicket.php");
 }
 else
 {
