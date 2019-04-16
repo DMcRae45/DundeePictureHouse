@@ -4,6 +4,7 @@
 
     Author: David McRae
 */
+
 include 'header.php';
 include '../Controller/getCustomerTicket.php';
 
@@ -132,6 +133,4 @@ require '../Controller/ValidateEmptyFields.js';
 echo "
 </body>
 </html>";
-
-
 ?>

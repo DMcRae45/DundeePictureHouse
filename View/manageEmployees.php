@@ -7,12 +7,8 @@
 include 'header.php';
 include '../Controller/getAllEmployees.php';
 
-//if (!isset($_SESSION['LoggedIn']) || $_SESSION['Admin_Status'] != 1)
-//{
-//  header("Location: index.php");
-//}
-//else
-//{
+if(isset($_SESSION['jobrole']) && $_SESSION['jobrole'] = "Manager")
+{
 echo "
 <html>
 <head>
@@ -42,9 +38,12 @@ echo "
 
         for ($i=0 ; $i < sizeof($employeeArray) ; $i++)
         {
-          if($_SESSION['userid'] == $employeeArray[$i]->Employee_ID){
+          if($_SESSION['userid'] == $employeeArray[$i]->Employee_ID)
+          {
             $disable = "disabled";
-          } else{
+          }
+          else
+          {
             $disable = "";
           }
         //echo "<div class='border border-success'>";
@@ -106,6 +105,10 @@ echo "
 </body>
 </html>
 ";
-//}
+}
+else
+{
+  header("Location: index.php?error=ACCESS DENIED");
+}
 
 ?>

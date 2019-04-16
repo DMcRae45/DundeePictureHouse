@@ -9,7 +9,7 @@ include '../Controller/getUserTicket.php';
 
 if (!isset($_SESSION['LoggedIn']))
 {
-  header("Location: index.php");
+  header("Location: index.php?error=ACCESS DENIED LOGIN REQUIRED");
 }
 else
 {

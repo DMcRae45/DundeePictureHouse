@@ -7,13 +7,8 @@
 include '../Controller/getShowingFormData.php';
 include 'header.php';
 
-//if (!isset($_SESSION['LoggedIn']) || $_SESSION['Admin_Status'] != 1)
-//{
-//  header("Location: index.php");
-//}
-//else
-//{
-//echo "
+if (isset($_SESSION['jobrole']) && $_SESSION['jobrole'] = "Manager")
+{
 ?>
 <html>
 <head>
@@ -102,3 +97,10 @@ require '../Controller/ValidateEmptyFields.js';
 
 </body>
 </html>
+<?php
+}
+else
+{
+  header("Location: index.php?error=ACCESS DENIED");
+}
+?>

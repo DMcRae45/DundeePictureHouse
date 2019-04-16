@@ -13,7 +13,7 @@ $_SESSION['priceArray'] = $priceArray;
 
 
 $paypal = new PaypalExpress;
-if (!isset($_SESSION['LoggedIn']))
+if(!isset($_SESSION['LoggedIn']))
 {
   header("Location: index.php");
 }

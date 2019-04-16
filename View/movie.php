@@ -35,7 +35,7 @@
               echo "<img src=".$movieArray->Star_Rating." class='img-fluid' style='height: 2rem'>";
               echo "<hr>";
 
-              if($_SESSION['LoggedIn'] == true)
+              if(isset($_SESSION['LoggedIn']))
               {
               echo '<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
                 <ol class="carousel-indicators">

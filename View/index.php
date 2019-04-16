@@ -13,7 +13,15 @@
     ?>
 <!-- </head> -->
 <title>DPH - Home</title>
-<body>
+</body>
+<?php
+  //Error Reporting for the users
+  if(isset($_GET['error']))
+  {
+    $error = $_GET['error'];
+    echo $error;
+  }
+?>
 
   <div class="page-header" data-pause="hover">
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">

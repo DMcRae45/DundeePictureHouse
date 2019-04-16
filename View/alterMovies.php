@@ -9,11 +9,19 @@
 include '../Controller/getAllMovies.php';
 include 'header.php';
 
-if(!isset($_SESSION['LoggedIn']) && $_SESSION['jobrole'] == "Supervisor" || $_SESSION['jobrole'] == "Manager")
+//Error Reporting for the users
+if(isset($_GET['error']))
 {
- header("Location: index.php");
+  $error = $_GET['error'];
+  echo $error;
 }
-else
+
+if(!isset($_SESSION['jobrole']))
+{
+  // Customer has tried to access this page
+  header("Location: index.php?error=ACCESS DENIED");
+}
+elseif($_SESSION['jobrole'] = "Supervisor" || $_SESSION['jobrole'] = "Manager")
 {
 echo "
 <html>
@@ -290,5 +298,10 @@ echo "
 </body>
 </html>
 ";
+}
+else
+{
+  // Employee is not super isor or manager
+  header("Location: index.php?error=ACCESS DENIED");
 }
 ?>

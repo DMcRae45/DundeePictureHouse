@@ -2,12 +2,8 @@
 include '../Controller/getAllMovies.php';
 include 'header.php';
 
-//if (!isset($_SESSION['LoggedIn']) || $_SESSION['Admin_Status'] != 1)
-//{
-//  header("Location: index.php");
-//}
-//else
-//{
+if(isset($_SESSION['jobrole']) && $_SESSION['jobrole'] = "Manager")
+{
 echo "
 <html>
 <head>
@@ -141,5 +137,13 @@ echo "
 </body>
 </html>
 ";
-//}
+}
+elseif(isset($_SESSION['jobrole']))
+{
+  header("Location: index.php?error=ACCESS DENIED MANAGER REQUIRED");
+}
+else
+{
+  header("Location: index.php?error=ACCESS DENIED");
+}
 ?>

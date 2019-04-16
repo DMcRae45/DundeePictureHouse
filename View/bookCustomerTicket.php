@@ -7,12 +7,20 @@
 */
 include 'header.php';
 
-//if (!isset($_SESSION['LoggedIn']) || $_SESSION['Admin_Status'] != 1)
-//{
-//  header("Location: index.php");
-//}
-//else
-//{
+//Error Reporting for the users
+if(isset($_GET['error']))
+{
+  $error = $_GET['error'];
+  echo $error;
+}
+
+if(!isset($_SESSION['jobrole']))
+{
+  //Customer has tried to access this page
+  header("Location: index.php");
+}
+elseif(isset($_SESSION['jobrole']))
+{
 echo "
 <html>
 <head>
@@ -208,5 +216,5 @@ echo "
 </body>
 </html>
 ";
-//}
+}
 ?>

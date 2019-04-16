@@ -7,12 +7,8 @@
 include 'header.php';
 include '../Controller/getAllCustomers.php';
 
-//if (!isset($_SESSION['LoggedIn']) || $_SESSION['Admin_Status'] != 1)
-//{
-//  header("Location: index.php");
-//}
-//else
-//{
+if (isset($_SESSION['jobrole']) && $_SESSION['jobrole'] = "Manager")
+{
 echo "
 <html>
 <head>
@@ -45,7 +41,7 @@ echo "
           echo "<td>".$customerArray[$i]->First_Name." ".$customerArray[$i]->Surname."</td>";
           echo "<td>".$customerArray[$i]->Username."</td>";
           echo "<td>".$customerArray[$i]->Email."</td>";
-          echo "<td> <a class='btn btn-danger text-light ".$disable."' data-toggle='modal' data-target='#delete".$customerArray[$i]->Customer_ID."Modal'>DELETE</a> </td>";
+          echo "<td> <a class='btn btn-danger text-light' data-toggle='modal' data-target='#delete".$customerArray[$i]->Customer_ID."Modal'>DELETE</a> </td>";
           echo "<tr>";
 
           echo "<div class='modal fade' id='delete".$customerArray[$i]->Customer_ID."Modal' tabindex='-1' role='dialog' aria-labelledby='deleteModalLabel' aria-hidden='true'>
@@ -80,6 +76,13 @@ echo "
 </body>
 </html>
 ";
-//}
-
+}
+elseif(isset($_SESSION['jobrole']))
+{
+  header("Location: index.php?error=ACCESS DENIED MANAGER REQUIRED");
+}
+else
+{
+  header("Location: index.php?error=ACCESS DENIED");
+}
 ?>
