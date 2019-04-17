@@ -1743,12 +1743,12 @@ function AttemptDeleteCustomer($customerid)
   if($success && $query->rowCount() > 0)
   {
     $deleteError = 'Delete Successful';
-    header('location: ../View/manageCustomers.php'.$deleteError);
+    header('location: ../View/manageCustomers.php?error='.$deleteError);
   }
   else
   {
     $deleteError = 'Delete Failed';
-    header('location: ../View/manageCustomers.php'.$deleteError);
+    header('location: ../View/manageCustomers.php?error='.$deleteError);
   }
 }
 
@@ -1802,7 +1802,7 @@ function AttemptDeleteShowing($showid, $movieID)
   else
   {
     $deleteError = 'No Tickets to Remove';
-    header('location: ../View/removeShowings.php?movieID='.$deleteError);
+    //header('location: ../View/removeShowings.php?error='.$deleteError);
   }
 
   $stmtShowing = $pdo->prepare
@@ -1817,13 +1817,13 @@ function AttemptDeleteShowing($showid, $movieID)
 
   if($success && $stmtShowing->rowCount() > 0)
   {
-    $deleteError = 'Showing Removed';
-    header('location: ../View/removeShowings.php?movieID='.$deleteError);
+    //'Showing Removed';
+    header('location: ../View/removeShowings.php?movieID='.$movieID);
   }
   else
   {
     $deleteError = 'Showing NOT Removed';
-    header('location: ../View/removeShowings.php?movieID='.$deleteError);
+    header('location: ../View/removeShowings.php?error='.$deleteError);
   }
 }
 ?>

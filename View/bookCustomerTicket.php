@@ -25,13 +25,13 @@ elseif(isset($_SESSION['jobrole']))
 echo "
 <html>
 <head>
-<title>DPH - Alter Movies</title>
+<title>DPH - Book Customer Tickets</title>
 </head>
 <body>
 <br>
 <div class='container'>
   <div class='page-header'>
-    <h3>Alter Movie Records</h3>
+    <h3>Book Customer Tickets</h3>
   </div>";
 
 if (isset($_GET['id']))
@@ -162,7 +162,7 @@ else
   echo "
       <div class='row'>
             <div class='col-md-4'>
-                <form method='POST' action='alterMovies.php'>
+                <form method='POST' action='bookCustomerTicket.php'>
                     <select class='form-control' name='ordering' onchange='this.form.submit()'>
                         <option value='placeholder'>Sort By ...</option>
                         <option value='8'>ID(First to Last)</option>
