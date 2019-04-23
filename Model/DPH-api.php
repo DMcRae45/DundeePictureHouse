@@ -192,7 +192,6 @@ function CreateNewCustomer()
     else
     {
       echo "Insert Failed";
-      //echo $query -> errorInfo()[2];
     }
   }
 }
