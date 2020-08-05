@@ -95,7 +95,10 @@ include 'session.php';
                                     }
                                     elseif($ticketCount >= $ticketsAvailable)
                                     {
-                                      echo "<a class='btn btn-outline-warning showingTime disabled' href='bookTicket.php?showingid=".$twoDMovieArray[$i]->Showing_ID."'>".$showingTime."</a>";
+                                      // use this line after interview
+                                      //echo "<a class='btn btn-outline-warning showingTime disabled' href='bookTicket.php?showingid=".$twoDMovieArray[$i]->Showing_ID."'>".$showingTime."</a>";
+
+                                      echo "<a class='btn btn-outline-info showingTime' href='bookTicket.php?showingid=".$twoDMovieArray[$i]->Showing_ID."'>".$showingTime."</a>";
                                     }
                                     else
                                     {
@@ -126,7 +129,10 @@ include 'session.php';
                                         }
                                         elseif($ticketCount >= $ticketsAvailable)
                                         {
-                                          echo "<a class='btn btn-outline-warning showingTime disabled' href='bookTicket.php?showingid=".$threeDMovieArray[$i]->Showing_ID."'>".$showingTime."</a>";
+                                          // use this line after interview
+                                          //echo "<a class='btn btn-outline-warning showingTime disabled' href='bookTicket.php?showingid=".$threeDMovieArray[$i]->Showing_ID."'>".$showingTime."</a>";
+
+                                          echo "<a class='btn btn-outline-info showingTime' href='bookTicket.php?showingid=".$threeDMovieArray[$i]->Showing_ID."'>".$showingTime."</a>";
                                         }
                                         else
                                         {

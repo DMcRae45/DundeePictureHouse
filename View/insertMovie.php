@@ -10,6 +10,14 @@ session_start();
 if(isset($_SESSION['jobrole']) && $_SESSION['jobrole'] == "manager")
 {
   include 'header.php';
+
+  if(isset($_GET['error']))
+  {
+    $error = $_GET['error'];
+    $error = str_replace(":","</br>", $error);
+    echo $error;
+  }
+
       echo "
       <html>
       <head>
